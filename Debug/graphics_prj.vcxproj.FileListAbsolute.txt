@@ -1,0 +1,2 @@
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Debug\graphics_prj.exe
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Debug\graphics_prj.pdb
