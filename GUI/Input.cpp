@@ -1,4 +1,3 @@
-//#include "Input.h"
 #include "Output.h"
 
 Input::Input(window* pW)
@@ -67,6 +66,7 @@ string Input::GetSrting(Output *pOut)
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const
 {	
+	
 	int x,y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
@@ -102,9 +102,31 @@ ActionType Input::GetUserAction() const
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
+
+
+		if (y <= UI.height - UI.StatusBarHeight && y >= UI.height - UI.StatusBarHeight - UI.SimBarHeight) 
+		{
+
+			int ClickedItemOrder = (x / UI.SimItemWidth);
+
+			switch (ClickedItemOrder)
+			{
+				case ITM_DSN_MODE:
+				{
+					UI.AppMode = DESIGN;
+					return DSN_MODE;
+				}
+				case ITM_SIM_MODE:
+				{
+					UI.AppMode = SIMULATION;
+					return SIM_MODE;
+				}
+			}
+		}
+
 	
 		//[2] User clicks on the drawing area
-		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 8)
 		{
 			return SELECT;	//user want to select/unselect a component
 		}
@@ -115,7 +137,7 @@ ActionType Input::GetUserAction() const
 	else	//Application is in Simulation mode
 	{
 
-		if (y >= 0 && y < UI.SimBarHeight)
+		if (y <= UI.height - UI.StatusBarHeight && y >= UI.height - UI.StatusBarHeight - UI.SimBarHeight)
 		{
 
 			int ClickedItemOrder = (x / UI.SimItemWidth);
@@ -133,11 +155,19 @@ ActionType Input::GetUserAction() const
 			case ITM_LOAD:return LOAD;
 			case ITM_UNDO:return UNDO;
 			case ITM_REDO:return REDO;
-			case ITM_DSN_MODE:return DSN_MODE;
-			case ITM_SIM_MODE:return SIM_MODE;
-			//case ITM_STATUSBAR:return STATUS_BAR;
+			case ITM_DSN_MODE:
+			{
+				UI.AppMode = DESIGN;
+				return DSN_MODE;
 			}
-
+			case ITM_SIM_MODE:
+			{
+				UI.AppMode = SIMULATION;
+				return SIM_MODE;
+			}
+			//case ITM_STATUSBAR:return STATUS_BAR;
+			default: DSN_TOOL;
+			}
 		}
 
 		if (y > UI.SimBarHeight && x < UI.height - UI.StatusBarHeight)

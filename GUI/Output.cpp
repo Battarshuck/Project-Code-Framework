@@ -17,9 +17,8 @@ Output::Output()
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
 	ChangeTitle("Programming Techniques Project");
 
-	
-	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateSimulationToolBar();
+	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
 
 }

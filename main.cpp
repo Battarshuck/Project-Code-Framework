@@ -12,7 +12,7 @@ int main()
 	ApplicationManager AppManager;
 
 	do
-	{		
+	{	
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
