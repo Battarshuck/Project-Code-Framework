@@ -106,6 +106,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>Component</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -127,6 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actions\AddANDgate2.cpp" />
+    <ClCompile Include="Actions\AddINVgate.cpp" />
+    <ClCompile Include="Actions\AddNORgate2.cpp" />
+    <ClCompile Include="Actions\AddXORgate3.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\image.cpp" />
@@ -167,9 +171,12 @@
     <ClCompile Include="Components\Connection.cpp" />
     <ClCompile Include="Components\Gate.cpp" />
     <ClCompile Include="Components\InputPin.cpp" />
+    <ClCompile Include="Components\INV.cpp" />
+    <ClCompile Include="Components\NOR2.cpp" />
     <ClCompile Include="Components\OutputPin.cpp" />
     <ClCompile Include="Components\Pin.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="Components\XOR3.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,6 +184,9 @@
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
     <ClInclude Include="Actions\AddANDgate2.h" />
+    <ClInclude Include="Actions\AddINVgate.h" />
+    <ClInclude Include="Actions\AddNORgate2.h" />
+    <ClInclude Include="Actions\AddXORgate3.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
@@ -202,9 +212,12 @@
     <ClInclude Include="Components\Connection.h" />
     <ClInclude Include="Components\Gate.h" />
     <ClInclude Include="Components\InputPin.h" />
+    <ClInclude Include="Components\INV.h" />
+    <ClInclude Include="Components\NOR2.h" />
     <ClInclude Include="Components\OutputPin.h" />
     <ClInclude Include="Components\Pin.h" />
     <ClInclude Include="ApplicationManager.h" />
+    <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Defs.H" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />

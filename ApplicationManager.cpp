@@ -1,5 +1,8 @@
 #include "ApplicationManager.h"
 #include "Actions\AddANDgate2.h"
+#include "Actions\AddINVgate.h"
+#include "Actions\AddNORgate2.h"
+#include "Actions\AddXORgate3.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -38,7 +41,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_INV: // mostafa
-		
+			pAct = new AddINVgate(this);
 			break;
 
 		case ADD_AND_GATE_2:
@@ -54,14 +57,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_NOR_GATE_2://mostafa
+			pAct = new AddNORgate2(this);
+			break;
+
+		case ADD_XOR_GATE_2://amr
 			
 			break;
 
-		case ADD_XOR_GATE_2:
-			
-			break;
-
-		case ADD_XNOR_GATE_2:
+		case ADD_XNOR_GATE_2://amr
 			
 			break;
 
@@ -69,15 +72,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			
 			break;
 
-		case ADD_NOR_GATE_3:
+		case ADD_NOR_GATE_3://amr
 			
 			break;
 
 		case ADD_XOR_GATE_3://mostafa
-			
+			pAct = new AddXORgate3(this);
 			break;
 
-		case ADD_Switch:
+		case ADD_Switch://amr
 			
 			break;
 
