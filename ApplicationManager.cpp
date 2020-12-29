@@ -3,6 +3,11 @@
 #include "Actions\AddINVgate.h"
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate3.h"
+#include "Actions\AddBUFFgate.h"
+#include "Actions\AddNANDgate2.h"
+#include "Actions\AddANDgate3.h"
+#include "Actions\AddLED.h"
+#include "Actions\AddORgate2.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -37,7 +42,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case ADD_Buff: //yasser
-		
+			pAct = new AddBUFFgate(this);
 			break;
 
 		case ADD_INV: // mostafa
@@ -49,11 +54,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_NAND_GATE_2: //yasser
-			
+			pAct = new AddNANDgate2(this);
 			break;
 
 		case ADD_OR_GATE_2: //yasser
-			
+			pAct = new AddORgate2(this);
 			break;
 
 		case ADD_NOR_GATE_2://mostafa
@@ -69,7 +74,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_AND_GATE_3: //yasser
-			
+			pAct = new AddANDgate3(this);
 			break;
 
 		case ADD_NOR_GATE_3://amr
@@ -85,7 +90,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_LED: //yasser
-			
+			pAct = new AddLED(this);
 			break;
 
 		case ADD_CONNECTION:
