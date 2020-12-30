@@ -3,11 +3,8 @@
 #include "Actions\AddINVgate.h"
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate3.h"
-#include "Actions\AddBUFFgate.h"
-#include "Actions\AddNANDgate2.h"
-#include "Actions\AddANDgate3.h"
-#include "Actions\AddLED.h"
-#include "Actions\AddORgate2.h"
+#include "Actions\AddConnection.h"
+#include<iostream>
 
 ApplicationManager::ApplicationManager()
 {
@@ -23,9 +20,8 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
+	
 	CompList[CompCount++] = pComp;
-	//mostafa
-	UpdateInterface();
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -42,7 +38,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case ADD_Buff: //yasser
-			pAct = new AddBUFFgate(this);
+		
 			break;
 
 		case ADD_INV: // mostafa
@@ -54,11 +50,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_NAND_GATE_2: //yasser
-			pAct = new AddNANDgate2(this);
+			
 			break;
 
 		case ADD_OR_GATE_2: //yasser
-			pAct = new AddORgate2(this);
+			
 			break;
 
 		case ADD_NOR_GATE_2://mostafa
@@ -74,7 +70,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_AND_GATE_3: //yasser
-			pAct = new AddANDgate3(this);
+			
 			break;
 
 		case ADD_NOR_GATE_3://amr
@@ -90,11 +86,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_LED: //yasser
-			pAct = new AddLED(this);
+			
 			break;
 
 		case ADD_CONNECTION:
-			//TODO: Create AddConection Action here
+			pAct = new AddConnection(this);
 			break;
 
 	//############################################################
@@ -148,6 +144,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SAVE:
 			
 			break;
+		case LOAD:
+
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here
@@ -190,4 +189,17 @@ ApplicationManager::~ApplicationManager()
 	delete OutputInterface;
 	delete InputInterface;
 	
+}
+
+Component** ApplicationManager::getCompList(int& size) {
+	Component** list = new Component * [CompCount];
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		list[i] = CompList[i];
+	}
+
+
+	size = CompCount;
+	return list;
 }

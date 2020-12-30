@@ -14,7 +14,7 @@ class Connection;	//Forward class declartion
 class OutputPin: public Pin	//inherited from class Pin
 {
 private:
-	//Array of connections (poniters) to be connected to that OutputPin
+	//Array of connections (pointers) to be connected to that OutputPin
 	//For simplicity, we consider it a constant length
 	Connection* m_Connections[MAX_CONNS];	
 	int m_FanOut;	//Maximum No. of connections connected to that output pin (depends on the component)
@@ -22,6 +22,7 @@ private:
 public:
 	OutputPin(int r_FanOut);	
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
+	int getOutputConnections();
 };
 
 #endif

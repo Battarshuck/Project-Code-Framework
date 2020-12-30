@@ -7,6 +7,7 @@
 Gate::Gate(int r_Inputs, int r_FanOut):m_OutputPin(r_FanOut)
 {
 	//Allocate number of input pins (equals r_Inputs)
+	m_Inputs = r_Inputs;
 	m_InputPins = new InputPin[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
 	
@@ -14,3 +15,28 @@ Gate::Gate(int r_Inputs, int r_FanOut):m_OutputPin(r_FanOut)
 	for(int i=0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
 }
+
+InputPin* Gate::getInputPins() 
+{
+	return m_InputPins;
+}
+
+OutputPin* Gate::getOutputPin()
+{
+	return &m_OutputPin;
+}
+
+int Gate::numInputs() 
+{
+	return m_Inputs;
+}
+
+int Gate::getOutputConnections()
+{
+	return m_OutputPin.getOutputConnections();
+}
+
+//int Gate::getManFanOut() 
+//{
+	//return 
+//}
