@@ -31,8 +31,6 @@ string Input::GetSrting(Output *pOut)
 		{
 			pWind->FlushMouseQueue();
 
-			pWind->DrawString(300, 300, a);
-
 			pOut->PrintMsg(" ");
 
 			break;

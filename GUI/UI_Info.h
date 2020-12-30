@@ -34,14 +34,14 @@ struct UI_Info	//User Interface Info.
 	const int	AND2_Width = 80,		//AND2 Gate Image default width
 				AND2_Height = 55,		//AND2 Gate Image default height
 
-				OR2_Width = 90,
+				OR2_Width = 80,
 				OR2_Height = 55,
 
 				NOR2_Width = 85,
 				NOR2_Height = 55,
 
-				NOT_Width = 85,
-				NOT_Height = 70,
+				NOT_Width = 80,
+				NOT_Height = 55,
 
 				LED_Width = 40,
 				LED_Height = 50,

@@ -3,6 +3,8 @@
 #include "Actions\AddINVgate.h"
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate3.h"
+#include "Actions\AddConnection.h"
+#include<iostream>
 
 ApplicationManager::ApplicationManager()
 {
@@ -18,9 +20,8 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
+	
 	CompList[CompCount++] = pComp;
-	//mostafa
-	UpdateInterface();
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -89,7 +90,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_CONNECTION:
-			//TODO: Create AddConection Action here
+			pAct = new AddConnection(this);
 			break;
 
 	//############################################################
@@ -143,6 +144,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SAVE:
 			
 			break;
+		case LOAD:
+
+			break;
 
 		case EXIT:
 			///TODO: create ExitAction here
@@ -185,4 +189,17 @@ ApplicationManager::~ApplicationManager()
 	delete OutputInterface;
 	delete InputInterface;
 	
+}
+
+Component** ApplicationManager::getCompList(int& size) {
+	Component** list = new Component * [CompCount];
+
+	for (int i = 0; i < CompCount; i++)
+	{
+		list[i] = CompList[i];
+	}
+
+
+	size = CompCount;
+	return list;
 }

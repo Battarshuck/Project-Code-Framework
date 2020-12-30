@@ -1,7 +1,22 @@
 ﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  AddANDgate2.cpp
+  OutputPin.cpp
+  Gate.cpp
+  AddConnection.cpp
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Actions\AddConnection.cpp(100,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Actions\AddConnection.cpp(104,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Actions\AddConnection.cpp(112,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Actions\AddConnection.cpp(116,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\Actions\AddConnection.cpp(120,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Generating Code...
-  Compiling...
+  Skipping... (no relevant changes detected)
+  XOR3.cpp
+  NOR2.cpp
+  INV.cpp
+  Connection.cpp
+  AND2.cpp
   ApplicationManager.cpp
-  Generating Code...
+  AddXORgate3.cpp
+  AddNORgate2.cpp
+  AddINVgate.cpp
+  AddANDgate2.cpp
   graphics_prj.vcxproj -> C:\Users\mosmo\Desktop\Uni stuff\PT Project F2020 - Logic Sim - student\Project Code Framework\.\Debug\graphics_prj.exe

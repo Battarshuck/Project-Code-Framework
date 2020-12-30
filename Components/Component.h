@@ -22,7 +22,10 @@ public:
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
-	
+	void setLabel(string label);
+	bool InArea(int x, int y);
+	GraphicsInfo getLocation();
+
 	Component();	
 	
 	//Destructor must be virtual
