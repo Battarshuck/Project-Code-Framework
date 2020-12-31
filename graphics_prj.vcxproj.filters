@@ -215,6 +215,9 @@
     <ClCompile Include="Components\XOR2.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Delete.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="Components\XOR2.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Delete.h">
+      <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

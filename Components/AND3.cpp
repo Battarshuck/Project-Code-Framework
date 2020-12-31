@@ -21,8 +21,13 @@ void AND3::Operate()
 // Draws 3-input AND gate
 void AND3::Draw(Output* pOut)
 {
+	int Px1, Py1;
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawAND3(m_GfxInfo);
+	if (InArea(Px1, Py1))
+	{
+		pOut->DrawAND3(m_GfxInfo, true);
+	}
 }
 
 //returns status of outputpin

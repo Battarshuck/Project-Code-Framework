@@ -21,8 +21,13 @@ void AND2::Operate()
 // Draws 2-input AND gate
 void AND2::Draw(Output* pOut)
 {
+	int Px1, Py1;
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawAND2(m_GfxInfo);
+	if (InArea(Px1, Py1))
+	{
+		pOut->DrawAND2(m_GfxInfo, true);
+	}
 }
 
 //returns status of outputpin
