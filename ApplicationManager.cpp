@@ -8,8 +8,13 @@
 #include"Actions\AddNANDgate2.h"
 #include"Actions\AddANDgate3.h"
 #include"Actions\AddLED.h"
+#include"Actions\AddSwitch.h"
 #include"Actions\AddORgate2.h"
-#include<iostream>
+#include"Actions\AddXORgate2.h"
+#include"Actions\AddXNORgate2.h"
+#include"Actions\AddNORgate3.h"
+#include"Actions\AddLabel.h"
+#include"Actions\SwitchMode.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -59,7 +64,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_OR_GATE_2: //yasser
-			//pAct = new AddORgate2(this);
+			pAct = new AddORgate2(this);
 			break;
 
 		case ADD_NOR_GATE_2://mostafa
@@ -67,11 +72,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_XOR_GATE_2://amr
-			
+			pAct = new AddXORgate2(this);
 			break;
 
 		case ADD_XNOR_GATE_2://amr
-			
+			pAct = new AddXNORgate2(this);
 			break;
 
 		case ADD_AND_GATE_3: //yasser
@@ -79,7 +84,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_NOR_GATE_3://amr
-			
+			pAct = new AddNORgate3(this);
 			break;
 
 		case ADD_XOR_GATE_3://mostafa
@@ -87,7 +92,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_Switch://amr
-			
+			pAct = new AddSwitch(this);
 			break;
 
 		case ADD_LED: //yasser
@@ -104,26 +109,20 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			
 			break;
 
-		case STATUS_BAR:
-			
-			break;
-
 		case DSN_TOOL:
 			
 			break;
 
 		case SIM_MODE:
-			
-			
+			pAct = new SwitchMode(this, SIMULATION);
 			break;
 
 		case DSN_MODE:
-			
-			
+			pAct = new SwitchMode(this, DESIGN);
 			break;
 
 		case ADD_Label:
-			
+			pAct = new AddLabel(this);
 			break;
 
 		case EDIT_Label:
@@ -138,6 +137,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			
 			break;
 
+		case COPY:
+
+			break;
+
+		case PASTE:
+
+			break;
+
+		case CUT:
+
+			break;
+
 		case DEL:
 			
 			break;
@@ -149,6 +160,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SAVE:
 			
 			break;
+
 		case LOAD:
 
 			break;
@@ -157,6 +169,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			///TODO: create ExitAction here
 			break;
 	}
+
 	if(pAct)
 	{
 		pAct->Execute();
@@ -168,8 +181,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-		for(int i=0; i<CompCount; i++)
-			CompList[i]->Draw(OutputInterface);
+	OutputInterface->ClearDrawingArea();
+	for(int i=0; i<CompCount; i++)
+		CompList[i]->Draw(OutputInterface);
 
 }
 
@@ -196,15 +210,34 @@ ApplicationManager::~ApplicationManager()
 	
 }
 
-Component** ApplicationManager::getCompList(int& size) {
-	Component** list = new Component * [CompCount];
+Component** ApplicationManager::getCompList(int& size) 
+{
 
-	for (int i = 0; i < CompCount; i++)
-	{
-		list[i] = CompList[i];
-	}
-
+	Component** list;
+	list = CompList;
 
 	size = CompCount;
 	return list;
+}
+
+Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo & r_GfxInfo)
+{
+	Component* component = NULL;
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != NULL)
+		{
+			if (CompList[i]->InArea(x, y))
+			{
+				component = CompList[i];
+				r_GfxInfo.x1 = CompList[i]->getLocation().x1;
+				r_GfxInfo.y1 = CompList[i]->getLocation().y1;
+				r_GfxInfo.x2 = CompList[i]->getLocation().x2;
+				r_GfxInfo.y2 = CompList[i]->getLocation().y2;
+				break;
+			}
+		}
+	}
+
+	return component;
 }

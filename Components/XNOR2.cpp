@@ -36,6 +36,8 @@ void XNOR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawXNOR2(m_GfxInfo);
+	string m_Label = Component::getLabel();
+	pOut->DrawString(m_GfxInfo, m_Label);
 }
 
 //returns status of outputpin

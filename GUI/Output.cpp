@@ -35,6 +35,13 @@ Input* Output::CreateInput() const
 //								Interface Functions										//
 //======================================================================================//
 
+void Output::DrawString(GraphicsInfo r_GfxInfo, string label)
+{
+	pWind->SetPen(DARKBLUE);
+	pWind->SetFont(20, BOLD | MODERN, BY_NAME, "Arial");
+	pWind->DrawString(r_GfxInfo.x1 + 13, r_GfxInfo.y1 - 20, label);
+}
+
 window* Output::CreateWind(int wd, int h, int x, int y) const
 {
 	return new window(wd, h, x, y);
@@ -128,12 +135,10 @@ void Output::CreateSimulationToolBar() const
 {
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
-	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
-
 	string MenuItemImages[ITM_SIM_CNT];
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
-	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\EditLabel.jpg";
-	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\AddLabel.jpg";
+	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
+	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
 	MenuItemImages[ITM_TRUTH] = "images\\Menu\\TruthTable.jpg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Delete.jpg";
@@ -181,7 +186,7 @@ void Output::DrawAND3(GraphicsInfo r_GfxInfo, bool selected) const
 	else
 		GateImage = "Images\\Gates\\Gate_AND3.jpg";
 
-	//Draw AND2 Gate at Gfx_Info (1st corner)
+	//Draw AND3 Gate at Gfx_Info (1st corner)
 	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.AND2_Width, UI.AND2_Height);
 }

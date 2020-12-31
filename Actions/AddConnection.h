@@ -6,6 +6,8 @@
 #include "..\Components\InputPin.h"
 #include "..\Components\OutputPin.h"
 #include "..\Components\Gate.h"
+#include "..\Components\Switch.h"
+#include "..\Components\LED.h"
 
 class AddConnection : public Action
 {
@@ -14,8 +16,11 @@ private:
 	int Px1, Py1, Px2, Py2;
 	int Sx1, Sy1, Sx2, Sy2, Dx1, Dx2, Dy1, Dy2;	
 
-	Component** CompList;
 	Component* source;
+	Component* destination;
+	Component* check;
+	GraphicsInfo m_GfxInfo;
+
 	int CompCount;
 
 	OutputPin* pSrcPin;

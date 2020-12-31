@@ -3,7 +3,7 @@
 
 AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
 {
-	CompList = pApp->getCompList(CompCount);
+	check = NULL;
 }
 
 AddConnection::~AddConnection(void)
@@ -22,47 +22,73 @@ void AddConnection::ReadActionParameters()
 	//Wait for User Input
 	pIn->GetPointClicked(Px1, Py1);
 
-	for (int i = 0; i < CompCount; i++)
+	//getting the source component details
+	source = pManager->getComponent(Px1, Py1, m_GfxInfo);
+
+	if (source) 
 	{
-		if (CompList[i] != NULL) 
-		{
-			if (CompList[i]->InArea(Px1, Py1)) 
-			{
-				source = CompList[i];
-				pSrcPin = ((Gate*)CompList[i])->getOutputPin();
-				Sx1 = CompList[i]->getLocation().x1;
-				Sy1 = CompList[i]->getLocation().y1;
-				Sx2 = CompList[i]->getLocation().x2;
-				Sy2 = CompList[i]->getLocation().y2;
-				source_OutputConnections = ((Gate*)CompList[i])->getOutputConnections();
-				break;
-			}
-		}
-	}
-
-	pOut->ClearStatusBar();
-
 	
-	pOut->PrintMsg("Click on destination pin");
+		Sx1 = source->getLocation().x1;
+		Sy1 = source->getLocation().y1;
+		Sx2 = source->getLocation().x2;
+		Sy2 = source->getLocation().y2;
 
-	pIn->GetPointClicked(Px2, Py2);
-
-	for (int i = 0; i < CompCount; i++)
-	{
-		if (CompList[i] != NULL) {
-			if (CompList[i]->InArea(Px2, Py2))
-			{
-				pDstPin = ((Gate*)CompList[i])->getInputPins();
-				Dx1 = CompList[i]->getLocation().x1;
-				Dy1 = CompList[i]->getLocation().y1;
-				Dx2 = CompList[i]->getLocation().x2;
-				Dy2 = CompList[i]->getLocation().y2;
-				m_Inputs = ((Gate*)CompList[i])->numInputs();
-				//source
-				break;
-			}
+		if (check = dynamic_cast<Gate*>(source)) 
+		{
+			pSrcPin = ((Gate*)source)->getOutputPin();
+			source_OutputConnections = ((Gate*)source)->getOutputConnections();
 		}
+		else if (check = dynamic_cast<Switch*>(source))
+		{
+			pSrcPin = ((Switch*)source)->getOutputPins();
+			source_OutputConnections = 1;
+		}
+		
+
+		pOut->ClearStatusBar();
+		pOut->PrintMsg("Click on destination pin");
+
+		pIn->GetPointClicked(Px2, Py2);
+
+		//getting the destination component details
+		destination = pManager->getComponent(Px2, Py2, m_GfxInfo);
+
+		if (destination) 
+		{
+			Dx1 = destination->getLocation().x1;
+			Dy1 = destination->getLocation().y1;
+			Dx2 = destination->getLocation().x2;
+			Dy2 = destination->getLocation().y2;
+			
+
+			if (check = dynamic_cast<Gate*>(destination))
+			{
+				pDstPin = ((Gate*)destination)->getInputPins();
+				m_Inputs = ((Gate*)destination)->numInputs();
+			}
+			else if(check = dynamic_cast<LED*>(destination))
+			{
+				pDstPin = ((LED*)destination)->getInputPins();
+				m_Inputs = 1;
+			}
+
+		}
+		else 
+		{
+			pOut->ClearStatusBar();
+			pOut->PrintMsg("ERROR: Please click on a component");
+			return;
+		}
+
+		pOut->ClearStatusBar();
 	}
+	else
+	{
+		pOut->ClearStatusBar();
+		pOut->PrintMsg("ERROR: Please click on a component");
+		return;
+	}
+
 
 	pOut->ClearStatusBar();
 
@@ -77,54 +103,57 @@ void AddConnection::ReadActionParameters()
 
 void AddConnection::Execute()
 {
-	
-	ReadActionParameters();
+	//If the source and destination component exist
+	//then run the Execute function
+	if (source && destination) {
+		ReadActionParameters();
 
-	//Calculate the rectangle Corners
-	int Len = UI.AND2_Width;
-	int Wdth = UI.AND2_Height;
+		//Calculate the rectangle Corners
+		int Len = UI.AND2_Width;
+		int Wdth = UI.AND2_Height;
 
-	GraphicsInfo GInfo; //Gfx info to be used to draw the connection
-	GInfo.x1 = Sx2-2;
-	GInfo.y1 = Sy1 + Wdth / 2;
+		GraphicsInfo GInfo; //Gfx info to be used to draw the connection
+		GInfo.x1 = Sx2 - 2;
+		GInfo.y1 = Sy1 + Wdth / 2;
 
-	GInfo.x2 = Dx1 + 2;
+		GInfo.x2 = Dx1 + 2;
 
-	if (m_Inputs == 1) {
-		GInfo.y2 = Dy1 + Wdth / 2;
-	}
-
-	if (m_Inputs == 2)
-	{
-		if (InputPinNumber == 1) {
-			GInfo.y2 = Dy1 + Wdth * 0.2555;
+		if (m_Inputs == 1) {
+			GInfo.y2 = Dy1 + Wdth / 2;
 		}
-		else if (InputPinNumber == 2)
+
+		if (m_Inputs == 2)
 		{
-			GInfo.y2 = Dy1 + Wdth * 0.744;
+			if (InputPinNumber == 1) {
+				GInfo.y2 = Dy1 + Wdth * 0.2555;
+			}
+			else if (InputPinNumber == 2)
+			{
+				GInfo.y2 = Dy1 + Wdth * 0.744;
+			}
+
 		}
 
-	}
-
-	if (m_Inputs == 3)
-	{
-		if (InputPinNumber == 1) {
-			GInfo.y2 = Dy1 + Wdth * 0.256;
-		}
-		else if (InputPinNumber == 2)
+		if (m_Inputs == 3)
 		{
-			GInfo.y2 = Dy1 + Wdth * 0.5;
-		}
-		else if (InputPinNumber == 3)
-		{
-			GInfo.y2 = Dy1 + Wdth * 0.75;
+			if (InputPinNumber == 1) {
+				GInfo.y2 = Dy1 + Wdth * 0.256;
+			}
+			else if (InputPinNumber == 2)
+			{
+				GInfo.y2 = Dy1 + Wdth * 0.5;
+			}
+			else if (InputPinNumber == 3)
+			{
+				GInfo.y2 = Dy1 + Wdth * 0.75;
+			}
+
 		}
 
+
+		Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
+		pManager->AddComponent(pA);
 	}
-
-
-	Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
-	pManager->AddComponent(pA);
 }
 
 void AddConnection::Undo()
