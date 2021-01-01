@@ -22,6 +22,7 @@ void AND3::Operate()
 void AND3::Draw(Output* pOut, bool selected)
 {
 	int Px1, Py1;
+	Px1 = 0; Py1 = 0;
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawAND3(m_GfxInfo);
 	if (InArea(Px1, Py1))
