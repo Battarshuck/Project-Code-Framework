@@ -7,8 +7,15 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut)
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-
+	setLEDStatus(LOW);
 	m_InputPin.setComponent(this);
+	
+}
+
+//set led status
+void LED::setLEDStatus(STATUS stat)
+{
+	status_LED = stat;
 }
 
 InputPin* LED::getInputPins()
@@ -26,10 +33,13 @@ void LED::Operate()
 
 // Function Draw
 // Draws LED
-void LED::Draw(Output* pOut, bool selected)
+void LED::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawLED(m_GfxInfo);
+	if(status_LED==LOW)
+		pOut->DrawLEDOFF(m_GfxInfo, Component::getIsSelected());
+	else
+		pOut->DrawLEDOFF(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }

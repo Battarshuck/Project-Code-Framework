@@ -41,8 +41,11 @@ public:
 	void DrawXOR3(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 	//LED and Switches
-	void DrawLED(GraphicsInfo r_GfxInfo, bool selected = false) const;
-	void DrawSWITCH(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawLEDOFF(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawLEDON(GraphicsInfo r_GfxInfo, bool selected = false) const;
+
+	void DrawSWITCHOFF(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawSWITCHON(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;

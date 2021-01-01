@@ -15,6 +15,7 @@
 #include"Actions\AddNORgate3.h"
 #include"Actions\AddLabel.h"
 #include"Actions\SwitchMode.h"
+#include"Select.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -26,6 +27,8 @@ ApplicationManager::ApplicationManager()
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
+	//initializing componentIsSelected to NULL
+	componentIsSelected = NULL;
 }
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
@@ -106,7 +109,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//############################################################
 
 		case SELECT:
-			
+			pAct = new Select(this, componentIsSelected, r_GfxInfoUsed);
 			break;
 
 		case DSN_TOOL:

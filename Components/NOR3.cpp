@@ -32,10 +32,10 @@ void NOR3::Operate()
 
 // Function Draw
 // Draws 3-input NOR gate
-void NOR3::Draw(Output* pOut, bool selected)
+void NOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNOR3(m_GfxInfo);
+	pOut->DrawNOR3(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }

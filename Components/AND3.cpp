@@ -1,5 +1,6 @@
 #include "AND3.h"
 
+
 AND3::AND3(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -19,16 +20,12 @@ void AND3::Operate()
 
 // Function Draw
 // Draws 3-input AND gate
-void AND3::Draw(Output* pOut, bool selected)
+void AND3::Draw(Output* pOut)
 {
-	int Px1, Py1;
-	Px1 = 0; Py1 = 0;
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawAND3(m_GfxInfo);
-	if (InArea(Px1, Py1))
-	{
-		pOut->DrawAND3(m_GfxInfo, true);
-	}
+	pOut->DrawAND3(m_GfxInfo, Component::getIsSelected());
+	string m_Label = Component::getLabel();
+	pOut->DrawString(m_GfxInfo, m_Label);
 }
 
 //returns status of outputpin

@@ -3,6 +3,7 @@
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	m_GfxInfo = r_GfxInfo;	
+	setIsSelected(false);
 }
 
 void Component::setLabel(string label) 
@@ -14,6 +15,18 @@ string Component::getLabel()
 {
 	return m_Label;
 }
+
+//fn setIsSelected
+void Component::setIsSelected(bool select)
+{
+	IsSelected = select;
+}
+//fn getIsSelected
+bool Component::getIsSelected()
+{
+	return IsSelected;
+}
+
 
 bool Component::InArea(int x, int y) 
 {
@@ -34,7 +47,9 @@ GraphicsInfo Component::getLocation()
 }
 
 Component::Component()
-{}
+{
+	setIsSelected(false);
+}
 
 Component::~Component()
 {}

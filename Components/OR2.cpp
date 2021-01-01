@@ -19,10 +19,10 @@ void OR2::Operate()
 
 // Function Draw
 // Draws 2-input OR gate
-void OR2::Draw(Output* pOut , bool selected)
+void OR2::Draw(Output* pOut )
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawOR2(m_GfxInfo);
+	pOut->DrawOR2(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }

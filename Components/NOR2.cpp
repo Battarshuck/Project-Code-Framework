@@ -19,10 +19,10 @@ void NOR2::Operate()
 
 // Function Draw
 // Draws 2-input NOR gate
-void NOR2::Draw(Output* pOut, bool selected)
+void NOR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNOR2(m_GfxInfo);
+	pOut->DrawNOR2(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }

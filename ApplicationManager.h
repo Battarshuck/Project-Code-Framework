@@ -19,7 +19,8 @@ private:
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
-
+	Component* componentIsSelected;//
+	GraphicsInfo r_GfxInfoUsed;
 
 public:
 

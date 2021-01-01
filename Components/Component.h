@@ -10,12 +10,13 @@ class Component
 {
 private:
 	string m_Label;
+	bool IsSelected;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;	//Calculates the output according to the inputs
-	virtual void Draw(Output* pOut, bool selected=false) = 0;	//for each component to Draw itself
+	virtual void Draw(Output* pOut) = 0;	//for each component to Draw itself
 	
 	
 	virtual int GetOutPinStatus()=0;	//returns status of outputpin if LED, return -1
@@ -28,6 +29,10 @@ public:
 	string getLabel();
 	bool InArea(int x, int y);
 	GraphicsInfo getLocation();
+
+	//set and get function IsSelected
+	void setIsSelected(bool);
+	bool getIsSelected();
 
 
 	Component();	

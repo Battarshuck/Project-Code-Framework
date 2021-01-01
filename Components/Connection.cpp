@@ -26,9 +26,9 @@ void Connection::Operate()
 	DstPin->setStatus((STATUS)SrcPin->getStatus());
 }
 
-void Connection::Draw(Output* pOut, bool selected)
+void Connection::Draw(Output* pOut)
 {
-	pOut->DrawConnection(m_GfxInfo);
+	pOut->DrawConnection(m_GfxInfo, Component::getIsSelected());
 }
 
 int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -1

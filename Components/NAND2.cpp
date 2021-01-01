@@ -19,10 +19,10 @@ void NAND2::Operate()
 
 // Function Draw
 // Draws 2-input NAND gate
-void NAND2::Draw(Output* pOut, bool selected)
+void NAND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNAND2(m_GfxInfo);
+	pOut->DrawNAND2(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }

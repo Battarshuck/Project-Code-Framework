@@ -19,10 +19,10 @@ void INV::Operate()
 
 // Function Draw
 // Draws 2-input Inverter gate
-void INV::Draw(Output* pOut, bool selected)
+void INV::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawNOT(m_GfxInfo);
+	pOut->DrawNOT(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }
