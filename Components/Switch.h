@@ -12,7 +12,7 @@ public:
 	
 	virtual void Operate();	//Calculates the output of the AND gate
 	
-	virtual void Draw(Output* pOut);	//Draws 2-input gate
+	virtual void Draw(Output* pOut, bool selected=false);	//Draws 2-input gate
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	

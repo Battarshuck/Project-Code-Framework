@@ -32,7 +32,7 @@ void XNOR2::Operate()
 
 // Function Draw
 // Draws 2-input AND gate
-void XNOR2::Draw(Output* pOut)
+void XNOR2::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawXNOR2(m_GfxInfo);

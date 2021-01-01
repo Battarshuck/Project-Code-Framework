@@ -19,7 +19,7 @@ void BUFF::Operate()
 
 // Function Draw
 // Draws 1-input BUFF gate
-void BUFF::Draw(Output* pOut)
+void BUFF::Draw(Output* pOut, bool selected)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawBUFFER(m_GfxInfo);

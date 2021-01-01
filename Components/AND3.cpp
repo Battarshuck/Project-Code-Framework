@@ -19,7 +19,7 @@ void AND3::Operate()
 
 // Function Draw
 // Draws 3-input AND gate
-void AND3::Draw(Output* pOut)
+void AND3::Draw(Output* pOut, bool selected)
 {
 	int Px1, Py1;
 	//Call output class and pass gate drawing info to it.

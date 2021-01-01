@@ -22,7 +22,7 @@ void Switch::Operate()
 
 // Function Draw
 // Draws 2-input AND gate
-void Switch::Draw(Output* pOut)
+void Switch::Draw(Output* pOut , bool selected)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawSWITCH(m_GfxInfo);

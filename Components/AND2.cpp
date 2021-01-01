@@ -19,7 +19,7 @@ void AND2::Operate()
 
 // Function Draw
 // Draws 2-input AND gate
-void AND2::Draw(Output* pOut)
+void AND2::Draw(Output* pOut, bool selected)
 {
 	int Px1, Py1;
 	//Call output class and pass gate drawing info to it.

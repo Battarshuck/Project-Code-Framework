@@ -18,7 +18,7 @@ protected:
 public:
 	LED(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the LED
-	virtual void Draw(Output* pOut);	//Draws 1-input LED
+	virtual void Draw(Output* pOut, bool selected=false);	//Draws 1-input LED
 
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
