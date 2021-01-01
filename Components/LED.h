@@ -9,11 +9,12 @@
 
 #include "Component.h"
 #include"InputPin.h"
+#include "OutputPin.h"
 
 class LED :public Component
 {
 protected:
-	InputPin m_InputPins;	// input pin of the LED
+	InputPin m_InputPin;	// input pin of the LED
 public:
 	LED(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the LED
@@ -24,6 +25,7 @@ public:
 
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
+	InputPin* getInputPins();
 
 };
 

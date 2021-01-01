@@ -26,6 +26,8 @@ void Switch::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawSWITCH(m_GfxInfo);
+	string m_Label = Component::getLabel();
+	pOut->DrawString(m_GfxInfo, m_Label);
 }
 
 //returns status of outputpin
@@ -44,4 +46,9 @@ int Switch::GetInputPinStatus(int n)
 void Switch::setInputPinStatus(int n, STATUS s)
 {
 
+}
+
+OutputPin* Switch::getOutputPins()
+{
+	return &m_OutputPin;
 }

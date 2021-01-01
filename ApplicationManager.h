@@ -43,6 +43,7 @@ public:
 	void AddComponent(Component* pComp);
 
 	Component** getCompList(int &size);
+	Component* getComponent(int x, int y, GraphicsInfo& r_GfxInfo);
 
 	//destructor
 	~ApplicationManager();

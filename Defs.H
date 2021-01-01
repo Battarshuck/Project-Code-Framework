@@ -32,6 +32,10 @@ enum ActionType
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
 
+	COPY,
+	PASTE,
+	CUT,
+
 	SAVE,		//Save the whole Circuit to a file
 	LOAD,		//Load a Circuit from a file
 
@@ -98,8 +102,8 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	
 	//TODO:Add more items names here
 
-	ITM_EDIT_Label,
 	ITM_ADD_Label,
+	ITM_EDIT_Label,
 	ITM_CHANGE_SWITCH,
 	ITM_DEL,
 	ITM_MOVE,

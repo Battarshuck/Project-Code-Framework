@@ -25,3 +25,8 @@ int OutputPin::getOutputConnections()
 {
 	return m_Conn;
 }
+
+int OutputPin::getFanOut() 
+{
+	return m_FanOut;
+}

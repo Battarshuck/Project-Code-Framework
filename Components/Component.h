@@ -4,6 +4,7 @@
 #include "..\Defs.h"
 #include "..\GUI\Output.h"
 
+
 //Base class for classes Gate, Switch, and LED.
 class Component
 {
@@ -22,9 +23,12 @@ public:
 
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 
+	//setting and getting component's label
 	void setLabel(string label);
+	string getLabel();
 	bool InArea(int x, int y);
 	GraphicsInfo getLocation();
+
 
 	Component();	
 	
