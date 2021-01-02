@@ -223,7 +223,7 @@ Component** ApplicationManager::getCompList(int& size)
 	return list;
 }
 
-Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo & r_GfxInfo)
+Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInfo)
 {
 	Component* component = NULL;
 	for (int i = 0; i < CompCount; i++)
@@ -233,10 +233,7 @@ Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo & r_GfxIn
 			if (CompList[i]->InArea(x, y))
 			{
 				component = CompList[i];
-				r_GfxInfo.x1 = CompList[i]->getLocation().x1;
-				r_GfxInfo.y1 = CompList[i]->getLocation().y1;
-				r_GfxInfo.x2 = CompList[i]->getLocation().x2;
-				r_GfxInfo.y2 = CompList[i]->getLocation().y2;
+				r_GfxInfo = CompList[i]->getLocation();
 				break;
 			}
 		}
