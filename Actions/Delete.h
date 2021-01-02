@@ -11,11 +11,12 @@ class Delete:public Action
 {
 private:
 	Component** CompList;
-	
-	int CompCount, Px1, Py1;
+	Component* ComponentIsSelected;
+	int CompCount;
+
 public:
 	
-	Delete(ApplicationManager* pApp);
+	Delete(ApplicationManager* pApp, Component* &);
 	virtual ~Delete(void);
 	virtual void ReadActionParameters();
 	virtual void Execute();

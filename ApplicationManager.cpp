@@ -16,6 +16,7 @@
 #include"Actions\AddLabel.h"
 #include"Actions\SwitchMode.h"
 #include"Select.h"
+#include"Actions/Delete.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -28,7 +29,7 @@ ApplicationManager::ApplicationManager()
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
 	//initializing componentIsSelected to NULL
-	componentIsSelected = NULL;
+	ComponentIsSelected = NULL;
 }
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
@@ -109,7 +110,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//############################################################
 
 		case SELECT:
-			pAct = new Select(this, componentIsSelected, r_GfxInfoUsed);
+			pAct = new Select(this, ComponentIsSelected, r_GfxInfoUsed);
 			break;
 
 		case DSN_TOOL:
@@ -154,6 +155,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case DEL:
 			
+			pAct = new Delete(this, ComponentIsSelected);
+
 			break;
 
 		case MOVE:
@@ -217,9 +220,11 @@ Component** ApplicationManager::getCompList(int& size)
 {
 
 	Component** list;
+	
 	list = CompList;
 
 	size = CompCount;
+	
 	return list;
 }
 
