@@ -1,7 +1,7 @@
 #include "AddLabel.h"
 #include "..\ApplicationManager.h"
 
-AddLabel::AddLabel(ApplicationManager* pApp) :Action(pApp)
+AddLabel::AddLabel(ApplicationManager* pApp, Component* & componentSelected) :Action(pApp), component(componentSelected)
 {
 	 pOut = pManager->GetOutput();
 	 pIn = pManager->GetInput();
@@ -20,14 +20,6 @@ void AddLabel::ReadActionParameters()
 	//Print Action Message
 	pOut->PrintMsg("Click on the component you want to add label for");
 
-	//Wait for User Input
-	pIn->GetPointClicked(Cx, Cy);
-
-	component = pManager->getComponent(Cx, Cy, m_GfxInfo);
-
-	//Clear Status Bar
-	pOut->ClearStatusBar();
-
 }
 
 void AddLabel::Execute()
@@ -41,13 +33,16 @@ void AddLabel::Execute()
 		{
 			pOut->PrintMsg("Enter component label");
 			string label = pIn->GetSrting(pOut);
-
 			component->setLabel(label);
 		}
 		else
 		{
 			pOut->PrintMsg("ERROR: component already has a label. Please use edit label instead");
 		}
+	}
+	else
+	{
+		pOut->PrintMsg("Please select a component before Adding Label");
 	}
 }
 

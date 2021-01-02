@@ -9,13 +9,13 @@ class AddLabel : public Action
 private:
 	//Parameters for rectangular area to be occupied by the gate
 	int Cx, Cy;	//Center point of the gate
-	Component* component;
+	Component*& component;
 	GraphicsInfo m_GfxInfo;
 
 	Output* pOut;
 	Input* pIn;
 public:
-	AddLabel(ApplicationManager* pApp);
+	AddLabel(ApplicationManager* pApp, Component*&);
 	virtual ~AddLabel(void);
 
 	//Reads parameters required for action to execute

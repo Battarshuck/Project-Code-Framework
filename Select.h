@@ -7,7 +7,7 @@ class Select :public Action
 {
 private:
 	// pointer to componenet selected 
-	Component* CompSelected;
+	Component* &CompSelected;
 
 	//pointer to previously selected component
 	Component* PreviousComp;

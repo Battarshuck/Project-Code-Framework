@@ -4,9 +4,8 @@
 #include"Components/Component.h"
 
 //constructor
-Select::Select(ApplicationManager* pApp, Component*& ComponentPassed, GraphicsInfo& r_GfxInfo) :Action(pApp)
+Select::Select(ApplicationManager* pApp, Component*& ComponentPassed, GraphicsInfo& r_GfxInfo) :Action(pApp), CompSelected(ComponentPassed)
 {
-	CompSelected = ComponentPassed;
 	r_GInfo = r_GfxInfo;
 	//initialize previous component to NULL
 	PreviousComp = NULL;

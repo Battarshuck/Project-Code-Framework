@@ -30,6 +30,7 @@ void AddLED::Execute()
 {
 	//Get Center point of the Gate
 	ReadActionParameters();
+	Output* pOut = pManager->GetOutput();
 
 	//Calculate the rectangle Corners
 	int Len = UI.AND2_Width;
@@ -41,8 +42,14 @@ void AddLED::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	LED* pA = new LED(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
+	{
+		LED* pA = new LED(GInfo, AND2_FANOUT);
+		pManager->AddComponent(pA);
+	}
+	else
+		pOut->PrintMsg("Cannot add here, Please click on Drawing Area");
+
 }
 
 void AddLED::Undo()

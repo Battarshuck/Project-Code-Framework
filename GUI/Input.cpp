@@ -151,7 +151,7 @@ ActionType Input::GetUserAction() const
 			}
 		}
 
-		if (y > UI.SimBarHeight && x < UI.height - UI.StatusBarHeight)
+		if (y > UI.SimBarHeight && y < UI.height - UI.StatusBarHeight- UI.SimBarHeight)
 		{
 			return SELECT;
 		}

@@ -83,7 +83,7 @@ void Output::ClearStatusBar()const
 	pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-//Clears the drawing (degin) area
+//Clears the drawing (design) area
 void Output::ClearDrawingArea() const
 {
 	pWind->SetPen(WHITE, 1);
@@ -116,8 +116,6 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Wire.jpg";
 	MenuItemImages[ITM_Switch] = "images\\Menu\\Menu_switch.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit2.jpg";
-	
-	//TODO: Prepare image for each menu item and add it to the list
 
 	//Draw menu item one image at a time
 	for(int i=0; i<ITM_DSN_CNT; i++)
@@ -149,6 +147,7 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_REDO] = "images\\Menu\\Redo.jpg";
 	MenuItemImages[ITM_DSN_MODE] = "images\\Menu\\Design.jpg";
 	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Simulation.jpg";
+
 	//Draw menu item one image at a time
 	for (int i = 0; i < ITM_SIM_CNT; i++)
 		pWind->DrawImage(MenuItemImages[i], (i * UI.SimItemWidth), UI.height - UI.SimBarHeight - UI.StatusBarHeight - 2, UI.SimItemWidth, UI.SimBarHeight);
@@ -345,7 +344,8 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 	int mid_point;
 	if (selected) {
 		pWind->SetPen(RED, 2);
-		if (r_GfxInfo.y1 != r_GfxInfo.y2) {
+		if (r_GfxInfo.y1 != r_GfxInfo.y2) 
+		{
 		
 			if (r_GfxInfo.x1 < r_GfxInfo.x2) {
 				mid_point = r_GfxInfo.x1 + (r_GfxInfo.x2 - r_GfxInfo.x1) / 2;
@@ -362,14 +362,16 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 			}
 
 		}
-		else {
+		else 
+		{
 			pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
 		}
 	}
 	else 
 	{
 		pWind->SetPen(BLACK, 2);
-		if (r_GfxInfo.y1 != r_GfxInfo.y2) {
+		if (r_GfxInfo.y1 != r_GfxInfo.y2) 
+		{
 
 			if (r_GfxInfo.x1 < r_GfxInfo.x2) {
 				mid_point = r_GfxInfo.x1 + (r_GfxInfo.x2 - r_GfxInfo.x1) / 2;
@@ -386,8 +388,8 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 			}
 
 		}
-		else {
-			pWind->SetPen(BLACK, 2);
+		else 
+		{
 			pWind->DrawLine(r_GfxInfo.x1, r_GfxInfo.y1, r_GfxInfo.x2, r_GfxInfo.y2);
 		}
 	}

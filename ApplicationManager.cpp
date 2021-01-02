@@ -34,7 +34,6 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	
 	CompList[CompCount++] = pComp;
 }
 ////////////////////////////////////////////////////////////////////
@@ -126,16 +125,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_Label:
-			pAct = new AddLabel(this);
+			pAct = new AddLabel(this, ComponentIsSelected);
 			break;
 
 		case EDIT_Label:
 			
 			break;
 
-		case Create_TruthTable:
-			
-			break;
 
 		case Change_Switch:
 			
@@ -155,7 +151,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case DEL:
 			
-			pAct = new Delete(this, ComponentIsSelected);
+			pAct = new Delete(this, ComponentIsSelected, CompCount);
 
 			break;
 
@@ -213,19 +209,18 @@ ApplicationManager::~ApplicationManager()
 		delete CompList[i];
 	delete OutputInterface;
 	delete InputInterface;
-	
 }
 
 Component** ApplicationManager::getCompList(int& size) 
 {
 
-	Component** list;
-	
-	list = CompList;
-
 	size = CompCount;
-	
-	return list;
+	return CompList;
+}
+
+Component** ApplicationManager::getCompList()
+{
+	return CompList;
 }
 
 Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInfo)

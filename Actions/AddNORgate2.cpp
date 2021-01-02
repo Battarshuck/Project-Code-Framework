@@ -30,6 +30,7 @@ void AddNORgate2::Execute()
 {
 	//Get Center point of the Gate
 	ReadActionParameters();
+	Output* pOut = pManager->GetOutput();
 
 	//Calculate the rectangle Corners
 	int Len = UI.NOR2_Width;
@@ -41,8 +42,13 @@ void AddNORgate2::Execute()
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	NOR2* pA = new NOR2(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
+	{
+		NOR2* pA = new NOR2(GInfo, AND2_FANOUT);
+		pManager->AddComponent(pA);
+	}
+	else
+		pOut->PrintMsg("Cannot add here, Please click on Drawing Area");
 }
 
 void AddNORgate2::Undo()

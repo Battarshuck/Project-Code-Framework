@@ -4,6 +4,9 @@
 #include "..\Components\InputPin.h"
 #include "..\Components\OutputPin.h"
 #include "..\Components\Gate.h"
+#include "..\Components\Gate.h"
+#include "..\Components\Switch.h"
+#include "..\Components\LED.h"
 
 class Component;
 
@@ -12,11 +15,11 @@ class Delete:public Action
 private:
 	Component** CompList;
 	Component* ComponentIsSelected;
-	int CompCount;
+	int& CompCount;
 
 public:
 	
-	Delete(ApplicationManager* pApp, Component* &);
+	Delete(ApplicationManager* pApp, Component* &, int &);
 	virtual ~Delete(void);
 	virtual void ReadActionParameters();
 	virtual void Execute();

@@ -1,10 +1,10 @@
 #include"Delete.h"
 #include "..\ApplicationManager.h"
 
-Delete::Delete(ApplicationManager* pApp, Component*& Componentselect) : Action(pApp)
+Delete::Delete(ApplicationManager* pApp, Component*& Componentselect, int& size) : Action(pApp), CompCount(size)
 {
 
-	CompList = pApp->getCompList(CompCount);
+	CompList = pApp->getCompList();
 
 	ComponentIsSelected = Componentselect;
 }
@@ -23,7 +23,7 @@ void Delete::ReadActionParameters()
 
 	//Print Action Message
 
-	pOut->PrintMsg("The selected component will be deleted");
+	pOut->PrintMsg("Selected Component is deleted");
 
 }
 
@@ -32,32 +32,62 @@ void Delete::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	ReadActionParameters();
-
-	int i;
-
-	for (i = 0; i < CompCount; i++)
-	{
-		if (CompList[i] == ComponentIsSelected)
-
-			break;
-	}
-	if (i < CompCount)
+	/// //////////////////////////////
+	if (ComponentIsSelected)
 	{
 
-		Component* PH = CompList[i]; //PH is a place holder
+		//deleting component connections
+		for (int i = 0; i < CompCount; i++)
+		{
+			if (dynamic_cast<Gate*>(ComponentIsSelected))
+			{
+				for (int j = i; j < CompCount; j++)
+				{
+					// shift every element to the left
+					CompList[j] = CompList[j + 1];
+					CompCount--;
+				}
 
-		*CompList[i] = *CompList[CompCount - 1];
-		
-		*CompList[CompCount - 1] = *PH;
-		
-		delete CompList[CompCount - 1];
-		
-		CompList[CompCount - 1] = NULL;
 
-		CompCount--;
+			}
+			else if(dynamic_cast<Switch*>(ComponentIsSelected))
+			{
 
+			}
+			else
+			{
+
+			}
+		}
+		
+		/// ////////////////////////////
+		
+		int i;
+
+		for (i = 0; i < CompCount; i++)
+		{
+			if (CompList[i] == ComponentIsSelected)
+				break;
+		}
+
+		if (i < CompCount)
+		{
+
+			// for loop to delete the component
+			for (int j = i; j < CompCount; j++)
+			{
+				// shift every element to the left
+				CompList[j] = CompList[j + 1];
+			}
+
+			CompCount--;
+
+		}
 	}
-	
+	else 
+	{
+		pOut->PrintMsg("Please select a component before Deleting");
+	}
 
 }
 void Delete::Undo()
