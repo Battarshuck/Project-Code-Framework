@@ -32,7 +32,7 @@ void AddConnection::ReadActionParameters()
 		Sy1 = source->getLocation().y1;
 		Sx2 = source->getLocation().x2;
 		Sy2 = source->getLocation().y2;
-
+		// checking if the is gate or a switch or a LED
 		if (check = dynamic_cast<Gate*>(source)) 
 		{
 			pSrcPin = ((Gate*)source)->getOutputPin();
@@ -43,9 +43,24 @@ void AddConnection::ReadActionParameters()
 			pSrcPin = ((Switch*)source)->getOutputPins();
 			source_OutputConnections = 1;
 		}
+		else if (check = dynamic_cast<LED*>(source))
+		{
+			// a LED cannot be a source component to draw a connection
+			pOut->PrintMsg("Source pin component cannot be a LED");
+			source = NULL;
+			return;
+		}
+
+		/*if (!pSrcPin->ConnectTo())
+		{
+			source = NULL;
+			pOut->PrintMsg("Source pin reached its maximum number of connections");
+			return;
+		}*/
 		
 
 		pOut->ClearStatusBar();
+
 		pOut->PrintMsg("Click on destination pin");
 
 		pIn->GetPointClicked(Px2, Py2);
@@ -70,6 +85,13 @@ void AddConnection::ReadActionParameters()
 			{
 				pDstPin = ((LED*)destination)->getInputPins();
 				m_Inputs = 1;
+			}
+			else if (check = dynamic_cast<Switch*>(destination))
+			{
+				// a switch cannot be a destination component to draw a connection
+				pOut->PrintMsg("Destination pin component cannot be a Switch");
+				destination = NULL;
+				return;
 			}
 
 		}
@@ -105,8 +127,9 @@ void AddConnection::Execute()
 {
 	//If the source and destination component exist
 	//then run the Execute function
-	if (source && destination) {
-		ReadActionParameters();
+	ReadActionParameters();
+	if (source && destination) 
+	{
 
 		//Calculate the rectangle Corners
 		int Len = UI.AND2_Width;

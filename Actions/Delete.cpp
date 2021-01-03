@@ -32,35 +32,8 @@ void Delete::Execute()
 	Output* pOut = pManager->GetOutput();
 
 	ReadActionParameters();
-	/// //////////////////////////////
 	if (ComponentIsSelected)
 	{
-
-		//deleting component connections
-		for (int i = 0; i < CompCount; i++)
-		{
-			if (dynamic_cast<Gate*>(ComponentIsSelected))
-			{
-				for (int j = i; j < CompCount; j++)
-				{
-					// shift every element to the left
-					CompList[j] = CompList[j + 1];
-					CompCount--;
-				}
-
-
-			}
-			else if(dynamic_cast<Switch*>(ComponentIsSelected))
-			{
-
-			}
-			else
-			{
-
-			}
-		}
-		
-		/// ////////////////////////////
 		
 		int i;
 
@@ -70,10 +43,19 @@ void Delete::Execute()
 				break;
 		}
 
+		//deleting component's connections
+		DeleteComponentConnections(ComponentIsSelected);
+		delete ComponentIsSelected;
+		ComponentIsSelected = NULL;
+
+		// if the component is not the last one in the array
+		// then shift every element to left
+		// else just delete it and reduce CompCount by 1
+		// CompCount is sent by reference so we can modify its value
+		// inside the application manager
 		if (i < CompCount)
 		{
 
-			// for loop to delete the component
 			for (int j = i; j < CompCount; j++)
 			{
 				// shift every element to the left
@@ -90,6 +72,38 @@ void Delete::Execute()
 	}
 
 }
+
+void Delete::DeleteComponentConnections(Component* comp) 
+{
+
+	//deleting component connections
+	if (comp)
+	{
+		for (int i = 0; i < CompCount; i++)
+		{
+			if (dynamic_cast<Gate*>(ComponentIsSelected))
+			{
+				for (int j = i; j < CompCount; j++)
+				{
+
+				}
+
+
+			}
+			else if (dynamic_cast<Switch*>(ComponentIsSelected))
+			{
+
+			}
+			else
+			{
+
+			}
+		}
+	}
+
+}
+
+
 void Delete::Undo()
 {
 }
