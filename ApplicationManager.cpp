@@ -17,6 +17,8 @@
 #include"Actions\SwitchMode.h"
 #include"Select.h"
 #include"Actions/EditLabel.h"
+#include"Actions/Copy.h"
+#include"Actions/Paste.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -30,6 +32,11 @@ ApplicationManager::ApplicationManager()
 	InputInterface = OutputInterface->CreateInput();
 	//initializing componentIsSelected to NULL
 	ComponentIsSelected = NULL;
+	//initializing ComponenetIsCopied to NULL
+	ComponenetIsCopied = NULL;
+	//0 is the default value of this integer(no component is copied or cut), 
+	//1 indicates a component is copied, 2 indicates that a component is cut
+	CopyOrcut = 0;
 }
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
@@ -139,9 +146,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case COPY:
-
+			ComponenetIsCopied = NULL;
+			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied, CopyOrcut);
 			break;
-
 		case PASTE:
 
 			break;

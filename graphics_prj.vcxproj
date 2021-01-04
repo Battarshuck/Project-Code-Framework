@@ -142,7 +142,9 @@
     <ClCompile Include="Actions\AddXNORgate2.cpp" />
     <ClCompile Include="Actions\AddXORgate2.cpp" />
     <ClCompile Include="Actions\AddXORgate3.cpp" />
+    <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\EditLabel.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\SwitchMode.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -221,7 +223,9 @@
     <ClInclude Include="Actions\AddXNORgate2.h" />
     <ClInclude Include="Actions\AddXORgate2.h" />
     <ClInclude Include="Actions\AddXORgate3.h" />
+    <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\EditLabel.h" />
+    <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\SwitchMode.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
