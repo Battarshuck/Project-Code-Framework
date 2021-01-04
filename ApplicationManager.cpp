@@ -19,6 +19,7 @@
 #include"Actions/EditLabel.h"
 #include"Actions/Copy.h"
 #include"Actions/Paste.h"
+#include "Actions/Cut.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -33,7 +34,7 @@ ApplicationManager::ApplicationManager()
 	//initializing componentIsSelected to NULL
 	ComponentIsSelected = NULL;
 	//initializing ComponenetIsCopied to NULL
-	ComponenetIsCopied = NULL;
+	ComponenetIsCopied_Cut = NULL;
 	//0 is the default value of this integer(no component is copied or cut), 
 	//1 indicates a component is copied, 2 indicates that a component is cut
 	CopyOrcut = 0;
@@ -146,15 +147,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case COPY:
-			ComponenetIsCopied = NULL;
-			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied, CopyOrcut);
+			ComponenetIsCopied_Cut = NULL;
+			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrcut);
 			break;
 		case PASTE:
-
+			pAct = new Paste(this, ComponenetIsCopied_Cut, CopyOrcut);
 			break;
 
 		case CUT:
-
+			ComponenetIsCopied_Cut = NULL;
+			pAct = new Cut(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrcut);
 			break;
 
 		case DEL:

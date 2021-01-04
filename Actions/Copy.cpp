@@ -1,7 +1,7 @@
 #include"Copy.h"
 #include "..\ApplicationManager.h"
 
-Copy::Copy(ApplicationManager* pApp, Component* CompSelected, Component*& CompcopiedAppMang,int & CopyorCut) :Action(pApp), CopiedComp(NULL)
+Copy::Copy(ApplicationManager* pApp, Component* CompSelected, Component*& CompcopiedAppMang,int & CopyorCut) :Action(pApp), CopiedComp(CompcopiedAppMang)
 {
 	ComponentToBeCopied = CompSelected;
 	CopyorCut = 1;

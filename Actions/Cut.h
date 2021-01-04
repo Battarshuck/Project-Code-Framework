@@ -12,7 +12,7 @@ class Cut :public Action
 {
 private:
     Component* ComponentToBeCut;//component to be copied (just Selected)
-    Component* CutComp;//copied component (will be passed to Application Mansger)
+    Component*& CutComp;//copied component (will be passed to Application Mansger)
     int x, y;    // location of point clicked
     int copyorcut;
 

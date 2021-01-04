@@ -1,7 +1,7 @@
 #include "Cut.h"
 #include "..\ApplicationManager.h"
 
-Cut::Cut(ApplicationManager* pApp, Component* CompSelected, Component*& CompcutAppMang, int& CopyOrcut) : Action(pApp), CutComp(NULL)
+Cut::Cut(ApplicationManager* pApp, Component* CompSelected, Component*& CompcutAppMang, int& CopyOrcut) : Action(pApp), CutComp(CompcutAppMang)
 {
     ComponentToBeCut = CompSelected;
     copyorcut = CopyOrcut;
@@ -24,6 +24,7 @@ void Cut::Execute()
 {
     //Get Center point of the Gate
     ReadActionParameters();
+   
     Output* pOut = pManager->GetOutput();
 
     //Calculate the rectangle Corners

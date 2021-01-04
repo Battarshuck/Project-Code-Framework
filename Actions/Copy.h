@@ -12,7 +12,7 @@ class Copy :public Action
 {
 private:
 	Component* ComponentToBeCopied;//component to be copied (just Selected)
-	Component* CopiedComp;//copied component (will be passed to Application Mansger)
+	Component*& CopiedComp;//copied component (will be passed to Application Mansger)
 	int x, y;	// location of point clicked
 
 public:
