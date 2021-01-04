@@ -98,7 +98,7 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
-	ITM_SIM,	//Simulate menu item
+	//ITM_SIM,	//Simulate menu item
 	//ITM_TRUTH,	//Truth table menu item
 	
 	//TODO:Add more items names here
@@ -108,6 +108,9 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_CHANGE_SWITCH,
 	ITM_DEL,
 	ITM_MOVE,
+	ITM_COPY,
+	ITM_CUT,
+	ITM_PASTE,
 	ITM_SAVE,
 	ITM_LOAD,
 	ITM_UNDO,

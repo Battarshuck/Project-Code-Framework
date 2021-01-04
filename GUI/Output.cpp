@@ -17,6 +17,7 @@ Output::Output()
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
 	ChangeTitle("Programming Techniques Project");
 
+	
 	CreateSimulationToolBar();
 	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
@@ -91,10 +92,18 @@ void Output::ClearDrawingArea() const
 	pWind->DrawRectangle(0, UI.ToolBarHeight + 5, UI.width, UI.height - UI.StatusBarHeight - UI.SimBarHeight - 8);
 	
 }
+
+void Output::ClearToolBar() const
+{
+	pWind->SetPen(WHITE, 1);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight - 2);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
+	//ClearToolBar();
 	UI.AppMode = DESIGN;	//Design Mode
 
 	//You can draw the tool bar icons in any way you want.
@@ -131,16 +140,19 @@ void Output::CreateDesignToolBar() const
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
 {
+	//ClearToolBar();
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
 	string MenuItemImages[ITM_SIM_CNT];
-	MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
+	//MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
 	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
 	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
-	//MenuItemImages[ITM_TRUTH] = "images\\Menu\\TruthTable.jpg";
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Delete.jpg";
 	MenuItemImages[ITM_MOVE] = "images\\Menu\\Move.jpg";
+	MenuItemImages[ITM_COPY] = "images\\Menu\\Copy.jpg";
+	MenuItemImages[ITM_CUT] = "images\\Menu\\Cut.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\Menu\\Paste.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Load.jpg";
 	MenuItemImages[ITM_UNDO] = "images\\Menu\\Undo.jpg";

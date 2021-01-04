@@ -110,7 +110,7 @@ ActionType Input::GetUserAction() const
 			{
 				case ITM_DSN_MODE:return DSN_MODE;
 				case ITM_SIM_MODE:return SIM_MODE;
-				case ITM_SIM: break;
+				//case ITM_SIM: break;
 				case ITM_ADD_Label:return ADD_Label;
 				case ITM_EDIT_Label:return EDIT_Label;
 				case ITM_CHANGE_SWITCH:return Change_Switch;

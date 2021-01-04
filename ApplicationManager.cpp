@@ -113,11 +113,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case SIM_MODE:
-			pAct = new SwitchMode(this, SIMULATION);
+			//pAct = new SwitchMode(this, SIMULATION);
+			GetOutput()->CreateSimulationToolBar();
 			break;
 
 		case DSN_MODE:
-			pAct = new SwitchMode(this, DESIGN);
+			//pAct = new SwitchMode(this, DESIGN);
+			GetOutput()->CreateDesignToolBar();
 			break;
 
 		case ADD_Label:
