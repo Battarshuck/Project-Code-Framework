@@ -17,6 +17,8 @@
 #include"Actions\SwitchMode.h"
 #include"Select.h"
 #include"Actions/Delete.h"
+#include"Copy.h"
+#include"Paste.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -30,6 +32,7 @@ ApplicationManager::ApplicationManager()
 	InputInterface = OutputInterface->CreateInput();
 	//initializing componentIsSelected to NULL
 	ComponentIsSelected = NULL;
+	ComponenetIsCopied = NULL;
 }
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
@@ -108,7 +111,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	//############################################################
 
-		case SELECT:
+		case SELECT: //yasser
 			pAct = new Select(this, ComponentIsSelected, r_GfxInfoUsed);
 			break;
 
@@ -137,12 +140,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			
 			break;
 
-		case COPY:
-
+		case COPY: //yasser
+			ComponenetIsCopied = NULL;
+			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied);
 			break;
 
 		case PASTE:
-
+			//pAct = new Paste(this, ComponenetIsCopied);
 			break;
 
 		case CUT:

@@ -199,9 +199,11 @@
     <ClCompile Include="Components\XNOR2.cpp" />
     <ClCompile Include="Components\XOR2.cpp" />
     <ClCompile Include="Components\XOR3.cpp" />
+    <ClCompile Include="Copy.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Paste.cpp" />
     <ClCompile Include="Select.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -263,10 +265,12 @@
     <ClInclude Include="Components\XNOR2.h" />
     <ClInclude Include="Components\XOR2.h" />
     <ClInclude Include="Components\XOR3.h" />
+    <ClInclude Include="Copy.h" />
     <ClInclude Include="Defs.H" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
+    <ClInclude Include="Paste.h" />
     <ClInclude Include="Select.h" />
   </ItemGroup>
   <ItemGroup>

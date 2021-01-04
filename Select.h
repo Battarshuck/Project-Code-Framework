@@ -15,12 +15,12 @@ private:
 	//size of componenet list
 	int size;
 
-	//
+	//location of the componenet selected
 	GraphicsInfo r_GInfo;
 
 	//Parameters for rectangular area to be occupied by the gate
 	int x, y;	//location of point clicked
-	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+	//int x1, y1, x2, y2;	//Two corners of the rectangluar area
 public:
 	//constructor
 	Select(ApplicationManager* pApp, Component*&, GraphicsInfo& r_GfxInfo);
@@ -31,15 +31,11 @@ public:
 	//Reads parameters required for action to execute
 	virtual void ReadActionParameters();
 
-
-
-
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
 	//To undo this action (code depends on action type)
 	virtual void Undo();
-
 
 	//To redo this action (code depends on action type)
 	virtual void Redo();

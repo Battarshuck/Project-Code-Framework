@@ -19,8 +19,9 @@ private:
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
-	Component* ComponentIsSelected;//
-	GraphicsInfo r_GfxInfoUsed;
+	Component* ComponentIsSelected;//pointer to component selected
+	GraphicsInfo r_GfxInfoUsed;//parameteres of selected component
+	Component* ComponenetIsCopied;//pointer to copied component
 
 public:
 
