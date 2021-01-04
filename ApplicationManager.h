@@ -43,9 +43,9 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 
-	Component** getCompList(int &size);
-	Component** getCompList();
 	Component* getComponent(int x, int y, GraphicsInfo& r_GfxInfo);
+	void UnselectOtherComponents(Component*);
+	void Delete(Component*&);
 
 	//destructor
 	~ApplicationManager();

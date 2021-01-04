@@ -16,7 +16,7 @@
 #include"Actions\AddLabel.h"
 #include"Actions\SwitchMode.h"
 #include"Select.h"
-#include"Actions/Delete.h"
+#include"Actions/EditLabel.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -102,7 +102,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddLED(this);
 			break;
 
-		case ADD_CONNECTION:
+		case ADD_CONNECTION: //mostafa
 			pAct = new AddConnection(this);
 			break;
 
@@ -110,10 +110,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case SELECT:
 			pAct = new Select(this, ComponentIsSelected, r_GfxInfoUsed);
-			break;
-
-		case DSN_TOOL:
-			
 			break;
 
 		case SIM_MODE:
@@ -129,9 +125,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EDIT_Label:
-			
+			pAct = new EditLabel(this, ComponentIsSelected);
 			break;
 
+		case EDIT_Connection:
+			//pAct = new EditConnection(this, ComponentIsSelected);
+			break;
 
 		case Change_Switch:
 			
@@ -150,13 +149,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DEL:
-			
-			pAct = new Delete(this, ComponentIsSelected, CompCount);
-
-			break;
-
-		case MOVE:
-			
+			Delete(ComponentIsSelected);
 			break;
 
 		case SAVE:
@@ -211,18 +204,6 @@ ApplicationManager::~ApplicationManager()
 	delete InputInterface;
 }
 
-Component** ApplicationManager::getCompList(int& size) 
-{
-
-	size = CompCount;
-	return CompList;
-}
-
-Component** ApplicationManager::getCompList()
-{
-	return CompList;
-}
-
 Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInfo)
 {
 	Component* component = NULL;
@@ -230,14 +211,72 @@ Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInf
 	{
 		if (CompList[i] != NULL)
 		{
-			if (CompList[i]->InArea(x, y))
-			{
-				component = CompList[i];
-				r_GfxInfo = CompList[i]->getLocation();
-				break;
-			}
+				if (CompList[i]->InArea(x, y))
+				{
+					component = CompList[i];
+					r_GfxInfo = CompList[i]->getLocation();
+					break;
+				}
 		}
 	}
 
 	return component;
+}
+
+void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
+{
+	// this functions unselects previously selected components
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != NULL)
+		{
+			if (newSelectedComp != CompList[i] && CompList[i]->getIsSelected())
+			{
+				CompList[i]->setIsSelected(false);
+				break;
+			}
+		}
+	}
+}
+
+void ApplicationManager::Delete(Component*& comp)
+{
+	if (comp)
+	{
+
+		int i;
+		for (i = 0; i < CompCount; i++)
+		{
+			if (CompList[i] == comp)
+				break;
+		}
+
+		delete comp;
+		comp = NULL;
+
+		// if the component is not the last one in the array
+		// then shift every element to left
+		// else just delete it and reduce CompCount by 1
+		// CompCount is sent by reference so we can modify its value
+		// inside the application manager
+		if (i < CompCount)
+		{
+
+			for (int j = i; j < CompCount; j++)
+			{
+				// shift every element to the left
+				CompList[j] = CompList[j + 1];
+			}
+
+			CompCount--;
+
+		}
+
+		//deleting component's connections
+	}
+	else
+	{
+		GetOutput()->PrintMsg("Please select a component before Deleting");
+	}
+
 }

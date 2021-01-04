@@ -17,9 +17,6 @@ void AddLabel::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	//Print Action Message
-	pOut->PrintMsg("Click on the component you want to add label for");
-
 }
 
 void AddLabel::Execute()

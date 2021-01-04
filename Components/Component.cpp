@@ -32,7 +32,7 @@ bool Component::InArea(int x, int y)
 {
 	//Checking if the user click on the component or not
 	//by checking the coordination of click
-	//with the the component border
+	//with the component border
 	if (x >= m_GfxInfo.x1 && x <= m_GfxInfo.x2 && y >= m_GfxInfo.y1 && y <= m_GfxInfo.y2)
 	{
 		return 1;

@@ -9,9 +9,6 @@ private:
 	// pointer to componenet selected 
 	Component* &CompSelected;
 
-	//pointer to previously selected component
-	Component* PreviousComp;
-
 	//size of componenet list
 	int size;
 
@@ -21,6 +18,7 @@ private:
 	//Parameters for rectangular area to be occupied by the gate
 	int x, y;	//location of point clicked
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+	GraphicsInfo m_GfxInfo;
 public:
 	//constructor
 	Select(ApplicationManager* pApp, Component*&, GraphicsInfo& r_GfxInfo);

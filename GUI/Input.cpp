@@ -143,7 +143,7 @@ ActionType Input::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_TRUTH:return Create_TruthTable;
+			//case ITM_TRUTH:return Create_TruthTable;
 			case ITM_DSN_MODE: return DSN_MODE;
 			case ITM_SIM_MODE:return SIM_MODE;
 			//case ITM_STATUSBAR:return STATUS_BAR;

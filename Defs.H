@@ -23,8 +23,9 @@ enum ActionType
 
 	ADD_Label,			//Add Label to a Component, a Connection
 	EDIT_Label,			//Edit Label of a Component, a Connection
+	EDIT_Connection,
 
-	Create_TruthTable,	//Create Truth Table of the Circuit
+	//Create_TruthTable,	//Create Truth Table of the Circuit
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
 
@@ -98,7 +99,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 {
 	//Note: Items are ordered here as they appear in menu
 	ITM_SIM,	//Simulate menu item
-	ITM_TRUTH,	//Truth table menu item
+	//ITM_TRUTH,	//Truth table menu item
 	
 	//TODO:Add more items names here
 
