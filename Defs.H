@@ -23,6 +23,7 @@ enum ActionType
 
 	ADD_Label,			//Add Label to a Component, a Connection
 	EDIT_Label,			//Edit Label of a Component, a Connection
+	EDIT_Connection,
 
 	//Create_TruthTable,	//Create Truth Table of the Circuit
 

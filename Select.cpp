@@ -6,9 +6,7 @@
 //constructor
 Select::Select(ApplicationManager* pApp, Component*& ComponentPassed, GraphicsInfo& r_GfxInfo) :Action(pApp), CompSelected(ComponentPassed)
 {
-	r_GInfo = r_GfxInfo;
-	//initialize previous component to NULL
-	PreviousComp = NULL;
+	this->r_GInfo = r_GfxInfo;
 }
 
 //destructor
@@ -33,34 +31,9 @@ void Select::ReadActionParameters()
 	//Clear Status Bar
 	pOut->ClearStatusBar();
 
-	//get componenet list
-	Component** list = pManager->getCompList(size);
-
 	//check if the click is inside area of any componenet	
-	for (int i = 0; i < size; i++)
-	{
-		if (list[i] != NULL)
-		{
-			if (list[i]->InArea(x, y))
-			{
-				CompSelected = list[i];
-				r_GInfo = list[i]->getLocation();
-				break;
-			}
-		}
-	}
+	CompSelected = pManager->getComponent(x, y, m_GfxInfo);
 
-	for (int i = 0; i < size; i++)
-	{
-		if (list[i] != NULL)
-		{
-			if (list[i] != CompSelected && list[i]->getIsSelected())
-			{
-				PreviousComp = list[i];
-				break;
-			}
-		}
-	}
 }
 
 //Execute action (code depends on action type)
@@ -84,15 +57,9 @@ void Select::Execute()
 		{
 
 			pOut->PrintMsg("Component is Selected");
+			pManager->UnselectOtherComponents(CompSelected);
 			CompSelected->setIsSelected(true);
 		}
-	}
-
-	//unselect previous component
-	if (PreviousComp)
-	{
-			PreviousComp->setIsSelected(false);
-			PreviousComp = NULL;
 	}
 }
 

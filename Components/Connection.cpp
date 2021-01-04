@@ -46,3 +46,53 @@ void Connection::setInputPinStatus(int n, STATUS s)
 {
 	SrcPin->setStatus(s);
 }
+
+bool Connection::InArea(int x, int y)
+{
+	int mid_point;
+	if (m_GfxInfo.x1 < m_GfxInfo.x2)
+	{
+		mid_point = m_GfxInfo.x1 + (m_GfxInfo.x2 - m_GfxInfo.x1) / 2;
+
+		if (x >= m_GfxInfo.x1 && x <= mid_point && y <= m_GfxInfo.y1 + 8 && y >= m_GfxInfo.y1 - 8)
+		{
+			return true;
+		}
+		else if (x >= mid_point - 8 && x <= mid_point + 8 && y <= m_GfxInfo.y1 && y >= m_GfxInfo.y2)
+		{
+			return true;
+		}
+		else if (x >= mid_point && x <= m_GfxInfo.x2 && y <= m_GfxInfo.y2 + 8 && y >= m_GfxInfo.y2 - 8)
+		{
+				return true;
+		}
+		else if (x >= mid_point - 8 && x <= mid_point + 8 && y >= m_GfxInfo.y1 && y <= m_GfxInfo.y2)
+		{
+			return true;
+		}
+	}
+	else 
+	{
+		mid_point = m_GfxInfo.x2 + (m_GfxInfo.x1 - m_GfxInfo.x2) / 2;
+
+		if (x <= m_GfxInfo.x1 && x >= mid_point && y <= m_GfxInfo.y1 + 8 && y >= m_GfxInfo.y1 - 8)
+		{
+			return true;
+		}
+		else if (x >= mid_point - 8 && x <= mid_point + 8 && y <= m_GfxInfo.y1 && y >= m_GfxInfo.y2)
+		{
+			return true;
+		}
+		else if (x <= mid_point && x >= m_GfxInfo.x2 && y <= m_GfxInfo.y2 + 8 && y >= m_GfxInfo.y2 - 8)
+		{
+			return true;
+		}
+		else if (x >= mid_point - 8 && x <= mid_point + 8 && y >= m_GfxInfo.y1 && y <= m_GfxInfo.y2)
+		{
+			return true;
+		}
+	}
+
+	return false;
+
+}

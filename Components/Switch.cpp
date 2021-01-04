@@ -31,7 +31,7 @@ void Switch::Draw(Output* pOut )
 	//Call output class and pass gate drawing info to it.
 	if (Status_Switch==LOW)
 		pOut->DrawSWITCHOFF(m_GfxInfo, Component::getIsSelected());
-	else 
+	else
 		pOut->DrawSWITCHON(m_GfxInfo, Component::getIsSelected());
 	
 	string m_Label = Component::getLabel();

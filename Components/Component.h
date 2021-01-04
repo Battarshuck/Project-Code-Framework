@@ -27,7 +27,7 @@ public:
 	//setting and getting component's label
 	void setLabel(string label);
 	string getLabel();
-	bool InArea(int x, int y);
+	virtual bool InArea(int x, int y);
 	GraphicsInfo getLocation();
 
 	//set and get function IsSelected

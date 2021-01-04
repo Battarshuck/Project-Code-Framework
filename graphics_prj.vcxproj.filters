@@ -215,9 +215,6 @@
     <ClCompile Include="Components\XOR2.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\Delete.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\AddLabel.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -227,10 +224,14 @@
     <ClCompile Include="Select.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+
     <ClCompile Include="Copy.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Paste.cpp">
+
+    <ClCompile Include="Actions\EditLabel.cpp">
+
       <Filter>Actions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -410,9 +411,6 @@
     <ClInclude Include="Components\XOR2.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\Delete.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
     <ClInclude Include="Actions\AddLabel.h">
       <Filter>Actions</Filter>
     </ClInclude>
@@ -422,10 +420,14 @@
     <ClInclude Include="Select.h">
       <Filter>Actions</Filter>
     </ClInclude>
+
     <ClInclude Include="Copy.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Paste.h">
+
+    <ClInclude Include="Actions\EditLabel.h">
+
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

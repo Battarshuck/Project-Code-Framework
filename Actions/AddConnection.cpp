@@ -74,12 +74,22 @@ void AddConnection::ReadActionParameters()
 			Dy1 = destination->getLocation().y1;
 			Dx2 = destination->getLocation().x2;
 			Dy2 = destination->getLocation().y2;
-			
+			m_Inputs = ((Gate*)destination)->numInputs();
 
 			if (check = dynamic_cast<Gate*>(destination))
 			{
-				pDstPin = ((Gate*)destination)->getInputPins();
-				m_Inputs = ((Gate*)destination)->numInputs();
+				if (m_Inputs > 1 )
+				{
+					pOut->PrintMsg("Enter the pin number");
+					InputPinNumber = (int)stoi(pIn->GetSrting(pOut));
+					// overloaded getInputPins
+					pDstPin = ((Gate*)destination)->getInputPins(InputPinNumber);
+				}
+				else
+				{
+					pDstPin = ((Gate*)destination)->getInputPins();
+				}
+				
 			}
 			else if(check = dynamic_cast<LED*>(destination))
 			{
@@ -112,12 +122,6 @@ void AddConnection::ReadActionParameters()
 	}
 
 
-	pOut->ClearStatusBar();
-
-	if (m_Inputs > 1) {
-		pOut->PrintMsg("Enter the pin number");
-		InputPinNumber = stoi(pIn->GetSrting(pOut));
-	}
 	//Clear Status Bar
 	pOut->ClearStatusBar();
 
@@ -127,6 +131,7 @@ void AddConnection::Execute()
 {
 	//If the source and destination component exist
 	//then run the Execute function
+	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 	if (source && destination) 
 	{
@@ -136,18 +141,22 @@ void AddConnection::Execute()
 		int Wdth = UI.AND2_Height;
 
 		GraphicsInfo GInfo; //Gfx info to be used to draw the connection
-		GInfo.x1 = Sx2 - 2;
+		GInfo.x1 = Sx2-1;
 		GInfo.y1 = Sy1 + Wdth / 2;
 
 		GInfo.x2 = Dx1 + 2;
 
-		if (m_Inputs == 1) {
+		
+		if (m_Inputs == 1) 
+			// if the destination component has 1 input 
+		{
 			GInfo.y2 = Dy1 + Wdth / 2;
 		}
-
-		if (m_Inputs == 2)
+		else if (m_Inputs == 2)
 		{
-			if (InputPinNumber == 1) {
+			// if the destination component has 2 input 
+			if (InputPinNumber == 1) 
+			{
 				GInfo.y2 = Dy1 + Wdth * 0.2555;
 			}
 			else if (InputPinNumber == 2)
@@ -156,10 +165,11 @@ void AddConnection::Execute()
 			}
 
 		}
-
-		if (m_Inputs == 3)
+        else if (m_Inputs == 3)
 		{
-			if (InputPinNumber == 1) {
+			// if the destination component has 3 input 
+			if (InputPinNumber == 1) 
+			{
 				GInfo.y2 = Dy1 + Wdth * 0.256;
 			}
 			else if (InputPinNumber == 2)
@@ -172,10 +182,18 @@ void AddConnection::Execute()
 			}
 
 		}
+		
 
+		if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3)
+		{
+			Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
+			pManager->AddComponent(pA);
+		}
+		else 
+		{
+			pOut->PrintMsg("ERROR: Invalid Input");
+		}
 
-		Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
-		pManager->AddComponent(pA);
 	}
 }
 

@@ -21,6 +21,11 @@ InputPin* Gate::getInputPins()
 	return m_InputPins;
 }
 
+InputPin* Gate::getInputPins(int index)
+{
+	return &m_InputPins[index];
+}
+
 OutputPin* Gate::getOutputPin()
 {
 	return &m_OutputPin;

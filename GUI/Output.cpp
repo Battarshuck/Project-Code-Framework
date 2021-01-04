@@ -137,6 +137,7 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
 	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
 	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
+
 	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
 	MenuItemImages[ITM_COPY] = "images\\Menu\\Copy.jpg";
 	MenuItemImages[ITM_CUT] = "images\\Menu\\Cut.jpg";
@@ -342,7 +343,6 @@ void Output::DrawSWITCHOFF(GraphicsInfo r_GfxInfo, bool selected) const
 
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
-	//TODO: Add code to draw connection
 	int mid_point;
 	if (selected) {
 		pWind->SetPen(RED, 2);
