@@ -4,21 +4,21 @@
 #include "Actions\AddNORgate2.h"
 #include "Actions\AddXORgate3.h"
 #include "Actions\AddConnection.h"
-#include"Actions\AddBUFFgate.h"
-#include"Actions\AddNANDgate2.h"
-#include"Actions\AddANDgate3.h"
-#include"Actions\AddLED.h"
-#include"Actions\AddSwitch.h"
-#include"Actions\AddORgate2.h"
-#include"Actions\AddXORgate2.h"
-#include"Actions\AddXNORgate2.h"
-#include"Actions\AddNORgate3.h"
-#include"Actions\AddLabel.h"
-#include"Actions\SwitchMode.h"
-#include"Select.h"
-#include"Actions/EditLabel.h"
-#include"Actions/Copy.h"
-#include"Actions/Paste.h"
+#include "Actions\AddBUFFgate.h"
+#include "Actions\AddNANDgate2.h"
+#include "Actions\AddANDgate3.h"
+#include "Actions\AddLED.h"
+#include "Actions\AddSwitch.h"
+#include "Actions\AddORgate2.h"
+#include "Actions\AddXORgate2.h"
+#include "Actions\AddXNORgate2.h"
+#include "Actions\AddNORgate3.h"
+#include "Actions\AddLabel.h"
+#include "Actions\SwitchMode.h"
+#include "Select.h"
+#include "Actions/EditLabel.h"
+#include "Actions/Copy.h"
+#include "Actions/Paste.h"
 #include "Actions/Cut.h"
 
 ApplicationManager::ApplicationManager()
@@ -124,13 +124,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case SIM_MODE:
+			mode = SIMULATION;
 			//pAct = new SwitchMode(this, SIMULATION);
-			GetOutput()->CreateSimulationToolBar();
+			OutputInterface->CreateSimulationToolBar();
 			break;
 
 		case DSN_MODE:
+			mode = DESIGN;
 			//pAct = new SwitchMode(this, DESIGN);
-			GetOutput()->CreateDesignToolBar();
+			OutputInterface->CreateDesignToolBar();
 			break;
 
 		case ADD_Label:
@@ -238,6 +240,24 @@ Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInf
 	return component;
 }
 
+Component* ApplicationManager::getSwitch(int x, int y, Component* SwitchSelected)
+{
+	Component* component = NULL;
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != NULL)
+		{
+			if (CompList[i]->InArea(x, y) && dynamic_cast<Switch*>(SwitchSelected))
+			{
+				component = CompList[i];
+				break;
+			}
+		}
+	}
+
+	return component;
+}
+
 void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
 {
 	// this functions unselects previously selected components
@@ -291,7 +311,7 @@ void ApplicationManager::Delete(Component*& comp)
 	}
 	else
 	{
-		GetOutput()->PrintMsg("Please select a component before Deleting");
+		OutputInterface->PrintMsg("Please select a component before Deleting");
 	}
 
 }

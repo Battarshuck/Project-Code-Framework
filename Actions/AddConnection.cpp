@@ -4,6 +4,8 @@
 AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
 {
 	check = NULL;
+	source = NULL;
+	destination = NULL;
 }
 
 AddConnection::~AddConnection(void)
@@ -25,7 +27,10 @@ void AddConnection::ReadActionParameters()
 	//getting the source component details
 	source = pManager->getComponent(Px1, Py1, m_GfxInfo);
 
-	if (source) 
+	//checking if the source component is in the drawing area
+	//checking if the source component is a connection
+	//both these cases must stop the excution
+	if (source && !dynamic_cast<Connection*>(source))
 	{
 	
 		Sx1 = source->getLocation().x1;
@@ -68,7 +73,10 @@ void AddConnection::ReadActionParameters()
 		//getting the destination component details
 		destination = pManager->getComponent(Px2, Py2, m_GfxInfo);
 
-		if (destination) 
+		//checking if the destination component is in the drawing area
+		//checking if the destination component is a connection
+		//both these cases must stop the excution
+		if (destination && !dynamic_cast<Connection*>(destination))
 		{
 			Dx1 = destination->getLocation().x1;
 			Dy1 = destination->getLocation().y1;
@@ -109,15 +117,18 @@ void AddConnection::ReadActionParameters()
 		{
 			pOut->ClearStatusBar();
 			pOut->PrintMsg("ERROR: Please click on a component");
+			source = NULL;
+			destination = NULL;
 			return;
 		}
 
-		pOut->ClearStatusBar();
 	}
 	else
 	{
 		pOut->ClearStatusBar();
 		pOut->PrintMsg("ERROR: Please click on a component");
+		source = NULL;
+		destination = NULL;
 		return;
 	}
 
@@ -130,10 +141,11 @@ void AddConnection::ReadActionParameters()
 void AddConnection::Execute()
 {
 	//If the source and destination component exist
+	//and source and destination are NOT the same component
 	//then run the Execute function
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (source && destination) 
+	if (source && destination && source != destination) 
 	{
 
 		//Calculate the rectangle Corners
@@ -143,7 +155,6 @@ void AddConnection::Execute()
 		GraphicsInfo GInfo; //Gfx info to be used to draw the connection
 		GInfo.x1 = Sx2-1;
 		GInfo.y1 = Sy1 + Wdth / 2;
-
 		GInfo.x2 = Dx1 + 2;
 
 		
@@ -184,7 +195,7 @@ void AddConnection::Execute()
 		}
 		
 
-		if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3)
+		if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3 || m_Inputs == 1)
 		{
 			Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
 			pManager->AddComponent(pA);

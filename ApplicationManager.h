@@ -19,11 +19,14 @@ private:
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
-	Component* ComponentIsSelected;//pointer to Component Selected
-	GraphicsInfo r_GfxInfoUsed;//parameteres of Selected Component
-	Component* ComponenetIsCopied_Cut;//pointer to Copied Component
-	int CopyOrcut;//an integer to distinguish between Copied and Cut Componenet
+	Component* ComponentIsSelected;//pointer to component selected
+	GraphicsInfo r_GfxInfoUsed;//parameteres of selected component
+	Component* ComponenetIsCopied_Cut;//pointer to copied component
+	int CopyOrcut;//An integer to distinguish between Copied and Cut Componenet
 	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
+
+	MODE mode;
+
 public:
 
 
@@ -45,7 +48,8 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 
-	Component* getComponent(int x, int y, GraphicsInfo& r_GfxInfo);
+	Component* getComponent(int, int, GraphicsInfo& r_GfxInfo);
+	Component* getSwitch(int, int, Component*);
 	void UnselectOtherComponents(Component*);
 	void Delete(Component*&);
 
