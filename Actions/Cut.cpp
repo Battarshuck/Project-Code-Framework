@@ -4,7 +4,7 @@
 Cut::Cut(ApplicationManager* pApp, Component* CompSelected, Component*& CompcutAppMang, int& CopyOrcut) : Action(pApp), CutComp(CompcutAppMang)
 {
     ComponentToBeCut = CompSelected;
-    copyorcut = CopyOrcut;
+    CopyOrcut = 2;
 }
 
 Cut::~Cut(void)
@@ -40,7 +40,6 @@ void Cut::Execute()
     else
         pOut->PrintMsg("Cannot Cut, Please Select a Component first");
     
-    copyorcut = 2;
 }
 
 void Cut::Undo()
