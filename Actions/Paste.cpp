@@ -7,6 +7,12 @@
 #include"..\Components\BUFF.h"
 #include"..\Components\LED.h"
 #include"..\Components\Switch.h"
+#include"..\Components\AND2.h"
+#include"..\Components\OR2.h"
+#include"..\Components\NAND2.h"
+#include"..\Components\NOR2.h"
+#include"..\Components\XOR2.h"
+#include"..\Components\XNOR2.h"
 
 Paste::Paste(ApplicationManager* pApp, Component*& CompCopied_Cut, int& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut),copyorcut(CopyOrCut)
 {
@@ -93,7 +99,36 @@ void Paste::Execute()
 				Switch* ptrCOMP = new Switch(GInfo, AND2_FANOUT);
 				pManager->AddComponent(ptrCOMP);
 			}
-			
+			else if (dynamic_cast<OR2*>(PasteComp))
+			{
+				OR2* ptrCOMP = new OR2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<XOR2*>(PasteComp))
+			{
+				XOR2* ptrCOMP = new XOR2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<XNOR2*>(PasteComp))
+			{
+				XNOR2* ptrCOMP = new XNOR2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<NOR2*>(PasteComp))
+			{
+				NOR2* ptrCOMP = new NOR2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<NAND2*>(PasteComp))
+			{
+				NAND2* ptrCOMP = new NAND2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<AND2*>(PasteComp))
+			{
+				AND2* ptrCOMP = new AND2(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
 			//Delete the old Component (in case of Cut only)
 			if (copyorcut == 2)
 			{
