@@ -1,10 +1,16 @@
 #include"Paste.h"
 #include "..\ApplicationManager.h"
-#include<iostream>
+#include"..\Components\AND3.h"
+#include"..\Components\NOR3.h"
+#include"..\Components\XOR3.h"
+#include"..\Components\INV.h"
+#include"..\Components\BUFF.h"
+#include"..\Components\LED.h"
+#include"..\Components\Switch.h"
 
-Paste::Paste(ApplicationManager* pApp, Component*& CompCopied_Cut, int& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut)
+Paste::Paste(ApplicationManager* pApp, Component*& CompCopied_Cut, int& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut),copyorcut(CopyOrCut)
 {
-	copyorcut = CopyOrCut;
+	//copyorcut = CopyOrCut;
 	PasteComp = CompCopied_Cut;
 }
 
@@ -50,14 +56,54 @@ void Paste::Execute()
 
 		if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
 		{
+			//identify the Component type of Copied/Cut Component 
+			//Amr 7ot hena your gates
+			if (dynamic_cast<AND3*>(PasteComp))
+			{
+				AND3* ptrCOMP = new AND3(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<NOR3*>(PasteComp))
+			{
+				NOR3* ptrCOMP = new NOR3(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<XOR3*>(PasteComp))
+			{
+				XOR3* ptrCOMP = new XOR3(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<INV*>(PasteComp))
+			{
+				INV* ptrCOMP = new INV(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<BUFF*>(PasteComp))
+			{
+				BUFF* ptrCOMP = new BUFF(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<LED*>(PasteComp))
+			{
+				LED* ptrCOMP = new LED(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
+			else if (dynamic_cast<Switch*>(PasteComp))
+			{
+				Switch* ptrCOMP = new Switch(GInfo, AND2_FANOUT);
+				pManager->AddComponent(ptrCOMP);
+			}
 			
-			pManager->AddComponent(PasteComp);
-			
+			//Delete the old Component (in case of Cut only)
 			if (copyorcut == 2)
 			{
 				pManager->Delete(DeleteComp);
-				
 				copyorcut = 0;
+			}
+			//unselect old component ( in case of Copy only)
+			else if (copyorcut == 1)
+			{
+				PasteComp->setIsSelected(false);
 			}
 		}
 		else
