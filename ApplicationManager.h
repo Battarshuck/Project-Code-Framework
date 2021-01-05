@@ -19,11 +19,11 @@ private:
 
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
-	Component* ComponentIsSelected;//pointer to component selected
-	GraphicsInfo r_GfxInfoUsed;//parameteres of selected component
-	Component* ComponenetIsCopied_Cut;//pointer to copied component
+	Component* ComponentIsSelected;//pointer to Component Selected
+	GraphicsInfo r_GfxInfoUsed;//parameteres of Selected Component
+	Component* ComponenetIsCopied_Cut;//pointer to Copied Component
 	int CopyOrcut;//an integer to distinguish between Copied and Cut Componenet
-
+	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
 public:
 
 

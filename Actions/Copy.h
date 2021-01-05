@@ -11,12 +11,12 @@
 class Copy :public Action
 {
 private:
-	Component* ComponentToBeCopied;//component to be copied (just Selected)
-	Component*& CopiedComp;//copied component (will be passed to Application Mansger)
+	Component* ComponentToBeCopied;//Pointer to Component to be Copied (just Selected)
+	Component*& CopiedComp;//Pointer to Copied Component (will be passed to Application Mansger)
 	int x, y;	// location of point clicked
-
+	int* CopyOrCut_ptr;//pointer to integer will be assigned to "1" if a Component is Copied
 public:
-	Copy(ApplicationManager* pApp, Component*, Component*&,int&);
+	Copy(ApplicationManager* pApp, Component*, Component*&,int*&);
 	virtual ~Copy(void);
 
 	//Reads parameters required for action to execute
