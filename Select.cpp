@@ -2,11 +2,13 @@
 #include"ApplicationManager.h"
 #include"Defs.H"
 #include"Components/Component.h"
+#include"..\Components\Switch.h"
 
 //constructor
-Select::Select(ApplicationManager* pApp, Component*& ComponentPassed, GraphicsInfo& r_GfxInfo) :Action(pApp), CompSelected(ComponentPassed)
+Select::Select(ApplicationManager* pApp, Component*& ComponentPassed, GraphicsInfo& r_GfxInfo, MODE r_mode) :Action(pApp), CompSelected(ComponentPassed)
 {
 	this->r_GInfo = r_GfxInfo;
+	m_mode = r_mode;
 }
 
 //destructor
@@ -23,7 +25,10 @@ void Select::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 
 	//Print Action Message
-	pOut->PrintMsg("Select a component: Click to select a component");
+	if(m_mode == DESIGN)
+		pOut->PrintMsg("Click on the component you want to select");
+	else
+		pOut->PrintMsg("Click on a switch to change state");
 
 	//Wait for User Input
 	pIn->GetPointClicked(x, y);
@@ -47,18 +52,46 @@ void Select::Execute()
 	Output* pOut = pManager->GetOutput();
 	if (CompSelected)
 	{
-		if (CompSelected->getIsSelected())
+		if (m_mode == DESIGN)
 		{
-			pOut->PrintMsg("Component is Unselected");
-			CompSelected->setIsSelected(false);
-			CompSelected = NULL;
-		}
-		else
-		{
+			
+			
+			if (CompSelected->getIsSelected())
+			{
+				pOut->PrintMsg("Component is Unselected");
+				CompSelected->setIsSelected(false);
+				CompSelected = NULL;
+			}
+			else
+			{
 
-			pOut->PrintMsg("Component is Selected");
-			pManager->UnselectOtherComponents(CompSelected);
-			CompSelected->setIsSelected(true);
+				pOut->PrintMsg("Component is Selected");
+				pManager->UnselectOtherComponents(CompSelected);
+				CompSelected->setIsSelected(true);
+			}
+			
+		}
+
+		else if (m_mode == SIMULATION)
+		{
+			Component* Selected_switch = CompSelected;
+			if (dynamic_cast<Switch*>(Selected_switch))
+			{
+				if ( ((Switch*)Selected_switch)->Getswitch() == LOW )
+				{
+					pOut->PrintMsg("Switch set to High");
+					((Switch*)Selected_switch)->Setswitch(HIGH);
+				}
+				else
+				{
+					pOut->PrintMsg("Switch set to Low");
+					((Switch*)Selected_switch)->Setswitch(LOW);
+				}
+			}
+			else
+			{
+				pOut->PrintMsg("You can NOT select a component in simulation mode");
+			}
 		}
 	}
 }

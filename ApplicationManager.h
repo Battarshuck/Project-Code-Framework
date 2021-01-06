@@ -50,7 +50,8 @@ public:
 	Component* getComponent(int, int, GraphicsInfo& r_GfxInfo);
 	Component* getSwitch(int, int, Component*);
 	void UnselectOtherComponents(Component*);
-	void Delete(Component*&);
+	void UnselectComponent();
+	void Remove(Component*&);
 
 	//destructor
 	~ApplicationManager();

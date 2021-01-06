@@ -3,7 +3,6 @@
 
 AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
 {
-	check = NULL;
 	source = NULL;
 	destination = NULL;
 }
@@ -38,30 +37,23 @@ void AddConnection::ReadActionParameters()
 		Sx2 = source->getLocation().x2;
 		Sy2 = source->getLocation().y2;
 		// checking if the is gate or a switch or a LED
-		if (check = dynamic_cast<Gate*>(source)) 
+		if (dynamic_cast<Gate*>(source)) 
 		{
 			pSrcPin = ((Gate*)source)->getOutputPin();
 			source_OutputConnections = ((Gate*)source)->getOutputConnections();
 		}
-		else if (check = dynamic_cast<Switch*>(source))
+		else if (dynamic_cast<Switch*>(source))
 		{
 			pSrcPin = ((Switch*)source)->getOutputPins();
 			source_OutputConnections = 1;
 		}
-		else if (check = dynamic_cast<LED*>(source))
+		else if (dynamic_cast<LED*>(source))
 		{
 			// a LED cannot be a source component to draw a connection
 			pOut->PrintMsg("Source pin component cannot be a LED");
 			source = NULL;
 			return;
 		}
-
-		/*if (!pSrcPin->ConnectTo())
-		{
-			source = NULL;
-			pOut->PrintMsg("Source pin reached its maximum number of connections");
-			return;
-		}*/
 		
 
 		pOut->ClearStatusBar();
@@ -84,13 +76,13 @@ void AddConnection::ReadActionParameters()
 			Dy2 = destination->getLocation().y2;
 			m_Inputs = ((Gate*)destination)->numInputs();
 
-			if (check = dynamic_cast<Gate*>(destination))
+			if (dynamic_cast<Gate*>(destination))
 			{
 				if (m_Inputs > 1 )
 				{
 					pOut->PrintMsg("Enter the pin number");
 					InputPinNumber = (int)stoi(pIn->GetSrting(pOut));
-					// overloaded getInputPins
+					// overloaded getInputPins to return the Pin in the array 
 					pDstPin = ((Gate*)destination)->getInputPins(InputPinNumber);
 				}
 				else
@@ -99,12 +91,12 @@ void AddConnection::ReadActionParameters()
 				}
 				
 			}
-			else if(check = dynamic_cast<LED*>(destination))
+			else if(dynamic_cast<LED*>(destination))
 			{
 				pDstPin = ((LED*)destination)->getInputPins();
 				m_Inputs = 1;
 			}
-			else if (check = dynamic_cast<Switch*>(destination))
+			else if (dynamic_cast<Switch*>(destination))
 			{
 				// a switch cannot be a destination component to draw a connection
 				pOut->PrintMsg("Destination pin component cannot be a Switch");
@@ -144,11 +136,14 @@ void AddConnection::Execute()
 	//and source and destination are NOT the same component
 	//then run the Execute function
 	Output* pOut = pManager->GetOutput();
+	bool FanOut_check; // to check if the source component reached the "FanOut" or Not 
 	ReadActionParameters();
 	if (source && destination && source != destination) 
 	{
+		
 
 		//Calculate the rectangle Corners
+		//All components have approximately same dimesions as AND2
 		int Len = UI.AND2_Width;
 		int Wdth = UI.AND2_Height;
 
@@ -157,10 +152,14 @@ void AddConnection::Execute()
 		GInfo.y1 = Sy1 + Wdth / 2;
 		GInfo.x2 = Dx1 + 2;
 
-		
+
+
+
+		//-------------------------------Computing Destination Pin Location------------------------------------------
+		// All the Wdth*(constant) are done by Trial  and Error
 		if (m_Inputs == 1) 
-			// if the destination component has 1 input 
 		{
+			// if the destination component has 1 input 
 			GInfo.y2 = Dy1 + Wdth / 2;
 		}
 		else if (m_Inputs == 2)
@@ -193,15 +192,49 @@ void AddConnection::Execute()
 			}
 
 		}
-		
+		//-------------------------------------------------------------------------
 
-		if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3 || m_Inputs == 1)
+
+
+
+
+		if (m_Inputs > 1 &&(InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3))
 		{
-			Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber]);
-			pManager->AddComponent(pA);
+			// if the component has more than one input pin
+			// then the input pin index in the array is "InputPinNumber-1"
+			Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[InputPinNumber-1]);
+			FanOut_check = pSrcPin->ConnectTo(pA);
+
+			if (FanOut_check)
+			{
+				pManager->AddComponent(pA);
+			}
+			else
+			{
+				pOut->PrintMsg("ERROR: Source component reached its Fan Out");
+				delete pA; 
+			}
+		}
+		else if (m_Inputs == 1)
+		{
+			// if the component has only one input pin
+			// then the input pin index in the array is "0"
+			Connection* pA = new Connection(GInfo, pSrcPin, &pDstPin[0]);
+			FanOut_check = pSrcPin->ConnectTo(pA);
+
+			if (FanOut_check)
+			{
+				pManager->AddComponent(pA);
+			}
+			else
+			{
+				pOut->PrintMsg("ERROR: Source component reached its Fan Out");
+				delete pA;
+			}
 		}
 		else 
 		{
+			// if the user entered a invalid input pin number
 			pOut->PrintMsg("ERROR: Invalid Input");
 		}
 

@@ -40,8 +40,3 @@ int Gate::getOutputConnections()
 {
 	return m_OutputPin.getOutputConnections();
 }
-
-//int Gate::getManFanOut() 
-//{
-	//return 
-//}

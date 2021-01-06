@@ -22,12 +22,13 @@ void SwitchMode::Execute()
 	if (m_mode == DESIGN) 
 	{
 		pOut->PrintMsg("Switching to desining mode");
-		UI.AppMode = DESIGN;
+		pOut->CreateDesignToolBar();
 	}
 	else
 	{
 		pOut->PrintMsg("Switching to Simulation mode");
-		UI.AppMode = SIMULATION;
+		pOut->CreateSimulationToolBar();
+		pManager->UnselectComponent();
 	}
 
 }

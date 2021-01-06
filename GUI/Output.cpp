@@ -105,7 +105,7 @@ void Output::CreateDesignToolBar() const
 {
 	//ClearToolBar();
 	UI.AppMode = DESIGN;	//Design Mode
-
+	PrintMsg("Switching to Designing mode");
 	//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each menu item
@@ -142,12 +142,13 @@ void Output::CreateSimulationToolBar() const
 {
 	//ClearToolBar();
 	UI.AppMode = SIMULATION;	//Simulation Mode
+	PrintMsg("Switching to Simulation mode");
 
 	string MenuItemImages[ITM_SIM_CNT];
 	//MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
 	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
 	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
-	MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
+	//MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Delete.jpg";
 	MenuItemImages[ITM_MOVE] = "images\\Menu\\Move.jpg";
 	MenuItemImages[ITM_COPY] = "images\\Menu\\Copy.jpg";

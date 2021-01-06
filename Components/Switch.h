@@ -10,6 +10,8 @@ public:
 	Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	
 	void Setswitch(STATUS);
+
+	STATUS Getswitch();
 	
 	virtual void Operate();	//Calculates the output of the AND gate
 	

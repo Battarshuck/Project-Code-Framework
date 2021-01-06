@@ -20,10 +20,12 @@
 #include "Actions/Copy.h"
 #include "Actions/Paste.h"
 #include "Actions/Cut.h"
+#include "Actions/Delete.h"
 
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
+	mode = DESIGN;
 
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
@@ -117,19 +119,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	//############################################################
 
 		case SELECT:
-			pAct = new Select(this, ComponentIsSelected, r_GfxInfoUsed);
+			pAct = new Select(this, ComponentIsSelected, r_GfxInfoUsed, mode);
 			break;
 
 		case SIM_MODE:
 			mode = SIMULATION;
-			//pAct = new SwitchMode(this, SIMULATION);
-			OutputInterface->CreateSimulationToolBar();
+			pAct = new SwitchMode(this, SIMULATION);
 			break;
 
 		case DSN_MODE:
 			mode = DESIGN;
-			//pAct = new SwitchMode(this, DESIGN);
-			OutputInterface->CreateDesignToolBar();
+			pAct = new SwitchMode(this, DESIGN);
 			break;
 
 		case ADD_Label:
@@ -144,14 +144,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			//pAct = new EditConnection(this, ComponentIsSelected);
 			break;
 
-		case Change_Switch:
-			
-			break;
-
 		case COPY:
 			ComponenetIsCopied_Cut = NULL;
 			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrcut);
 			break;
+
 		case PASTE:
 			pAct = new Paste(this, ComponenetIsCopied_Cut, CopyOrcut);
 			break;
@@ -162,9 +159,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DEL:
-			Delete(ComponentIsSelected);
+			pAct = new Delete(this, ComponentIsSelected);
 			break;
-
+		
 		case SAVE:
 			
 			break;
@@ -270,7 +267,16 @@ void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
 	}
 }
 
-void ApplicationManager::Delete(Component*& comp)
+void ApplicationManager::UnselectComponent()
+{
+	// this functions unselects ALL selected components
+	if(ComponentIsSelected)
+		ComponentIsSelected->setIsSelected(false);
+
+	ComponentIsSelected = NULL;
+}
+
+void ApplicationManager::Remove(Component*& comp)
 {
 	if (comp)
 	{
@@ -304,10 +310,6 @@ void ApplicationManager::Delete(Component*& comp)
 		}
 
 		//deleting component's connections
-	}
-	else
-	{
-		OutputInterface->PrintMsg("Please select a component before Deleting");
 	}
 
 }

@@ -8,12 +8,10 @@ class Select :public Action
 private:
 	// pointer to componenet selected 
 	Component* &CompSelected;
-
-	//size of componenet list
-	int size;
-
-	//
+	
 	GraphicsInfo r_GInfo;
+
+	MODE m_mode;
 
 	//Parameters for rectangular area to be occupied by the gate
 	int x, y;	//location of point clicked
@@ -21,7 +19,7 @@ private:
 	GraphicsInfo m_GfxInfo;
 public:
 	//constructor
-	Select(ApplicationManager* pApp, Component*&, GraphicsInfo& r_GfxInfo);
+	Select(ApplicationManager* pApp, Component*&, GraphicsInfo&, MODE);
 
 	//destructor
 	~Select();

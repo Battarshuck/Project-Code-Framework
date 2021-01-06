@@ -15,6 +15,12 @@ void Switch::Setswitch(STATUS status)
 	Status_Switch = status;
 	
 }
+
+STATUS Switch::Getswitch() 
+{
+	return Status_Switch;
+}
+
 void Switch::Operate()
 {
 

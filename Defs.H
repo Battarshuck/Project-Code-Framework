@@ -27,8 +27,6 @@ enum ActionType
 
 	//Create_TruthTable,	//Create Truth Table of the Circuit
 
-	Change_Switch,		//Change Switch Status in Simulation Mode
-
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
@@ -105,7 +103,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 
 	ITM_ADD_Label,
 	ITM_EDIT_Label,
-	ITM_CHANGE_SWITCH,
 	ITM_DEL,
 	ITM_MOVE,
 	ITM_COPY,

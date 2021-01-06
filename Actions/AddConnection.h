@@ -18,7 +18,6 @@ private:
 
 	Component* source;
 	Component* destination;
-	Component* check;
 	GraphicsInfo m_GfxInfo;
 
 	int CompCount;

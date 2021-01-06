@@ -236,6 +236,9 @@
     <ClCompile Include="Actions\Cut.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Delete.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -432,6 +435,9 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Cut.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Delete.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>
