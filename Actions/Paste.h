@@ -12,20 +12,14 @@
 class Paste :public Action
 {
 private:
-	
-	Component*& DeleteComp;
-	
-	Component* PasteComp;//component that will be pasted
-	
-	int Cx, Cy;	//Center point of the gate
-	
-	int x1, y1, x2, y2;	//Two corners of the rectangluar area
-	
-	int copyorcut;
+	Component*& DeleteComp;//pointer to Sellected Component that will be Deleted (Used Only if the previous action was cut)
+	Component*& SelectedComp;//pointer to Sellected Component that will be Unselected 
+	Component* PasteComp;//pointer to Component that will be pasted	
+	int Cx, Cy;	//Center point of the gate	
+	int x1, y1, x2, y2;	//Two corners of the rectangluar area	
+	int* copyorcut; //pointer to integer that distinguish between the Cut and Copy (The Previous Action Excuted)
 public:
-	
-	Paste(ApplicationManager* pApp, Component*&, int&);
-	
+	Paste(ApplicationManager* pApp, Component*&, Component*&, int*&);
 	virtual ~Paste(void);
 
 	//Reads parameters required for action to execute

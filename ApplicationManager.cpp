@@ -33,13 +33,16 @@ ApplicationManager::ApplicationManager()
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
-	//initializing componentIsSelected to NULL
+	//initializing ComponentIsSelected to NULL
 	ComponentIsSelected = NULL;
 	//initializing ComponenetIsCopied to NULL
 	ComponenetIsCopied_Cut = NULL;
-	//0 is the default value of this integer(no component is copied or cut), 
-	//1 indicates a component is copied, 2 indicates that a component is cut
-	CopyOrcut = 0;
+
+	CopyOrcut = 0;// 0 is the default value of this integer(no component is copied or cut), 
+	//1 indicates a component is copied,
+	//2 indicates that a component is cut
+	
+	CopyOrCut_ptr = &CopyOrcut;//Pointer to CopyOrcut
 }
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
@@ -146,16 +149,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case COPY:
 			ComponenetIsCopied_Cut = NULL;
-			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrcut);
+			pAct = new Copy(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrCut_ptr);
 			break;
 
 		case PASTE:
-			pAct = new Paste(this, ComponenetIsCopied_Cut, CopyOrcut);
+			pAct = new Paste(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrCut_ptr);
 			break;
 
 		case CUT:
 			ComponenetIsCopied_Cut = NULL;
-			pAct = new Cut(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrcut);
+			pAct = new Cut(this, ComponentIsSelected, ComponenetIsCopied_Cut, CopyOrCut_ptr);
 			break;
 
 		case DEL:

@@ -23,6 +23,7 @@ private:
 	GraphicsInfo r_GfxInfoUsed;//parameteres of selected component
 	Component* ComponenetIsCopied_Cut;//pointer to copied component
 	int CopyOrcut;//An integer to distinguish between Copied and Cut Componenet
+	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
 
 	MODE mode;
 

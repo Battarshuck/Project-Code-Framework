@@ -11,17 +11,18 @@
 class Cut :public Action
 {
 private:
-    Component* ComponentToBeCut;//component to be copied (just Selected)
-    Component*& CutComp;//copied component (will be passed to Application Mansger)
+    Component* ComponentToBeCut;//pointer to Component to be Cut (just Selected)
+    Component*& CutComp;//pointer to Cut Component (will be passed to Application Mansger)
     int x, y;    // location of point clicked
-    int copyorcut;
+    int* CopyOrCut_ptr; //pointer to integer will be assigned to "2" if a Component is cut
 
 public:
-    Cut(ApplicationManager* pApp, Component*, Component*&, int&);
+    Cut(ApplicationManager* pApp, Component*, Component*&, int*&);
     virtual ~Cut(void);
 
     //Reads parameters required for action to execute
     virtual void ReadActionParameters();
+
     //Execute action (code depends on action type)
     virtual void Execute();
 

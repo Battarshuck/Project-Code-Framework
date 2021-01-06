@@ -14,9 +14,9 @@
 #include"..\Components\XOR2.h"
 #include"..\Components\XNOR2.h"
 
-Paste::Paste(ApplicationManager* pApp, Component*& CompCopied_Cut, int& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut),copyorcut(CopyOrCut)
+Paste::Paste(ApplicationManager* pApp, Component*& SelectedComp, Component*& CompCopied_Cut, int*& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut),copyorcut( CopyOrCut), SelectedComp(SelectedComp)
 {
-	//copyorcut = CopyOrCut;
+	//copyorcut =  CopyOrCut;
 	PasteComp = CompCopied_Cut;
 }
 
@@ -130,20 +130,22 @@ void Paste::Execute()
 				pManager->AddComponent(ptrCOMP);
 			}
 			//Delete the old Component (in case of Cut only)
-			if (copyorcut == 2)
+			// and make the pointer ComponentIsSelected in AppManager points to NULL
+			if (*copyorcut == 2)
 			{
 				pManager->Delete(DeleteComp);
 				SelectedComp = NULL;
 				*copyorcut = 0;
 			}
 			//unselect old component ( in case of Copy only)
-			else if (copyorcut == 1)
+			else if (*copyorcut == 1)
 			{
 				PasteComp->setIsSelected(false);
+				SelectedComp = NULL;
 			}
 		}
 		else
-			pOut->PrintMsg("Cannot add here, Please click on Drawing Area");
+			pOut->PrintMsg("Cannot Paste here, Please click on Drawing Area");
 
 	}
 	else
