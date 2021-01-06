@@ -132,8 +132,9 @@ void Paste::Execute()
 			//Delete the old Component (in case of Cut only)
 			if (copyorcut == 2)
 			{
-				pManager->Remove(DeleteComp);
-				copyorcut = 0;
+				pManager->Delete(DeleteComp);
+				SelectedComp = NULL;
+				*copyorcut = 0;
 			}
 			//unselect old component ( in case of Copy only)
 			else if (copyorcut == 1)
