@@ -14,7 +14,7 @@ struct UI_Info	//User Interface Info.
 {
 	MODE AppMode;		//Application Mode (design or simulation)
 	
-	 const int	width = 1400, height = 800,	//Window width and height
+	 static const int	width = 1400, height = 800,	//Window width and height
 						wx = 15 , wy = 15,			//Window starting coordinates
 						StatusBarHeight = 50,	//Status Bar Height
 						ToolBarHeight = 70,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
@@ -31,23 +31,23 @@ struct UI_Info	//User Interface Info.
 
 	//This should be calculated accurately because it will be used later to create connections between gates
 	//For now, we will assume that rect width = 50 and height = 50
-	const int	AND2_Width = 80,		//AND2 Gate Image default width
-				AND2_Height = 55,		//AND2 Gate Image default height
+	static const int	AND2_Width = 80,		//AND2 Gate Image default width
+						AND2_Height = 55,		//AND2 Gate Image default height
 
-				OR2_Width = 80,
-				OR2_Height = 55,
+						OR2_Width = 80,
+						OR2_Height = 55,
 
-				NOR2_Width = 85,
-				NOR2_Height = 55,
+						NOR2_Width = 85,
+						NOR2_Height = 55,
 
-				NOT_Width = 80,
-				NOT_Height = 55,
+						NOT_Width = 80,
+						NOT_Height = 55,
 
-				LED_Width = 40,
-				LED_Height = 50,
+						LED_Width = 40,
+						LED_Height = 50,
 
-				SWITCH_Width = 50,
-				SWITCH_Height = 40;
+						SWITCH_Width = 50,
+						SWITCH_Height = 40;
 	
 }UI;	//create a single global object UI
 

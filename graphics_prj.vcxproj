@@ -145,6 +145,7 @@
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Cut.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\EditConnection.cpp" />
     <ClCompile Include="Actions\EditLabel.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\SwitchMode.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\Cut.h" />
     <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\EditConnection.h" />
     <ClInclude Include="Actions\EditLabel.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\SwitchMode.h" />

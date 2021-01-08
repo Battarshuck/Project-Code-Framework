@@ -23,7 +23,6 @@ enum ActionType
 
 	ADD_Label,			//Add Label to a Component, a Connection
 	EDIT_Label,			//Edit Label of a Component, a Connection
-	EDIT_Connection,
 
 	//Create_TruthTable,	//Create Truth Table of the Circuit
 
@@ -40,6 +39,7 @@ enum ActionType
 
 	UNDO,		//Undo the last Action preformed
 	REDO,		//Redo the last Action canceled
+	EDIT_Connection,
 
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
@@ -86,7 +86,6 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_Switch,
 
 	ITM_EXIT,		//Exit item
-	//TODO: Add more items names here
 	
 	ITM_DSN_CNT		//no. of design menu items ==> This should be the last line in this enum
 	
@@ -98,8 +97,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	//Note: Items are ordered here as they appear in menu
 	//ITM_SIM,	//Simulate menu item
 	//ITM_TRUTH,	//Truth table menu item
-	
-	//TODO:Add more items names here
 
 	ITM_ADD_Label,
 	ITM_EDIT_Label,
@@ -112,6 +109,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_LOAD,
 	ITM_UNDO,
 	ITM_REDO,
+	ITM_EDIT_CONNECTION,
 	ITM_DSN_MODE,
 	ITM_SIM_MODE,
 	

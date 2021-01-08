@@ -8,6 +8,7 @@ Switch::Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut) : m_OutputPin(r_FanO
 
 	//set status of switch
 	Setswitch(LOW);
+	m_OutputPin.setComponent(this);
 }
 
 void Switch::Setswitch(STATUS status)
@@ -62,7 +63,7 @@ void Switch::setInputPinStatus(int n, STATUS s)
 
 }
 
-OutputPin* Switch::getOutputPins()
+OutputPin* Switch::getOutputPin()
 {
 	return &m_OutputPin;
 }

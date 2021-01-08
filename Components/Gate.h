@@ -26,7 +26,6 @@ public:
 	virtual OutputPin* getOutputPin();
 	int numInputs();
 	int getOutputConnections();
-	//int getManFanOut();
 
 };
 

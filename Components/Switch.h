@@ -23,7 +23,7 @@ public:
 
 	virtual void setInputPinStatus(int, STATUS);
 
-	OutputPin* getOutputPins();
+	virtual OutputPin* getOutputPin();
 };
 
 

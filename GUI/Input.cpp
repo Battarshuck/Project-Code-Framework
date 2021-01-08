@@ -122,6 +122,7 @@ ActionType Input::GetUserAction() const
 				case ITM_LOAD:return LOAD;
 				case ITM_UNDO:return UNDO;
 				case ITM_REDO:return REDO;
+				case ITM_EDIT_CONNECTION:return EDIT_Connection;
 			}
 		}
 

@@ -21,6 +21,8 @@
 #include "Actions/Paste.h"
 #include "Actions/Cut.h"
 #include "Actions/Delete.h"
+#include "Actions/EditConnection.h"
+
 
 ApplicationManager::ApplicationManager()
 {
@@ -144,7 +146,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EDIT_Connection:
-			//pAct = new EditConnection(this, ComponentIsSelected);
+			pAct = new EditConnection(this, ComponentIsSelected);
 			break;
 
 		case COPY:
@@ -241,9 +243,9 @@ Component* ApplicationManager::getSwitch(int x, int y, Component* SwitchSelected
 	Component* component = NULL;
 	for (int i = 0; i < CompCount; i++)
 	{
-		if (CompList[i] != NULL)
+		if (CompList[i] != NULL && dynamic_cast<Switch*>(SwitchSelected))
 		{
-			if (CompList[i]->InArea(x, y) && dynamic_cast<Switch*>(SwitchSelected))
+			if (CompList[i]->InArea(x, y))
 			{
 				component = CompList[i];
 				break;
@@ -257,6 +259,7 @@ Component* ApplicationManager::getSwitch(int x, int y, Component* SwitchSelected
 void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
 {
 	// this functions unselects previously selected components
+	// it is used when selecting a new component to unselect the previous one
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (CompList[i] != NULL)
@@ -311,8 +314,39 @@ void ApplicationManager::Remove(Component*& comp)
 			CompCount--;
 
 		}
-
-		//deleting component's connections
 	}
+}
 
+
+void ApplicationManager::Remove_Connections(OutputPin* SrcPin, InputPin* DesPin)
+{
+	
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] && dynamic_cast<Connection*>(CompList[i]))
+		{
+
+			if (SrcPin == ((Connection*)CompList[i])->getSourcePin() || DesPin == ((Connection*)CompList[i])->getDestPin())
+			{
+				delete CompList[i];
+				CompList[i] = NULL;
+
+				for (int j = i; j < CompCount; j++)
+				{
+					// shift every element to the left
+					CompList[j] = CompList[j + 1];
+				}
+
+				//Reducing i-- because I want to check also the shifted components
+				//if I didn't reduce i-- that could cause that a connection
+				//not getting deleted, because in the shifting process
+				//we shift every element to the left, and the shifted the first element
+				//could be a connection, and when the loop continues it will skip 
+				//the first shifted element in the array
+				i--;
+				CompCount--;
+			}
+
+		}
+	}
 }
