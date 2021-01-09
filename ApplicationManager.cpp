@@ -192,9 +192,30 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 void ApplicationManager::UpdateInterface()
 {
 	OutputInterface->ClearDrawingArea();
-	for(int i=0; i<CompCount; i++)
-		CompList[i]->Draw(OutputInterface);
+	for (int i = 0; i < CompCount; i++)
+	{
+		if(mode == DESIGN)
+			CompList[i]->Draw(OutputInterface);
+		else
+		{
+			CompList[i]->Operate();
+			CompList[i]->Draw(OutputInterface);
+			//to update the drawing area after calling the operate function of each gate
+			//because some of the components inside the compList won't catch 
+			//the change in Pins status instantaneously
+			Refresh();
+		}
+	}
 
+}
+
+void ApplicationManager::Refresh()
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		CompList[i]->Operate();
+		CompList[i]->Draw(OutputInterface);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////

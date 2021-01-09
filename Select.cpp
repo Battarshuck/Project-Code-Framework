@@ -77,7 +77,7 @@ void Select::Execute()
 			Component* Selected_switch = CompSelected;
 			if (dynamic_cast<Switch*>(Selected_switch))
 			{
-				if ( ((Switch*)Selected_switch)->Getswitch() == LOW )
+				if ( ((Switch*)Selected_switch)->GetOutPinStatus() == LOW )
 				{
 					pOut->PrintMsg("Switch set to High");
 					((Switch*)Selected_switch)->Setswitch(HIGH);
