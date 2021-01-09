@@ -17,7 +17,7 @@ string Input::GetSrting(Output *pOut)
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 
-	string StringDisp;
+	string StringDisplayed;
 	char EnteredChar;
 	keytype PressedKey;
 	pWind->FlushKeyQueue();  //All previous clicks are erased here
@@ -36,26 +36,26 @@ string Input::GetSrting(Output *pOut)
 		}
 		else if (EnteredChar == '\b')   //if the entered character was a "Backspace" 
 		{
-			if (StringDisp.length() > 0)
+			if (StringDisplayed.length() > 0)
 			{
-				int StringLength = StringDisp.length();
-				StringDisp.erase(StringLength - 1, 1);
-				pOut->PrintMsg(StringDisp);
+				int StringLength = StringDisplayed.length();
+				StringDisplayed.erase(StringLength - 1, 1);
+				pOut->PrintMsg(StringDisplayed);
 			}
 			else if (PressedKey == ESCAPE)
 			{
-				StringDisp.clear();
+				StringDisplayed.clear();
 				pOut->PrintMsg(" ");
 				break;
 			}
 			else //If the entered character is neither "Enter" or "Backspace"
 			{
-				StringDisp += EnteredChar; //The entered character is added to the displayed string on the status bar
+				StringDisplayed += EnteredChar; //The entered character is added to the displayed string on the status bar
 				
-				pOut->PrintMsg(StringDisp);
+				pOut->PrintMsg(StringDisplayed);
 			}
 		}
-		return StringDisp;
+		return StringDisplayed;
 
 	}
 }
