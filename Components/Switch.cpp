@@ -1,4 +1,7 @@
 #include "Switch.h"
+#include"./Connection.h"
+
+
 Switch::Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut) : m_OutputPin(r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -13,7 +16,7 @@ Switch::Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut) : m_OutputPin(r_FanO
 
 void Switch::Setswitch(STATUS status)
 {
-	Status_Switch = status;
+	m_OutputPin.setStatus(status);
 	
 }
 
@@ -24,19 +27,18 @@ STATUS Switch::Getswitch()
 
 void Switch::Operate()
 {
+	//int num_connections = m_OutputPin.getNum_Connections();
+
 
 	
-	//caclulate the output status as the XORing of the two input pins
-//Add you code here
 }
 
 
 // Function Draw
-// Draws 2-input AND gate
 void Switch::Draw(Output* pOut )
 {
 	//Call output class and pass gate drawing info to it.
-	if (Status_Switch==LOW)
+	if (m_OutputPin.getStatus() == LOW)
 		pOut->DrawSWITCHOFF(m_GfxInfo, Component::getIsSelected());
 	else
 		pOut->DrawSWITCHON(m_GfxInfo, Component::getIsSelected());
@@ -60,7 +62,7 @@ int Switch::GetInputPinStatus(int n)
 
 void Switch::setInputPinStatus(int n, STATUS s)
 {
-
+	
 }
 
 OutputPin* Switch::getOutputPin()

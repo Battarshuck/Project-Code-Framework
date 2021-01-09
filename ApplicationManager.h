@@ -43,6 +43,7 @@ public:
 	void ExecuteAction(ActionType);
 	
 	void UpdateInterface();	//Redraws all the drawing window
+	void Refresh();
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();

@@ -28,7 +28,10 @@ public:
 	int getOutputConnections();
 	bool isConnected();
 	void setComponent(Component* pCmp);	
+
 	Component* getComponent();	
+	Connection* getConnection(int);
+	int getNum_Connections();
 };
 
 #endif

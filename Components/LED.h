@@ -19,7 +19,7 @@ protected:
 public:
 	LED(const GraphicsInfo& r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of the LED
-	virtual void Draw(Output* pOut);	//Draws 1-input LED
+	virtual void Draw(Output* pOut);	//Draws LED
 
 	//set led status
 	void setLEDStatus(STATUS stat);

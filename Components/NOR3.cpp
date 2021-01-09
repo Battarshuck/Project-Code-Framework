@@ -10,23 +10,10 @@ NOR3::NOR3(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 
 void NOR3::Operate()
 {
-	Pin m;
-	if (m_InputPins[0].getStatus() == LOW && m_InputPins[1].getStatus() == LOW)
-
-		m.setStatus(HIGH);
-
-	else
-
+	if (GetInputPinStatus(1) == HIGH ||  GetInputPinStatus(2) == HIGH || GetInputPinStatus(3) == HIGH)
 		m_OutputPin.setStatus(LOW);
-
-	if (m.getStatus() == LOW && m_InputPins[2].getStatus() == LOW)
-
-		m_OutputPin.setStatus(LOW);
-
 	else
-
 		m_OutputPin.setStatus(HIGH);
-
 }
 
 
