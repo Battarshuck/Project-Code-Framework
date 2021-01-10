@@ -1,4 +1,11 @@
-3
-AND2 0 217 338
-AND2 1 664 358
+7
+Switch  20 184
+Switch  -14 294
+AND2 0  146 248
+Led  914 263
 Connections
+0 1 2
+Connections
+3 0 1
+Connections
+5 0 2
