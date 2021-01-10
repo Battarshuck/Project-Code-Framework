@@ -26,9 +26,14 @@ InputPin* LED::getInputPins()
 
 void LED::Operate()
 {
-	//caclulate the output status as the ANDing of the two input pins
-
-	//Add you code here
+	if (m_InputPin.getStatus() == HIGH)
+	{
+		setLEDStatus(HIGH);
+	}
+	else
+	{
+		setLEDStatus(LOW);
+	}
 }
 
 
@@ -37,10 +42,10 @@ void LED::Operate()
 void LED::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	if(status_LED==LOW)
+	if(m_InputPin.getStatus() == LOW)
 		pOut->DrawLEDOFF(m_GfxInfo, Component::getIsSelected());
 	else
-		pOut->DrawLEDOFF(m_GfxInfo, Component::getIsSelected());
+		pOut->DrawLEDON(m_GfxInfo, Component::getIsSelected());
 	string m_Label = Component::getLabel();
 	pOut->DrawString(m_GfxInfo, m_Label);
 }
@@ -64,6 +69,7 @@ void LED::setInputPinStatus(int n, STATUS s)
 	m_InputPin.setStatus(s);
 }
 
+
 //save 
 void LED::SaveComponent(ofstream& outputFile)
 {
@@ -75,3 +81,4 @@ void LED::LoadComponent()
 {
 
 }
+

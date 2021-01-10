@@ -10,15 +10,15 @@ XOR2::XOR2(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut)
 
 void XOR2::Operate()
 {
-	if (m_InputPins[0].getStatus() == LOW && m_InputPins[1].getStatus() == LOW)
+	if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == LOW)
 
 		m_OutputPin.setStatus(LOW);
 
-	else if (m_InputPins[0].getStatus() == LOW && m_InputPins[1].getStatus() == HIGH)
+	else if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == HIGH)
 
 		m_OutputPin.setStatus(HIGH);
 
-	else if (m_InputPins[0].getStatus() == HIGH && m_InputPins[1].getStatus() == LOW)
+	else if (GetInputPinStatus(1) == HIGH && GetInputPinStatus(2) == LOW)
 
 		m_OutputPin.setStatus(HIGH);
 

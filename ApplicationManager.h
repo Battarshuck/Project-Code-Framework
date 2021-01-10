@@ -7,6 +7,9 @@
 #include "Actions\Action.h"
 #include "Components\Component.h"
 #include <fstream>
+#include "..\Components\Pin.h"
+#include "..\Components\OutputPin.h"
+#include "..\Components\InputPin.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -41,6 +44,7 @@ public:
 	void ExecuteAction(ActionType);
 	
 	void UpdateInterface();	//Redraws all the drawing window
+	void Refresh();
 
 	//Gets a pointer to Input / Output Object
 	Output* GetOutput();
@@ -48,12 +52,15 @@ public:
 
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
-
+	//Components getters
 	Component* getComponent(int, int, GraphicsInfo& r_GfxInfo);
 	Component* getSwitch(int, int, Component*);
+	//unselect functions
 	void UnselectOtherComponents(Component*);
 	void UnselectComponent();
+	//Remove functions
 	void Remove(Component*&);
+	void Remove_Connections(OutputPin* = NULL, InputPin* = NULL);
 
 	// Save components
 	void save(ofstream&);

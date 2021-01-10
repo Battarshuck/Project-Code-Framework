@@ -148,7 +148,6 @@ void Output::CreateSimulationToolBar() const
 	//MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
 	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
 	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
-	//MenuItemImages[ITM_CHANGE_SWITCH] = "images\\Menu\\ChangeSwitch.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Delete.jpg";
 	MenuItemImages[ITM_MOVE] = "images\\Menu\\Move.jpg";
 	MenuItemImages[ITM_COPY] = "images\\Menu\\Copy.jpg";
@@ -158,6 +157,7 @@ void Output::CreateSimulationToolBar() const
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Load.jpg";
 	MenuItemImages[ITM_UNDO] = "images\\Menu\\Undo.jpg";
 	MenuItemImages[ITM_REDO] = "images\\Menu\\Redo.jpg";
+	MenuItemImages[ITM_EDIT_CONNECTION] = "images\\Menu\\EditConnection.jpg";
 	MenuItemImages[ITM_DSN_MODE] = "images\\Menu\\Design.jpg";
 	MenuItemImages[ITM_SIM_MODE] = "images\\Menu\\Simulation.jpg";
 

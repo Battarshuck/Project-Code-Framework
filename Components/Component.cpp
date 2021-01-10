@@ -16,12 +16,12 @@ string Component::getLabel()
 	return m_Label;
 }
 
-//fn setIsSelected
+//function setIsSelected
 void Component::setIsSelected(bool select)
 {
 	IsSelected = select;
 }
-//fn getIsSelected
+//function getIsSelected
 bool Component::getIsSelected()
 {
 	return IsSelected;

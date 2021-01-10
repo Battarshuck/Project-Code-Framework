@@ -46,6 +46,7 @@ void AddANDgate2::Execute()
 	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
 	{
 		AND2* pA = new AND2(GInfo, AND2_FANOUT);
+		
 		pManager->AddComponent(pA);
 	}
 	else
@@ -54,8 +55,10 @@ void AddANDgate2::Execute()
 }
 
 void AddANDgate2::Undo()
-{}
+{
+}
 
 void AddANDgate2::Redo()
-{}
+{
+}
 

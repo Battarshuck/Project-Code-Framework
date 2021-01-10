@@ -11,9 +11,37 @@ XOR3::XOR3(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 
 void XOR3::Operate()
 {
-	//caclulate the output status as the ANDing of the two input pins
+	if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == LOW && GetInputPinStatus(3) == LOW)
 
-	//Add you code here
+		m_OutputPin.setStatus(LOW);
+
+	else if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == LOW && GetInputPinStatus(3) == HIGH)
+
+		m_OutputPin.setStatus(HIGH);
+
+	else if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == HIGH && GetInputPinStatus(3) == LOW)
+
+		m_OutputPin.setStatus(HIGH);
+
+	else if (GetInputPinStatus(1) == LOW && GetInputPinStatus(2) == HIGH && GetInputPinStatus(3) == HIGH)
+
+		m_OutputPin.setStatus(LOW);//
+	
+	else if (GetInputPinStatus(1) == HIGH && GetInputPinStatus(2) == LOW && GetInputPinStatus(3) == LOW)
+
+		m_OutputPin.setStatus(HIGH);
+
+	else if (GetInputPinStatus(1) == HIGH && GetInputPinStatus(2) == LOW && GetInputPinStatus(3) == HIGH)
+
+		m_OutputPin.setStatus(LOW);
+
+	else if (GetInputPinStatus(1) == HIGH && GetInputPinStatus(2) == HIGH && GetInputPinStatus(3) == LOW)
+
+		m_OutputPin.setStatus(LOW);
+
+	else if (GetInputPinStatus(1) == HIGH && GetInputPinStatus(2) == HIGH && GetInputPinStatus(3) == HIGH)
+
+		m_OutputPin.setStatus(HIGH);
 }
 
 

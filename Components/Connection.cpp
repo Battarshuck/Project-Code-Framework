@@ -8,6 +8,13 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
 }
+
+Connection::~Connection()
+{
+	SrcPin->Disconnect(this);
+	DstPin->Disconnect(this);
+}
+
 void Connection::setSourcePin(OutputPin *pSrcPin)
 {	SrcPin = pSrcPin;	}
 
@@ -114,3 +121,5 @@ void Connection::LoadComponent()
 {
 
 }
+
+

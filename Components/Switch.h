@@ -23,10 +23,10 @@ public:
 
 	virtual void setInputPinStatus(int, STATUS);
 
-	OutputPin* getOutputPins();
-
+	virtual OutputPin* getOutputPin();
 	virtual void SaveComponent(ofstream&);//save Switch
 	virtual void LoadComponent();//Load Switch
+
 };
 
 

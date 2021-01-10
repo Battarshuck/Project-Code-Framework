@@ -133,7 +133,7 @@ void Paste::Execute()
 			// and make the pointer ComponentIsSelected in AppManager points to NULL
 			if (*copyorcut == 2)
 			{
-				//pManager->Delete(DeleteComp);
+				pManager->Remove(DeleteComp);
 				SelectedComp = NULL;
 				*copyorcut = 0;
 			}

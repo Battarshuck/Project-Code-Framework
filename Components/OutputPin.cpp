@@ -21,15 +21,59 @@ bool OutputPin::ConnectTo(Connection *r_Conn)
 	return false;	//can't connect to any more connections
 }
 
+Connection* OutputPin::getConnection(int index)
+{
+	return m_Connections[index];
+}
+
+int OutputPin::getNum_Connections() 
+{
+	return m_Conn;
+}
+
+void OutputPin::Disconnect(Connection* r_conn)
+{
+	
+	int i;
+	bool check = false; 
+	for (i = 0; i < m_Conn; i++)
+	{
+		if (m_Connections[i] == r_conn)
+		{
+			check = true;
+			break;
+		}
+	}
+
+	if (check)
+	{
+		m_Connections[i] = NULL;
+
+		if (i < m_Conn)
+		{
+
+			for (int j = i; j < m_Conn; j++)
+			{
+				m_Connections[j] = m_Connections[j + 1];
+			}
+
+			m_Conn--;
+
+		}
+	}
+
+}
+
 int OutputPin::getOutputConnections()
 {
 	return m_Conn;
 }
 
-int OutputPin::getFanOut() 
+Component* OutputPin::getComponent()
 {
-	return m_FanOut;
+	return pComp;
 }
+
 
 Component* OutputPin::getComponent()
 {
@@ -40,3 +84,14 @@ void OutputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;
 }
+
+
+bool OutputPin::isConnected()
+{
+	if (m_Conn == m_FanOut)
+		return true;
+	
+	return false;
+}
+
+

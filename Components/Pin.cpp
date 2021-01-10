@@ -14,3 +14,5 @@ STATUS Pin::getStatus()
 {
 	return m_Status;
 }
+
+void Pin::Disconnect() {}

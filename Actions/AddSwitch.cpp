@@ -44,7 +44,7 @@ void AddSwitch::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
 	{
-	Switch* pA = new Switch(GInfo, 0);
+	Switch* pA = new Switch(GInfo, AND2_FANOUT);
 	pManager->AddComponent(pA);
 	}
 	else

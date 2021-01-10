@@ -56,8 +56,6 @@ string Input::GetSrting(Output *pOut)
 		}
 	}
 	return a;
-
-
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -122,6 +120,7 @@ ActionType Input::GetUserAction() const
 				case ITM_LOAD:return LOAD;
 				case ITM_UNDO:return UNDO;
 				case ITM_REDO:return REDO;
+				case ITM_EDIT_CONNECTION:return EDIT_Connection;
 			}
 		}
 

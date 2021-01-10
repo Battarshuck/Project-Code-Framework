@@ -11,9 +11,10 @@ BUFF::BUFF(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 
 void BUFF::Operate()
 {
-	//caclulate the output status as the BUFFing of the input pin
-
-	//Add you code here
+	if (GetInputPinStatus(1) == HIGH )
+		m_OutputPin.setStatus(HIGH);
+	else
+		m_OutputPin.setStatus(LOW);
 }
 
 

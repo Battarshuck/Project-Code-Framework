@@ -19,6 +19,7 @@ private:
 	Component* source;
 	Component* destination;
 	GraphicsInfo m_GfxInfo;
+	GraphicsInfo GInfo;
 
 	int CompCount;
 
@@ -28,8 +29,11 @@ private:
 	int InputPinNumber;
 	int m_Inputs;
 	int source_OutputConnections;
+
 public:
 	AddConnection(ApplicationManager* pApp);
+	AddConnection(ApplicationManager* pApp, Component*, Component*, int = 1);
+
 	virtual ~AddConnection(void);
 
 	//Reads parameters required for action to execute
@@ -39,6 +43,8 @@ public:
 
 	virtual void Undo();
 	virtual void Redo();
+
+	void ComputeCoordinations();
 
 
 };

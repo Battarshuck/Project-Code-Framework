@@ -3,6 +3,8 @@
 
 #include "..\Defs.h"
 #include "..\GUI\Output.h"
+#include"OutputPin.h"
+#include"InputPin.h"
 
 
 //Base class for classes Gate, Switch, and LED.
