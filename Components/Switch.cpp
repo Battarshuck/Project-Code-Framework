@@ -1,4 +1,6 @@
 #include "Switch.h"
+#include<fstream>
+using namespace std;
 Switch::Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut) : m_OutputPin(r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -6,6 +8,7 @@ Switch::Switch(const GraphicsInfo& r_GfxInfo, int r_FanOut) : m_OutputPin(r_FanO
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
 
+	m_OutputPin.setComponent(this);
 	//set status of switch
 	Setswitch(LOW);
 }
@@ -65,4 +68,16 @@ void Switch::setInputPinStatus(int n, STATUS s)
 OutputPin* Switch::getOutputPins()
 {
 	return &m_OutputPin;
+}
+
+//save 
+void Switch::SaveComponent(ofstream& outputFile)
+{
+	outputFile << "Switch " << getLabel() <<" "<<m_GfxInfo.x1 <<" "<< m_GfxInfo.y1 <<endl;
+}
+
+//Load gate
+void Switch::LoadComponent()
+{
+
 }

@@ -26,7 +26,15 @@ bool Component::getIsSelected()
 {
 	return IsSelected;
 }
-
+//Set and Get Component ID
+void Component:: Set_Comp_ID(int Comp_Index)
+{
+	Comp_ID = Comp_Index;
+}
+int Component::Get_Comp_Id()
+{
+	return Comp_ID;
+}
 
 bool Component::InArea(int x, int y) 
 {
@@ -54,3 +62,14 @@ Component::Component()
 Component::~Component()
 {}
 
+//save 
+void Component::SaveComponent(ofstream&)
+{
+
+}
+
+//Load gate
+void Component::LoadComponent()
+{
+
+}

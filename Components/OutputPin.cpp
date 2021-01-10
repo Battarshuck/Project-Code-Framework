@@ -30,3 +30,13 @@ int OutputPin::getFanOut()
 {
 	return m_FanOut;
 }
+
+Component* OutputPin::getComponent()
+{
+	return pComp;
+}
+
+void OutputPin::setComponent(Component* pCmp)
+{
+	this->pComp = pCmp;
+}

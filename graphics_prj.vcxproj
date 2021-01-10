@@ -146,7 +146,9 @@
     <ClCompile Include="Actions\Cut.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\EditLabel.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\SwitchMode.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -229,7 +231,9 @@
     <ClInclude Include="Actions\Cut.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\EditLabel.h" />
+    <ClInclude Include="Actions\Load.h" />
     <ClInclude Include="Actions\Paste.h" />
+    <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\SwitchMode.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />

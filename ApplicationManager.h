@@ -6,6 +6,7 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include <fstream>
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -24,7 +25,7 @@ private:
 	Component* ComponenetIsCopied_Cut;//pointer to copied component
 	int CopyOrcut;//An integer to distinguish between Copied and Cut Componenet
 	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
-
+	//ifstream inputFile;//
 	MODE mode;
 
 public:
@@ -53,6 +54,11 @@ public:
 	void UnselectOtherComponents(Component*);
 	void UnselectComponent();
 	void Remove(Component*&);
+
+	// Save components
+	void save(ofstream&);
+	//Load components
+	void load(ifstream&);
 
 	//destructor
 	~ApplicationManager();

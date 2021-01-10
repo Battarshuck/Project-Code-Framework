@@ -45,3 +45,15 @@ void NAND2::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
+
+//save 
+void NAND2::SaveComponent(ofstream&)
+{
+
+}
+
+//Load gate
+void NAND2::LoadComponent()
+{
+
+}

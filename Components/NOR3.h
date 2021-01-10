@@ -11,6 +11,9 @@ public:
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
+
+	virtual void SaveComponent(ofstream&);//save NOR3 gate
+	virtual void LoadComponent();//Load NOR3 gate
 };
 
 
