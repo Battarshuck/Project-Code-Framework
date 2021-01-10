@@ -44,3 +44,15 @@ void NOR3::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
+
+//save 
+void NOR3::SaveComponent(ofstream&)
+{
+
+}
+
+//Load gate
+void NOR3::LoadComponent()
+{
+
+}

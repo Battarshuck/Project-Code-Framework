@@ -74,10 +74,17 @@ Component* OutputPin::getComponent()
 	return pComp;
 }
 
+
+Component* OutputPin::getComponent()
+{
+	return pComp;
+}
+
 void OutputPin::setComponent(Component* pCmp)
 {
 	this->pComp = pCmp;
 }
+
 
 bool OutputPin::isConnected()
 {
@@ -86,4 +93,5 @@ bool OutputPin::isConnected()
 	
 	return false;
 }
+
 

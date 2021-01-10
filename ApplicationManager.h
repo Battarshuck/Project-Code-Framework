@@ -6,6 +6,7 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include <fstream>
 #include "..\Components\Pin.h"
 #include "..\Components\OutputPin.h"
 #include "..\Components\InputPin.h"
@@ -27,7 +28,7 @@ private:
 	Component* ComponenetIsCopied_Cut;//pointer to copied component
 	int CopyOrcut;//An integer to distinguish between Copied and Cut Componenet
 	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
-
+	//ifstream inputFile;//
 	MODE mode;
 
 public:
@@ -63,6 +64,11 @@ public:
 	void Remove_Connections(OutputPin* = NULL, InputPin* = NULL);
 	//check if the component list is empty or not
 	bool IsCompListEmpty();
+
+	// Save components
+	void save(ofstream&);
+	//Load components
+	void load(ifstream&);
 
 	//destructor
 	~ApplicationManager();

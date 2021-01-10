@@ -31,6 +31,11 @@ public:
 
 	virtual InputPin* getInputPins();
 
+	virtual void SaveComponent(ofstream&);//save LED
+	virtual void LoadComponent();//Load LED
+
+	
+
 };
 
 #endif

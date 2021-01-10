@@ -11,6 +11,7 @@ class InputPin: public Pin	//inherited from class Pin
 {
 private:
 	Component* pComp; //Component at which this pin is associated
+	int PinNumber;
 	Connection* m_Connection; //Connection to this input Pin
 
 public:
@@ -19,6 +20,8 @@ public:
 	bool ConnectTo(Connection*);
 	virtual void Disconnect(Connection*);
 	Component* getComponent();	//returns the component of this input pin
+	void SetPinNumber(int);
+	int GetPinNumber();
 	bool isConnected();
 };
 

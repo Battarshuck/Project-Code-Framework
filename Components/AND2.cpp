@@ -1,5 +1,6 @@
 #include "AND2.h"
-
+#include<fstream>
+using namespace std;
 AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 {
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -52,6 +53,18 @@ int AND2::GetInputPinStatus(int n)
 void AND2::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n-1].setStatus(s);
+}
+
+//save 
+void AND2::SaveComponent(ofstream& outputFile)
+{
+	outputFile << "AND2 " << Component::Get_Comp_Id()<<" "<< getLabel()<< " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 <<endl;
+}
+
+//Load gate
+void AND2::LoadComponent()
+{
+
 }
 
 

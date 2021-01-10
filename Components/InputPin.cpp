@@ -1,4 +1,5 @@
 #include "InputPin.h"
+#include<iostream>
 #include "Connection.h"
 
 InputPin::InputPin()
@@ -32,7 +33,15 @@ Component* InputPin::getComponent()
 {
 	return pComp;
 }
-
+void InputPin::SetPinNumber(int PinIndex)
+{
+	std::cout << PinIndex << " hi "<<std::endl;
+	PinNumber = PinIndex+1;
+}
+int InputPin::GetPinNumber()
+{
+	return PinNumber;
+}
 bool InputPin::isConnected()
 {
 	if (m_Connection)

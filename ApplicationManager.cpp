@@ -21,9 +21,11 @@
 #include "Actions/Paste.h"
 #include "Actions/Cut.h"
 #include "Actions/Delete.h"
+#include "Actions/Load.h"
+#include "Actions/Save.h"
+using namespace std;
 #include "Actions/EditConnection.h"
 #include "Actions/Exit.h"
-
 
 ApplicationManager::ApplicationManager()
 {
@@ -50,7 +52,9 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
+	pComp->Set_Comp_ID(CompCount);
 	CompList[CompCount++] = pComp;
+
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -169,11 +173,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		
 		case SAVE:
-			
+			pAct = new Save(this);
 			break;
 
 		case LOAD:
-
+			pAct = new Load(this);
 			break;
 
 		case EXIT:
@@ -406,4 +410,82 @@ void ApplicationManager::Remove_Connections(OutputPin* SrcPin, InputPin* DesPin)
 
 		}
 	}
+}
+
+void ApplicationManager::save(ofstream&outputFile)
+{
+	outputFile << CompCount<<endl;
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (dynamic_cast<Switch*>(CompList[i]))
+		{
+			CompList[i]->SaveComponent(outputFile);
+		}
+	}
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (dynamic_cast<Gate*>(CompList[i]))
+		{
+			CompList[i]->SaveComponent(outputFile);
+		}
+	}
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (dynamic_cast<LED*>(CompList[i]))
+		{
+			CompList[i]->SaveComponent(outputFile);
+		}
+	}
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (dynamic_cast<Connection*>(CompList[i]))
+		{
+			outputFile << "Connections" << endl;
+			
+			CompList[i]->SaveComponent(outputFile);
+		}
+	}
+	
+}
+
+void ApplicationManager::load(ifstream& inputFiles)
+{
+	int counttt;
+	inputFiles >> counttt;
+	int nnn;
+	GraphicsInfo GInfo_SaveOrLoad;
+	int Cx, Cy;	//Center point of the gate
+	int Len = UI.AND2_Width;
+	int Wdth = UI.AND2_Height;
+	
+	
+	for (int i=0;i<counttt;i++)
+	{
+		inputFiles >> nnn;
+		if (nnn == 1)
+		{
+			inputFiles >> Cx >> Cy;
+			GInfo_SaveOrLoad.x1 = Cx - Len / 2;
+			GInfo_SaveOrLoad.x2 = Cx + Len / 2;
+			GInfo_SaveOrLoad.y1 = Cy - Wdth / 2;
+			GInfo_SaveOrLoad.y2 = Cy + Wdth / 2;
+			AND2* pA = new AND2(GInfo_SaveOrLoad, AND2_FANOUT);
+			AddComponent(pA);
+			pA->LoadComponent();
+		}
+		else if (nnn=2)
+		{
+			
+			inputFiles >> Cx >> Cy;
+			GInfo_SaveOrLoad.x1 = Cx - Len / 2;
+			GInfo_SaveOrLoad.x2 = Cx + Len / 2;
+			GInfo_SaveOrLoad.y1 = Cy - Wdth / 2;
+			GInfo_SaveOrLoad.y2 = Cy + Wdth / 2;
+			LED* pA = new LED(GInfo_SaveOrLoad, AND2_FANOUT);
+			AddComponent(pA);
+		}
+
+
+	}
+	inputFiles.close();
 }

@@ -1,5 +1,6 @@
 #include "LED.h"
-
+#include<fstream>
+using namespace std;
 
 LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut)
 {
@@ -9,7 +10,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut)
 	m_GfxInfo.y2 = r_GfxInfo.y2;
 	setInputPinStatus(1,LOW);
 	m_InputPin.setComponent(this);
-	
+	m_InputPin.SetPinNumber(1);
 }
 
 //set led status
@@ -68,4 +69,16 @@ void LED::setInputPinStatus(int n, STATUS s)
 	m_InputPin.setStatus(s);
 }
 
+
+//save 
+void LED::SaveComponent(ofstream& outputFile)
+{
+	outputFile << "Led " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+}
+
+//Load gate
+void LED::LoadComponent()
+{
+
+}
 

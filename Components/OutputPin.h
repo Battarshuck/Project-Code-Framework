@@ -26,12 +26,14 @@ public:
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
 	virtual void Disconnect(Connection* r_conn);
 	int getOutputConnections();
+
 	bool isConnected();
 	void setComponent(Component* pCmp);	
 
 	Component* getComponent();	
 	Connection* getConnection(int);
 	int getNum_Connections();
+
 };
 
 #endif

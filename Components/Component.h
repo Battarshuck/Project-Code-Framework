@@ -13,6 +13,7 @@ class Component
 private:
 	string m_Label;
 	bool IsSelected;
+	int Comp_ID;//Component ID
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
 public:
@@ -41,6 +42,13 @@ public:
 	void setIsSelected(bool);
 	bool getIsSelected();
 
+	//save and load component
+	virtual void SaveComponent(ofstream&);
+	virtual void LoadComponent();
+
+	//Set and Get ID
+	void Set_Comp_ID(int);
+	int Get_Comp_Id();
 
 	Component();	
 	

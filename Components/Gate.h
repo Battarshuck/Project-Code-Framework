@@ -26,6 +26,9 @@ public:
 	virtual OutputPin* getOutputPin();
 	virtual int numInputs();
 	int getOutputConnections();
+	//int getManFanOut();
+	virtual void SaveComponent(ofstream&);//save gate
+	virtual void LoadComponent();//Load gate
 
 };
 

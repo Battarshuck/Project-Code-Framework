@@ -1,4 +1,6 @@
 #include "Connection.h"
+#include<fstream>
+using namespace std;
 
 Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)	
 	
@@ -104,6 +106,20 @@ bool Connection::InArea(int x, int y)
 
 }
 
+//save 
+void Connection ::SaveComponent(ofstream& outputFile)
+{
+	Component* CompSource;
+	Component* CompDestination;	
+	CompSource = SrcPin->getComponent();
+	CompDestination = DstPin->getComponent();
+	//outputFile << CompSource->Get_Comp_Id() << " " << CompDestination->Get_Comp_Id() <<" " << DstPin->GetPinNumber() << endl;
+}
 
+//Load gate
+void Connection::LoadComponent()
+{
+
+}
 
 

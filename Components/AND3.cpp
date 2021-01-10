@@ -47,3 +47,16 @@ void AND3::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
+
+
+//save 
+void AND3::SaveComponent(ofstream&)
+{
+
+}
+
+//Load gate
+void AND3::LoadComponent()
+{
+
+}

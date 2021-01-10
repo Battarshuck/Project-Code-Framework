@@ -46,3 +46,15 @@ void BUFF::setInputPinStatus(int n, STATUS s)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
+
+//save 
+void BUFF::SaveComponent(ofstream&)
+{
+
+}
+
+//Load gate
+void BUFF::LoadComponent()
+{
+
+}

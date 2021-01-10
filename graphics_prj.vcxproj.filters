@@ -239,7 +239,10 @@
     <ClCompile Include="Actions\Delete.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\EditConnection.cpp">
+    <ClCompile Include="Actions\Save.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Load.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\Exit.cpp">
@@ -446,7 +449,10 @@
     <ClInclude Include="Actions\Delete.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\EditConnection.h">
+    <ClInclude Include="Actions\Save.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Load.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Exit.h">
