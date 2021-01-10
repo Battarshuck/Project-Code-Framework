@@ -9,7 +9,7 @@
 
 #include "Pin.h"
 class Component; //Forward class declaration
-class Connection;	//Forward class declartion
+class Connection; //Forward class declartion
 
 
 class OutputPin: public Pin	//inherited from class Pin

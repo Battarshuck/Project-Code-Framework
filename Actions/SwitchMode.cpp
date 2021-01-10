@@ -23,6 +23,7 @@ void SwitchMode::Execute()
 	{
 		pOut->PrintMsg("Switching to desining mode");
 		pOut->CreateDesignToolBar();
+		pManager->TurnOffComponents();
 	}
 	else
 	{

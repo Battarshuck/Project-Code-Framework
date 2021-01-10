@@ -57,9 +57,12 @@ public:
 	//unselect functions
 	void UnselectOtherComponents(Component*);
 	void UnselectComponent();
+	void TurnOffComponents();
 	//Remove functions
 	void Remove(Component*&);
 	void Remove_Connections(OutputPin* = NULL, InputPin* = NULL);
+	//check if the component list is empty or not
+	bool IsCompListEmpty();
 
 	//destructor
 	~ApplicationManager();

@@ -21,7 +21,6 @@ void INV::Operate()
 		m_OutputPin.setStatus(HIGH);
 	}
 
-
 }
 
 

@@ -2,6 +2,7 @@
 #include "..\ApplicationManager.h"
 #include "AddConnection.h"
 
+
 EditConnection::EditConnection(ApplicationManager* pApp, Component*& SelectedComp) :Action(pApp), m_connection(SelectedComp)
 {
 }
@@ -22,14 +23,24 @@ void EditConnection::ReadActionParameters()
 		if (dynamic_cast<Connection*>(m_connection))
 		{
 			pOut->PrintMsg("Enter 1 to change Source Pin, 2 to change Destination Pin");
-			choice = (int)stoi(pIn->GetSrting(pOut));
+			string user_input = pIn->GetSrting(pOut);
 
-			if (choice == 1 || choice == 2)
+			if (is_digits(user_input)) 
 			{
-				int x, y;
-				pOut->PrintMsg("Click on the new Component's Pin");
-				pIn->GetPointClicked(x, y);
-				new_component = pManager->getComponent(x, y, m_GfxInfo);
+				choice = stoi(user_input);
+
+				if (choice == 1 || choice == 2)
+				{
+					int x, y;
+					pOut->PrintMsg("Click on the new Component's Pin");
+					pIn->GetPointClicked(x, y);
+					new_component = pManager->getComponent(x, y, m_GfxInfo);
+				}
+				else
+				{
+					new_component = NULL;
+					pOut->PrintMsg("ERROR: Invalid Input");
+				}
 			}
 			else
 			{
@@ -74,7 +85,7 @@ void EditConnection::Execute()
 				{
 					if (dynamic_cast<Gate*>(new_component))
 					{
-						if (!((Gate*)new_component)->getOutputPin()->isConnected())
+						if (!new_component->getOutputPin()->isConnected())
 						{
 							//if the pin and the connection passes every validation
 							//the functiom will delete the old connection
@@ -92,7 +103,7 @@ void EditConnection::Execute()
 					}
 					else
 					{
-						if (!((Switch*)new_component)->getOutputPin()->isConnected())
+						if (new_component->getOutputPin()->isConnected())
 						{
 							pManager->Remove(m_connection);
 							edit_connection = new AddConnection(pManager, new_component, destination);
@@ -123,13 +134,25 @@ void EditConnection::Execute()
 			int InputPinNumber = 0;
 			// getting the connection's default sourcePin's component which will stay the same
 			Component* source = ((Connection*)m_connection)->getSourcePin()->getComponent();
-			int m_Inputs = ((Gate*)new_component)->numInputs();
+			int m_Inputs = new_component->numInputs();
 			if (source != new_component)
 			{
 				if (m_Inputs > 1)
 				{
 					pOut->PrintMsg("Enter the pin number");
-					InputPinNumber = stoi(pIn->GetSrting(pOut));
+					string User_input = pIn->GetSrting(pOut);
+
+					if (is_digits(User_input))
+					{
+						InputPinNumber = stoi(User_input);
+					}
+					else
+					{
+						pOut->PrintMsg("ERROR: Invalid Input");
+						source = NULL;
+						return;
+					}
+
 				}
 				else
 				{
@@ -146,7 +169,7 @@ void EditConnection::Execute()
 					{
 						if (dynamic_cast<Gate*>(new_component))
 						{
-							if (!((Gate*)new_component)->getInputPins(InputPinNumber - 1)->isConnected())
+							if (!new_component->getInputPins(InputPinNumber - 1)->isConnected())
 							{
 								pManager->Remove(m_connection);
 								//in addition here, send the Pin number
@@ -165,7 +188,7 @@ void EditConnection::Execute()
 						else
 						{
 
-							if (!((LED*)new_component)->getInputPins()->isConnected())
+							if (!new_component->getInputPins()->isConnected())
 							{
 								pManager->Remove(m_connection);
 								edit_connection = new AddConnection(pManager, source, new_component, InputPinNumber);
@@ -194,15 +217,15 @@ void EditConnection::Execute()
 			}
 		}
 	}
-	else
-	{
-		pOut->PrintMsg("ERROR: Please choose a Component");
-		
-	}
 	//deleting edit_connection dynamically created component
 	if(edit_connection)
 		delete edit_connection;
 	
+}
+
+bool EditConnection::is_digits(const string& str)
+{
+	return str.find_first_not_of("0123456789") == string::npos;
 }
 
 void EditConnection::Undo()

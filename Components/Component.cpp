@@ -46,6 +46,26 @@ GraphicsInfo Component::getLocation()
 	return m_GfxInfo;
 }
 
+int Component::numInputs()
+{
+	return 0;
+}
+
+OutputPin* Component::getOutputPin()
+{
+	return NULL;
+}
+
+InputPin* Component::getInputPins(int x)
+{
+	return NULL;
+}
+
+InputPin* Component::getInputPins()
+{
+	return NULL;
+}
+
 Component::Component()
 {
 	setIsSelected(false);

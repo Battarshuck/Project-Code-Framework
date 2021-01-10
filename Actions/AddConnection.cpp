@@ -10,6 +10,7 @@ AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
 
 AddConnection::AddConnection(ApplicationManager* pApp, Component* source, Component* destination, int InputPinNumber) :Action(pApp)
 {
+	//this is a non-default constructor that is used with Edit Connection Class
 	this->source = source;
 	this->destination = destination;
 	this->InputPinNumber = InputPinNumber;
@@ -43,18 +44,12 @@ void AddConnection::ReadActionParameters()
 		Sy1 = source->getLocation().y1;
 		Sx2 = source->getLocation().x2;
 		Sy2 = source->getLocation().y2;
-		// checking if the is gate or a switch or a LED
-		if (dynamic_cast<Gate*>(source)) 
+		// checking if the is a LED
+		if (!dynamic_cast<LED*>(source))
 		{
-			pSrcPin = ((Gate*)source)->getOutputPin();
-			source_OutputConnections = ((Gate*)source)->getOutputConnections();
+			pSrcPin = source->getOutputPin();
 		}
-		else if (dynamic_cast<Switch*>(source))
-		{
-			pSrcPin = ((Switch*)source)->getOutputPin();
-			source_OutputConnections = 1;
-		}
-		else if (dynamic_cast<LED*>(source))
+		else
 		{
 			// a LED cannot be a source component to draw a connection
 			pOut->PrintMsg("Source pin component cannot be a LED");
@@ -81,7 +76,7 @@ void AddConnection::ReadActionParameters()
 			Dy1 = destination->getLocation().y1;
 			Dx2 = destination->getLocation().x2;
 			Dy2 = destination->getLocation().y2;
-			m_Inputs = ((Gate*)destination)->numInputs();
+			m_Inputs = destination->numInputs();
 
 			if (dynamic_cast<Gate*>(destination))
 			{
@@ -89,31 +84,46 @@ void AddConnection::ReadActionParameters()
 				{
 					if (InputPinNumber == 0)
 					{
-						pOut->PrintMsg("Enter the pin number");
-						InputPinNumber = stoi(pIn->GetSrting(pOut));
+						pOut->PrintMsg("Enter the pin number, Please don't enter a letter ORRRRRRRRRRRRR I cry");
+						string User_input = pIn->GetSrting(pOut);
+
+						if (is_digits(User_input))
+						{
+							InputPinNumber = stoi(User_input);
+						}
+						else
+						{
+							pOut->PrintMsg("OK.......I cry");
+							destination = NULL;
+							source = NULL;
+							return;
+						}
+						
 						 
 					}
 
 					// overloaded getInputPins to return the exact Pin in the Pins array
-					if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3)
+					if ((InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3) && m_Inputs >= InputPinNumber)
 					{
-						pDstPin = ((Gate*)destination)->getInputPins(InputPinNumber-1);
+						pDstPin = destination->getInputPins(InputPinNumber-1);
 					}
 					else 
 					{
 						pOut->PrintMsg("ERROR: Invalid Input");
 						destination = NULL;
+						source = NULL;
 					}
+
 				}
 				else
 				{
-					pDstPin = ((Gate*)destination)->getInputPins();
+					pDstPin = destination->getInputPins();
 				}
 				
 			}
 			else if(dynamic_cast<LED*>(destination))
 			{
-				pDstPin = ((LED*)destination)->getInputPins();
+				pDstPin = destination->getInputPins();
 				m_Inputs = 1;
 			}
 			else if (dynamic_cast<Switch*>(destination))
@@ -269,6 +279,11 @@ void AddConnection::ComputeCoordinations()
 
 	}
 
+}
+
+bool AddConnection::is_digits(const string& str)
+{
+	return str.find_first_not_of("0123456789") == string::npos;
 }
 
 void AddConnection::Undo()

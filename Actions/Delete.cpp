@@ -36,18 +36,18 @@ void Delete::Execute()
 		//Deleting component connections
 		if (dynamic_cast<Gate*>(componentSelected))
 		{
-			OutputPin* SrcPin = ((Gate*)componentSelected)->getOutputPin();
+			OutputPin* SrcPin = componentSelected->getOutputPin();
 			pManager->Remove_Connections(SrcPin);
 
-			m_input = ((Gate*)componentSelected)->numInputs();
+			m_input = componentSelected->numInputs();
 			if (m_input == 1)
 			{
-				InputPin* DestPin = ((Gate*)componentSelected)->getInputPins();
+				InputPin* DestPin = componentSelected->getInputPins();
 				pManager->Remove_Connections(NULL, DestPin);
 			}
 			else if (m_input > 1)
 			{
-				InputPin* DestPins = ((Gate*)componentSelected)->getInputPins();
+				InputPin* DestPins = componentSelected->getInputPins();
 				for (int i = 0; i < m_input; i++)
 				{
 					pManager->Remove_Connections(NULL, &DestPins[i]);
@@ -56,12 +56,12 @@ void Delete::Execute()
 		}
 		else if (dynamic_cast<Switch*>(componentSelected))
 		{
-			OutputPin* SrcPin = ((Switch*)componentSelected)->getOutputPin();
+			OutputPin* SrcPin = componentSelected->getOutputPin();
 			pManager->Remove_Connections(SrcPin);
 		}
 		else if (dynamic_cast<LED*>(componentSelected))
 		{
-			InputPin* DestPins = ((LED*)componentSelected)->getInputPins();
+			InputPin* DestPins = componentSelected->getInputPins();
 			pManager->Remove_Connections(NULL, DestPins);
 		}
 

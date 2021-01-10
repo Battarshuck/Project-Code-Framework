@@ -24,7 +24,7 @@ public:
 	virtual InputPin* getInputPins();
 	virtual InputPin* getInputPins(int);
 	virtual OutputPin* getOutputPin();
-	int numInputs();
+	virtual int numInputs();
 	int getOutputConnections();
 
 };

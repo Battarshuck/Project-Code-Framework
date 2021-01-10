@@ -27,9 +27,6 @@ STATUS Switch::Getswitch()
 
 void Switch::Operate()
 {
-	//int num_connections = m_OutputPin.getNum_Connections();
-
-
 	
 }
 

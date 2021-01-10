@@ -22,6 +22,7 @@
 #include "Actions/Cut.h"
 #include "Actions/Delete.h"
 #include "Actions/EditConnection.h"
+#include "Actions/Exit.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -176,7 +177,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EXIT:
-			///TODO: create ExitAction here
+			pAct = new Exit(this);
 			break;
 	}
 
@@ -194,8 +195,10 @@ void ApplicationManager::UpdateInterface()
 	OutputInterface->ClearDrawingArea();
 	for (int i = 0; i < CompCount; i++)
 	{
-		if(mode == DESIGN)
+		if (mode == DESIGN) 
+		{
 			CompList[i]->Draw(OutputInterface);
+		}
 		else
 		{
 			CompList[i]->Operate();
@@ -209,6 +212,7 @@ void ApplicationManager::UpdateInterface()
 
 }
 
+////////////////////////////////////////////////////////////////////
 void ApplicationManager::Refresh()
 {
 	for (int i = 0; i < CompCount; i++)
@@ -217,6 +221,26 @@ void ApplicationManager::Refresh()
 		CompList[i]->Draw(OutputInterface);
 	}
 }
+
+////////////////////////////////////////////////////////////////////
+void ApplicationManager::TurnOffComponents()
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (CompList[i] != NULL)
+		{
+			if (dynamic_cast<Switch*>(CompList[i]))
+			{
+				((Switch*)CompList[i])->Setswitch(LOW);
+			}
+			else if (dynamic_cast<LED*>(CompList[i]))
+			{
+				((LED*)CompList[i])->setInputPinStatus(1, LOW);
+			}
+		}
+	}
+}
+
 
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
@@ -301,6 +325,18 @@ void ApplicationManager::UnselectComponent()
 		ComponentIsSelected->setIsSelected(false);
 
 	ComponentIsSelected = NULL;
+}
+
+bool ApplicationManager::IsCompListEmpty()
+{
+	//check if the component list is empty or not
+	//it returns true if it's empty
+	//this function is used in Exit class
+	if (CompCount == 0)
+		return true;
+	else
+		return false;
+
 }
 
 void ApplicationManager::Remove(Component*& comp)

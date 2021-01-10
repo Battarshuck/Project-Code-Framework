@@ -41,3 +41,4 @@ int Gate::getOutputConnections()
 {
 	return m_OutputPin.getOutputConnections();
 }
+

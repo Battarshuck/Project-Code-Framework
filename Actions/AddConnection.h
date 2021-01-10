@@ -45,6 +45,7 @@ public:
 	virtual void Redo();
 
 	void ComputeCoordinations();
+	bool is_digits(const string&);
 
 
 };
