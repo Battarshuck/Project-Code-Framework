@@ -17,16 +17,16 @@ string Input::GetSrting(Output *pOut)
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 
-	string StringDisplayed;
-	char EnteredChar;
-	keytype PressedKey;
-	pWind->FlushKeyQueue();  //All previous clicks are erased here
+	string a;
+	char x;
+	keytype z;
+	pWind->FlushKeyQueue();
 
 	while (true)
 	{
-		PressedKey = pWind->WaitKeyPress(EnteredChar); //Wait key press is a function that waits for an input from the user through the keyboard
+		z = pWind->WaitKeyPress(x);
 
-		if (EnteredChar == '\r')  //if the entered character was a "Enter" 
+		if (x == '\r')
 		{
 			pWind->FlushMouseQueue();
 
@@ -34,30 +34,28 @@ string Input::GetSrting(Output *pOut)
 
 			break;
 		}
-		else if (EnteredChar == '\b')   //if the entered character was a "Backspace" 
+		else if (x == '\b')
 		{
-			if (StringDisplayed.length() > 0)
+			if (a.length() > 0)
 			{
-				int StringLength = StringDisplayed.length();
-				StringDisplayed.erase(StringLength - 1, 1);
-				pOut->PrintMsg(StringDisplayed);
-			}
-			else if (PressedKey == ESCAPE)
-			{
-				StringDisplayed.clear();
-				pOut->PrintMsg(" ");
-				break;
-			}
-			else //If the entered character is neither "Enter" or "Backspace"
-			{
-				StringDisplayed += EnteredChar; //The entered character is added to the displayed string on the status bar
-				
-				pOut->PrintMsg(StringDisplayed);
+				int b = a.length();
+				a.erase(b - 1, 1);
+				pOut->PrintMsg(a);
 			}
 		}
-		return StringDisplayed;
-
+		else if (z == ESCAPE)
+		{
+			a.clear();
+			pOut->PrintMsg(" ");
+			break;
+		}
+		else
+		{
+			a += x;
+			pOut->PrintMsg(a);
+		}
 	}
+	return a;
 }
 
 //This function reads the position where the user clicks to determine the desired action
