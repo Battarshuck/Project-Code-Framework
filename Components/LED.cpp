@@ -8,7 +8,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut)
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-	setLEDStatus(LOW);
+	setInputPinStatus(1,LOW);
 	m_InputPin.setComponent(this);
 	m_InputPin.SetPinNumber(1);
 }
@@ -16,7 +16,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut)
 //set led status
 void LED::setLEDStatus(STATUS stat)
 {
-	status_LED = stat;
+	m_InputPin.setStatus(stat);
 }
 
 InputPin* LED::getInputPins()
@@ -26,13 +26,13 @@ InputPin* LED::getInputPins()
 
 void LED::Operate()
 {
-	if (m_InputPin.getStatus() == HIGH)
+	if (GetInputPinStatus(1) == HIGH)
 	{
-		setLEDStatus(HIGH);
+		setInputPinStatus(1, HIGH);
 	}
 	else
 	{
-		setLEDStatus(LOW);
+		setInputPinStatus(1, LOW);
 	}
 }
 

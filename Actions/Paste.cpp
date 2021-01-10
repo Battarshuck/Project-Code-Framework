@@ -13,6 +13,7 @@
 #include"..\Components\NOR2.h"
 #include"..\Components\XOR2.h"
 #include"..\Components\XNOR2.h"
+#include"Delete.h"
 
 Paste::Paste(ApplicationManager* pApp, Component*& SelectedComp, Component*& CompCopied_Cut, int*& CopyOrCut) :Action(pApp), DeleteComp(CompCopied_Cut),copyorcut( CopyOrCut), SelectedComp(SelectedComp)
 {
@@ -54,13 +55,14 @@ void Paste::Execute()
 		int Wdth = UI.AND2_Height;
 
 		GraphicsInfo GInfo; //Gfx info to be used to construct the Copied or cut gate
+		GraphicsInfo check;
 
 		GInfo.x1 = Cx - Len / 2;
 		GInfo.x2 = Cx + Len / 2;
 		GInfo.y1 = Cy - Wdth / 2;
 		GInfo.y2 = Cy + Wdth / 2;
 
-		if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
+		if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6 && !pManager->getComponent(Cx, Cy, check))
 		{
 			//identify the Component type of Copied/Cut Component 
 			//Amr 7ot hena your gates
@@ -133,7 +135,9 @@ void Paste::Execute()
 			// and make the pointer ComponentIsSelected in AppManager points to NULL
 			if (*copyorcut == 2)
 			{
-				pManager->Remove(DeleteComp);
+				Delete* Delete_function = new Delete(pManager, DeleteComp);
+				Delete_function->Execute();
+
 				SelectedComp = NULL;
 				*copyorcut = 0;
 			}

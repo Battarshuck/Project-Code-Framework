@@ -45,6 +45,7 @@ int Gate::getOutputConnections()
 	return m_OutputPin.getOutputConnections();
 }
 
+
 //save 
 void Gate::SaveComponent(ofstream&)
 {
@@ -56,3 +57,4 @@ void Gate::LoadComponent()
 {
 
 }
+

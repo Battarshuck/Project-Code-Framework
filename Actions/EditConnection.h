@@ -4,6 +4,7 @@
 #include "action.h"
 #include "..\Components\Connection.h"
 
+
 class EditConnection : public Action
 {
 private:
@@ -24,6 +25,7 @@ public:
 	virtual void ReadActionParameters();
 	//Execute action (code depends on action type)
 	virtual void Execute();
+	bool is_digits(const string&);
 
 	virtual void Undo();
 	virtual void Redo();

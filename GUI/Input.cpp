@@ -56,6 +56,7 @@ string Input::GetSrting(Output *pOut)
 		}
 	}
 	return a;
+
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -110,7 +111,6 @@ ActionType Input::GetUserAction() const
 				case ITM_SIM_MODE:return SIM_MODE;
 				case ITM_ADD_Label:return ADD_Label;
 				case ITM_EDIT_Label:return EDIT_Label;
-				//case ITM_CHANGE_SWITCH:return Change_Switch;
 				case ITM_COPY:return COPY;
 				case ITM_CUT:return CUT;
 				case ITM_PASTE:return PASTE;

@@ -46,8 +46,8 @@ struct UI_Info	//User Interface Info.
 						LED_Width = 40,
 						LED_Height = 50,
 
-						SWITCH_Width = 50,
-						SWITCH_Height = 40;
+						SWITCH_Width = 80,
+						SWITCH_Height = 55;
 	
 }UI;	//create a single global object UI
 

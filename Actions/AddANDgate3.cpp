@@ -37,18 +37,20 @@ void AddANDgate3::Execute()
 	int Wdth = UI.AND2_Height;
 
 	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
+	GraphicsInfo check;
 
 	GInfo.x1 = Cx - Len / 2;
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
-	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6)
+
+	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6 && !pManager->getComponent(Cx, Cy, check))
 	{
 		AND3* pA = new AND3(GInfo, AND2_FANOUT);
 		pManager->AddComponent(pA);
 	}
 	else
-		pOut->PrintMsg("Cannot add here, Please click on Drawing Area");
+		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");
 }
 
 void AddANDgate3::Undo()
