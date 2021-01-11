@@ -59,13 +59,26 @@ void XNOR2::setInputPinStatus(int n, STATUS s)
 }
 
 //save 
-void XNOR2::SaveComponent(ofstream&)
+void XNOR2::SaveComponent(ofstream& outputFile)
 {
-
+	if (getLabel().empty())
+		outputFile << _XNOR2 << " " << Component::Get_Comp_Id() << " " <<"$"<< " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+	else
+		outputFile << _XNOR2 << " " << Component::Get_Comp_Id() << " " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
 }
 
 //Load gate
-void XNOR2::LoadComponent()
+int* XNOR2::LoadComponent(ifstream& inputFile)
 {
-
+	int id_;
+	string label_;
+	inputFile >> id_;
+	Component::Set_Comp_ID(id_);
+	inputFile >> label_;
+	if (label_ != "$")
+		Component::setLabel(label_);
+	inputFile >> m_GfxInfo.x1 >> m_GfxInfo.y1;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.AND2_Width;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.AND2_Height;
+	return NULL;
 }

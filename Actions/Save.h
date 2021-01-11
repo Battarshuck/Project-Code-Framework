@@ -6,8 +6,9 @@ class Save : public Action
 {
 private:
 	ofstream outputFile;
+	int CompCount;
 public:
-	Save(ApplicationManager* pApp);
+	Save(ApplicationManager* );
 	//Reads parameters required for action to execute
 	virtual void ReadActionParameters();
 

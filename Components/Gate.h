@@ -28,7 +28,7 @@ public:
 	int getOutputConnections();
 	//int getManFanOut();
 	virtual void SaveComponent(ofstream&);//save gate
-	virtual void LoadComponent();//Load gate
+	virtual int* LoadComponent(ifstream& inputFile);//Load gate
 
 };
 

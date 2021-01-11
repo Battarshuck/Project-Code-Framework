@@ -103,7 +103,7 @@ void EditConnection::Execute()
 					}
 					else
 					{
-						if (new_component->getOutputPin()->isConnected())
+						if (!new_component->getOutputPin()->isConnected())
 						{
 							pManager->Remove(m_connection);
 							edit_connection = new AddConnection(pManager, new_component, destination);

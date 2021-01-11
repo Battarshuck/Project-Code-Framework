@@ -22,7 +22,7 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void SaveComponent(ofstream&);//save BUFF gate
-	virtual void LoadComponent();//Load BUFF gate
+	virtual int* LoadComponent(ifstream& inputFile);//Load BUFF gate
 };
 
 #endif

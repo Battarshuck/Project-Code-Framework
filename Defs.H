@@ -28,7 +28,6 @@ enum ActionType
 
 	SELECT,		//Select a Component, a Connection
 	DEL,		//Delete a Component, a Connection
-	MOVE,		//Move a Component, a Connection
 
 	COPY,
 	PASTE,
@@ -101,7 +100,6 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_ADD_Label,
 	ITM_EDIT_Label,
 	ITM_DEL,
-	ITM_MOVE,
 	ITM_COPY,
 	ITM_CUT,
 	ITM_PASTE,
@@ -132,6 +130,24 @@ enum FANOUT
 struct GraphicsInfo
 {
 	int x1, y1, x2, y2;
+};
+
+enum ComponentType
+{
+	_BUFF=100,
+	_INV=101,			
+	_AND2=102,		
+	_OR2=103,	
+	_NAND2=104,	
+	_NOR2=105,		
+	_XOR2=106,	
+	_XNOR2=107,	
+	_AND3=108,		
+	_NOR3=109,		
+	_XOR3=110,	
+	_Switch=200,		
+	_LED=201,		
+	_CONNECTION=202,
 };
 
 #ifndef NULL

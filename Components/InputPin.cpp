@@ -1,5 +1,4 @@
 #include "InputPin.h"
-#include<iostream>
 #include "Connection.h"
 
 InputPin::InputPin()
@@ -35,7 +34,6 @@ Component* InputPin::getComponent()
 }
 void InputPin::SetPinNumber(int PinIndex)
 {
-	std::cout << PinIndex << " hi "<<std::endl;
 	PinNumber = PinIndex+1;
 }
 int InputPin::GetPinNumber()

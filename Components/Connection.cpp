@@ -3,7 +3,6 @@
 using namespace std;
 
 Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)	
-	
 {
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
@@ -11,8 +10,10 @@ Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPi
 
 Connection::~Connection()
 {
-	SrcPin->Disconnect(this);
-	DstPin->Disconnect(this);
+	if (SrcPin)
+		SrcPin->Disconnect(this);
+	if(DstPin)
+		DstPin->Disconnect(this);
 }
 
 void Connection::setSourcePin(OutputPin *pSrcPin)
@@ -117,9 +118,21 @@ void Connection ::SaveComponent(ofstream& outputFile)
 }
 
 //Load gate
-void Connection::LoadComponent()
+int* Connection::LoadComponent(ifstream& inputFile)//, ApplicationManager* pApp)
 {
-
+	//ApplicationManager* pmang = pApp;
+	int Source_Comp_id;
+	int Dest_Comp_id;
+	int pin_number;
+	inputFile >> Source_Comp_id;
+	if (Source_Comp_id == -1)
+	{
+		return NULL;
+	}
+	inputFile >> Dest_Comp_id;
+	inputFile >> pin_number;
+	int COMP_ids[3] = { Source_Comp_id ,Dest_Comp_id, pin_number };
+	return COMP_ids;
 }
 
 

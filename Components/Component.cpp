@@ -89,7 +89,7 @@ void Component::SaveComponent(ofstream&)
 }
 
 //Load gate
-void Component::LoadComponent()
+int* Component::LoadComponent(ifstream& inputFile)//, ApplicationManager* pApp)
 {
-
+	return NULL;
 }

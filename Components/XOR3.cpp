@@ -75,13 +75,26 @@ void XOR3::setInputPinStatus(int n, STATUS s)
 }
 
 //save 
-void XOR3::SaveComponent(ofstream&)
+void XOR3::SaveComponent(ofstream& outputFile)
 {
-
+	if (getLabel().empty())
+		outputFile << _XOR3 << " " << Component::Get_Comp_Id() << " " << "$"<< " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+	else
+		outputFile << _XOR3 << " " << Component::Get_Comp_Id() << " " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
 }
 
 //Load gate
-void XOR3::LoadComponent()
+int* XOR3::LoadComponent(ifstream& inputFile)
 {
-
+	int id_;
+	string label_;
+	inputFile >> id_;
+	Component::Set_Comp_ID(id_);
+	inputFile >> label_;
+	if (label_ != "$")
+		Component::setLabel(label_);
+	inputFile >> m_GfxInfo.x1 >> m_GfxInfo.y1;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.AND2_Width;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.AND2_Height;
+	return NULL;
 }

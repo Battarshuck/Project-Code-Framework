@@ -53,8 +53,8 @@ void Gate::SaveComponent(ofstream&)
 }
 
 //Load gate
-void Gate::LoadComponent()
+int* Gate::LoadComponent(ifstream& inputFile)
 {
-
+	return NULL;
 }
 

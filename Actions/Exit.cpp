@@ -1,5 +1,6 @@
 #include "Exit.h"
 #include "..\ApplicationManager.h"
+#include "Save.h"
 
 Exit::Exit(ApplicationManager* pApp) :Action(pApp)
 {
@@ -34,7 +35,9 @@ void Exit::Execute()
 
 		if (user_input == "y" || user_input == "Y")
 		{
-
+			 Save* psave= new Save(pManager);
+			 psave->Execute();
+			 delete psave;
 		}
 		else 
 			pOut->PrintMsg("Exiting");

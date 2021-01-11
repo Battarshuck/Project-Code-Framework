@@ -22,7 +22,7 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void SaveComponent(ofstream&);//save NAND2 gate
-	virtual void LoadComponent();//Load nAND2 gate
+	virtual int* LoadComponent(ifstream& inputFile);//Load nAND2 gate
 
 };
 
