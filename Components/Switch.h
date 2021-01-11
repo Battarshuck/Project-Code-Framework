@@ -25,7 +25,7 @@ public:
 
 	virtual OutputPin* getOutputPin();
 	virtual void SaveComponent(ofstream&);//save Switch
-	virtual void LoadComponent();//Load Switch
+	virtual int* LoadComponent(ifstream& inputFile);//Load Switch
 
 };
 

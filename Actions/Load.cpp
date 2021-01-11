@@ -12,18 +12,29 @@ void Load::Execute()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
-	//Print Action Message
-	pOut->PrintMsg("Load an Existing File ");
-	//(ifstream& inputFiles)
+	Input* pIn = pManager->GetInput();
+	
+	//Print Action Message 
+	pOut->PrintMsg("Load an Exicting Circuit: Please enter File Name (.txt)  ");
+	string file_name = pIn->GetSrting(pOut);
 	//open the file
-	inputFile.open("circuit_1.txt");
+	inputFile.open(file_name);
+	//check that file_name enterred by the user already exists
 	if (inputFile.is_open())
 	{
-		pManager->load(inputFile);
+		//Print Action Message
+		//if(inputFile.eof())
+			//pOut->PrintMsg("Error: Cannot Load File, File is Empty  ");
+		//else
+		//{
+			pOut->PrintMsg("Load File was Done successfully  ");
+			//pOut->ClearDrawingArea();
+			pManager->load(inputFile);
+			inputFile.close();
+		//}
 	}
 	else
-		pOut->PrintMsg("Error, File was not Found");
-
+		pOut->PrintMsg("Error: File was not Found");
 }
 
 //To undo this action (code depends on action type)

@@ -5,7 +5,7 @@
 #include "..\GUI\Output.h"
 #include"OutputPin.h"
 #include"InputPin.h"
-
+#include"..\ApplicationManager.h"
 
 //Base class for classes Gate, Switch, and LED.
 class Component
@@ -44,7 +44,7 @@ public:
 
 	//save and load component
 	virtual void SaveComponent(ofstream&);
-	virtual void LoadComponent();
+	virtual int* LoadComponent(ifstream&);//, ApplicationManager* );
 
 	//Set and Get ID
 	void Set_Comp_ID(int);

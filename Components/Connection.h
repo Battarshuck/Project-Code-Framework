@@ -3,6 +3,7 @@
 #include "InputPin.h"
 #include "OutputPin.h"
 
+
 class Connection :	public Component
 {
 	//Component*	SrcCmpnt;	//Connection source component
@@ -31,6 +32,6 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
 
 	virtual void SaveComponent(ofstream&);//save Connection
-	virtual void LoadComponent();//Load Connection
+	virtual int* LoadComponent(ifstream&);//, ApplicationManager* );//Load Connection
 
 };

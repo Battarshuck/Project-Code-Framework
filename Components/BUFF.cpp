@@ -1,4 +1,6 @@
 #include "BUFF.h"
+#include<fstream>
+using namespace std;
 
 BUFF::BUFF(const GraphicsInfo& r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 {
@@ -48,13 +50,26 @@ void BUFF::setInputPinStatus(int n, STATUS s)
 }
 
 //save 
-void BUFF::SaveComponent(ofstream&)
+void BUFF::SaveComponent(ofstream& outputFile)
 {
-
+	if (getLabel().empty())
+		outputFile << _AND2 << " " << Get_Comp_Id() << " " << "$" << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+	else
+		outputFile << _AND2 << " " << Get_Comp_Id() << " " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
 }
 
 //Load gate
-void BUFF::LoadComponent()
+int* BUFF::LoadComponent(ifstream& inputFile)
 {
-
+	int id_;
+	string label_;
+	inputFile >> id_;
+	Component::Set_Comp_ID(id_);
+	inputFile >> label_;
+	if (label_ != "$")
+		Component::setLabel(label_);
+	inputFile >> m_GfxInfo.x1 >> m_GfxInfo.y1;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.AND2_Width;
+	m_GfxInfo.y2 = m_GfxInfo.y1+UI.AND2_Height;
+	return NULL;
 }

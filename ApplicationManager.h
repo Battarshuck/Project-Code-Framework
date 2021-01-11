@@ -55,6 +55,7 @@ public:
 	//Components getters
 	Component* getComponent(int, int, GraphicsInfo& r_GfxInfo);
 	Component* getSwitch(int, int, Component*);
+	Component* getComponentBy_ID(int );
 	//unselect functions
 	void UnselectOtherComponents(Component*);
 	void UnselectComponent();

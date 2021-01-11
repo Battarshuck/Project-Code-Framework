@@ -27,7 +27,6 @@
 using namespace std;
 #include "Actions/EditConnection.h"
 #include "Actions/Exit.h"
-
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -53,9 +52,9 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	pComp->Set_Comp_ID(CompCount);
+	if(!dynamic_cast<Connection*>(pComp))
+		pComp->Set_Comp_ID(CompCount);
 	CompList[CompCount++] = pComp;
-
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -263,8 +262,21 @@ Output* ApplicationManager::GetOutput()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
-		delete CompList[i];
+	//Delete Connections first
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (dynamic_cast<Connection*>(CompList[i]))
+		{
+			delete CompList[i];
+			CompList[i] = NULL;
+		}
+	}
+	//Delete the Rest of the Components
+	for (int i = 0; i < CompCount; i++)
+	{
+		if(CompList[i])
+			delete CompList[i];
+	}
 	delete OutputInterface;
 	delete InputInterface;
 }
@@ -286,6 +298,15 @@ Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInf
 	}
 
 	return component;
+}
+
+Component* ApplicationManager:: getComponentBy_ID(int id)
+{
+	for (int i = 0; i < CompCount; i++)
+	{
+		if(CompList[i]->Get_Comp_Id()==id)
+			return CompList[i];
+	}
 }
 
 Component* ApplicationManager::getSwitch(int x, int y, Component* SwitchSelected)
@@ -415,7 +436,14 @@ void ApplicationManager::Remove_Connections(OutputPin* SrcPin, InputPin* DesPin)
 
 void ApplicationManager::save(ofstream&outputFile)
 {
-	outputFile << CompCount<<endl;
+	int CountComp_no_Connections=0;
+	//count number of Components that are not Connections
+	for (int i = 0; i < CompCount; i++)
+	{
+		if (!dynamic_cast<Connection*>(CompList[i]))
+			CountComp_no_Connections++;
+	}
+	outputFile << CountComp_no_Connections <<endl;
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (dynamic_cast<Switch*>(CompList[i]))
@@ -437,56 +465,137 @@ void ApplicationManager::save(ofstream&outputFile)
 			CompList[i]->SaveComponent(outputFile);
 		}
 	}
+	outputFile << "Connections" << endl;
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (dynamic_cast<Connection*>(CompList[i]))
-		{
-			outputFile << "Connections" << endl;
-			
+		{	
 			CompList[i]->SaveComponent(outputFile);
 		}
 	}
-	
+	outputFile << "-1" << endl;
 }
 
 void ApplicationManager::load(ifstream& inputFiles)
 {
-	int counttt;
-	inputFiles >> counttt;
-	int nnn;
-	GraphicsInfo GInfo_SaveOrLoad;
-	int Cx, Cy;	//Center point of the gate
-	int Len = UI.AND2_Width;
-	int Wdth = UI.AND2_Height;
-	
-	
-	for (int i=0;i<counttt;i++)
+	string Component_type;
+	int count_Comp_inFile;
+	inputFiles >> count_Comp_inFile;
+	int Comp_type;
+	GraphicsInfo GInfo_SaveOrLoad_Dummy;
+	GInfo_SaveOrLoad_Dummy.x1 = 0;
+	GInfo_SaveOrLoad_Dummy.x2 = 0;
+	GInfo_SaveOrLoad_Dummy.y1 = 0;
+	GInfo_SaveOrLoad_Dummy.y2 = 0;
+	//load Each component (Gates, Led and Switches) by calling its Load  function
+	for (int i = 0;i < count_Comp_inFile;i++)
 	{
-		inputFiles >> nnn;
-		if (nnn == 1)
+		inputFiles >> Comp_type;//take the Component Type Number  
+		if (Comp_type == _BUFF)//identifying the Component Type using the Type Number(from file) with the enum ComponentType 
 		{
-			inputFiles >> Cx >> Cy;
-			GInfo_SaveOrLoad.x1 = Cx - Len / 2;
-			GInfo_SaveOrLoad.x2 = Cx + Len / 2;
-			GInfo_SaveOrLoad.y1 = Cy - Wdth / 2;
-			GInfo_SaveOrLoad.y2 = Cy + Wdth / 2;
-			AND2* pA = new AND2(GInfo_SaveOrLoad, AND2_FANOUT);
-			AddComponent(pA);
-			pA->LoadComponent();
+			BUFF* pCompLoad = new BUFF(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
 		}
-		else if (nnn=2)
+		else if (Comp_type == _INV)
 		{
-			
-			inputFiles >> Cx >> Cy;
-			GInfo_SaveOrLoad.x1 = Cx - Len / 2;
-			GInfo_SaveOrLoad.x2 = Cx + Len / 2;
-			GInfo_SaveOrLoad.y1 = Cy - Wdth / 2;
-			GInfo_SaveOrLoad.y2 = Cy + Wdth / 2;
-			LED* pA = new LED(GInfo_SaveOrLoad, AND2_FANOUT);
-			AddComponent(pA);
+			INV* pCompLoad = new INV(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
 		}
-
-
+		else if (Comp_type == _AND2)
+		{
+			AND2* pCompLoad = new AND2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _OR2)
+		{
+			OR2* pCompLoad = new OR2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _NAND2)
+		{
+			NAND2* pCompLoad = new NAND2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _NOR2)
+		{
+			NOR2* pCompLoad = new NOR2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _XOR2)
+		{
+			XOR2* pCompLoad = new XOR2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _XNOR2)
+		{
+			XNOR2* pCompLoad = new XNOR2(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _AND3)
+		{
+			AND3* pCompLoad = new AND3(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _NOR3)
+		{
+			NOR3* pCompLoad = new NOR3(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _XOR3)
+		{
+			XOR3* pCompLoad = new XOR3(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _Switch)
+		{
+			Switch* pCompLoad = new Switch(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
+		else if (Comp_type == _LED)
+		{
+			LED* pCompLoad = new LED(GInfo_SaveOrLoad_Dummy, AND2_FANOUT);
+			AddComponent(pCompLoad);
+			pCompLoad->LoadComponent(inputFiles);
+		}
 	}
-	inputFiles.close();
+	//load Connections
+	string DUMMMY;//just for the word "Connections" in the file
+	inputFiles >> DUMMMY;
+	//load each Connection till the file reach -1
+	while (!inputFiles.eof())
+	{
+		Connection* pCompLoad = new Connection(GInfo_SaveOrLoad_Dummy, NULL, NULL);
+		int* Source_Dest_ids_Pin = pCompLoad->LoadComponent(inputFiles);
+		if (Source_Dest_ids_Pin == NULL)
+		{
+			break;
+		}
+		else
+		{
+			int Source_Comp_=Source_Dest_ids_Pin[0];
+			int Dest_Comp_ = Source_Dest_ids_Pin[1];
+			int Pin_Num = Source_Dest_ids_Pin[2];
+			Component* Comp_Source;
+			Component* Comp_Destination;
+			Comp_Source = getComponentBy_ID(Source_Comp_);
+			Comp_Destination = getComponentBy_ID(Dest_Comp_);
+			delete pCompLoad;
+			pCompLoad = NULL;
+			Action* p_action = new AddConnection(this, Comp_Source, Comp_Destination, Pin_Num);
+			p_action->Execute();
+		}
+	}
+		
 }

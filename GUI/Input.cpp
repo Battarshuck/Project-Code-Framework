@@ -115,7 +115,6 @@ ActionType Input::GetUserAction() const
 				case ITM_CUT:return CUT;
 				case ITM_PASTE:return PASTE;
 				case ITM_DEL:return DEL;
-				case ITM_MOVE:return MOVE;
 				case ITM_SAVE:return SAVE;
 				case ITM_LOAD:return LOAD;
 				case ITM_UNDO:return UNDO;
