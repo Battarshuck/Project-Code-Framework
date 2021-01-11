@@ -1,8 +1,10 @@
 #include "AddNORgate2.h"
 #include "..\ApplicationManager.h"
 
-AddNORgate2::AddNORgate2(ApplicationManager* pApp) :Action(pApp)
+AddNORgate2::AddNORgate2(ApplicationManager* pApp, bool* r_cut_check) :Action(pApp)
 {
+	cut_check = r_cut_check;
+	Cx = 0; Cy = 0; x1 = 0; x2 = 0; y1 = 0, y2 = 0;
 }
 
 AddNORgate2::~AddNORgate2(void)
@@ -48,6 +50,9 @@ void AddNORgate2::Execute()
 	{
 		NOR2* pA = new NOR2(GInfo, AND2_FANOUT);
 		pManager->AddComponent(pA);
+
+		if (cut_check)
+			*cut_check = true;
 	}
 	else
 		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");

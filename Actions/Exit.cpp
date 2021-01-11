@@ -37,11 +37,11 @@ void Exit::Execute()
 
 		}
 		else 
-			pOut->PrintMsg("Exiting");
+			pOut->PrintMsg("Click on Exit again to exit");
 		
 	}
 	else
-		pOut->PrintMsg("Exiting");
+		pOut->PrintMsg("Click on Exit again to exit");
 	
 
 	

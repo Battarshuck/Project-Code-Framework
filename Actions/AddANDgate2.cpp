@@ -1,8 +1,10 @@
 #include "AddANDgate2.h"
 #include "..\ApplicationManager.h"
 
-AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp)
+AddANDgate2::AddANDgate2(ApplicationManager *pApp, bool* r_cut_check):Action(pApp)
 {
+	cut_check = r_cut_check;
+	Cx = 0; Cy = 0; x1 = 0; x2 = 0; y1 = 0, y2 = 0;
 }
 
 AddANDgate2::~AddANDgate2(void)
@@ -49,6 +51,9 @@ void AddANDgate2::Execute()
 		AND2* pA = new AND2(GInfo, AND2_FANOUT);
 		
 		pManager->AddComponent(pA);
+
+		if (cut_check)
+			*cut_check = true;
 	}
 	else
 		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");

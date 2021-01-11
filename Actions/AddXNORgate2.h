@@ -8,8 +8,9 @@ private:
 	//Parameters for rectangular area to be occupied by the gate
 	int Cx, Cy;	//Center point of the gate
 	int x1, y1, x2, y2;	//Two corners of the rectangluar area
+	bool* cut_check;
 public:
-	AddXNORgate2(ApplicationManager* pApp);
+	AddXNORgate2(ApplicationManager* pApp, bool* = NULL);
 	virtual ~AddXNORgate2(void);
 
 	//Reads parameters required for action to execute

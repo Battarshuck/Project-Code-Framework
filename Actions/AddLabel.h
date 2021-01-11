@@ -8,7 +8,6 @@ class AddLabel : public Action
 {
 private:
 	//Parameters for rectangular area to be occupied by the gate
-	int Cx, Cy;	//Center point of the gate
 	Component*& component;
 	GraphicsInfo m_GfxInfo;
 

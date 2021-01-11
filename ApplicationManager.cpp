@@ -23,6 +23,7 @@
 #include "Actions/Delete.h"
 #include "Actions/Load.h"
 #include "Actions/Save.h"
+#include <fstream>
 using namespace std;
 #include "Actions/EditConnection.h"
 #include "Actions/Exit.h"

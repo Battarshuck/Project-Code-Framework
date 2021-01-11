@@ -1,8 +1,10 @@
 #include "AddXNORgate2.h"
 #include "..\ApplicationManager.h"
 
-AddXNORgate2::AddXNORgate2(ApplicationManager* pApp) : Action(pApp)
+AddXNORgate2::AddXNORgate2(ApplicationManager* pApp, bool* r_cut_check) : Action(pApp)
 {
+	cut_check = r_cut_check;
+	Cx = 0; Cy = 0; x1 = 0; x2 = 0; y1 = 0, y2 = 0;
 }
 
 AddXNORgate2::~AddXNORgate2(void)
@@ -45,8 +47,11 @@ void AddXNORgate2::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6 && !pManager->getComponent(Cx, Cy, check))
 	{
-	XNOR2* pA = new XNOR2(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+		XNOR2* pA = new XNOR2(GInfo, AND2_FANOUT);
+		pManager->AddComponent(pA);
+
+		if (cut_check)
+			*cut_check = true;
 	}
 	else
 		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");

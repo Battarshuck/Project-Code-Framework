@@ -6,6 +6,8 @@ AddConnection::AddConnection(ApplicationManager* pApp) :Action(pApp)
 	source = NULL;
 	destination = NULL;
 	InputPinNumber = 0;
+	Px1 = 0; Py1 = 0; Px2 = 0; Py2 = 0;
+	Sx1 = 0; Sy1 = 0; Sx2 = 0; Sy2 = 0; Dx1 = 0; Dx2 = 0; Dy1 = 0; Dy2 = 0;
 }
 
 AddConnection::AddConnection(ApplicationManager* pApp, Component* source, Component* destination, int InputPinNumber) :Action(pApp)
@@ -14,6 +16,8 @@ AddConnection::AddConnection(ApplicationManager* pApp, Component* source, Compon
 	this->source = source;
 	this->destination = destination;
 	this->InputPinNumber = InputPinNumber;
+	Px1 = 0; Py1 = 0; Px2 = 0; Py2 = 0;
+	Sx1 = 0; Sy1 = 0; Sx2 = 0; Sy2 = 0; Dx1 = 0; Dx2 = 0; Dy1 = 0; Dy2 = 0;
 }
 
 AddConnection::~AddConnection(void)

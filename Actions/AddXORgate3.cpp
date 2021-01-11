@@ -1,8 +1,10 @@
 #include "AddXORgate3.h"
 #include "..\ApplicationManager.h"
 
-AddXORgate3::AddXORgate3(ApplicationManager* pApp) :Action(pApp)
+AddXORgate3::AddXORgate3(ApplicationManager* pApp, bool* r_cut_check) :Action(pApp)
 {
+	cut_check = r_cut_check;
+	Cx = 0; Cy = 0; x1 = 0; x2 = 0; y1 = 0, y2 = 0;
 }
 
 AddXORgate3::~AddXORgate3(void)
@@ -46,8 +48,11 @@ void AddXORgate3::Execute()
 
 	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6 && !pManager->getComponent(Cx, Cy, check))
 	{
-	XOR3* pA = new XOR3(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+		XOR3* pA = new XOR3(GInfo, AND2_FANOUT);
+		pManager->AddComponent(pA);
+
+		if (cut_check)
+			*cut_check = true;
 	}
 	else
 		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");

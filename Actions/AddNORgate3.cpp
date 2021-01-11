@@ -1,8 +1,10 @@
 #include "AddNORgate3.h"
 #include "..\ApplicationManager.h"
 
-AddNORgate3::AddNORgate3(ApplicationManager* pApp) : Action(pApp)
+AddNORgate3::AddNORgate3(ApplicationManager* pApp, bool* r_cut_check) : Action(pApp)
 {
+	cut_check = r_cut_check;
+	Cx = 0; Cy = 0; x1 = 0; x2 = 0; y1 = 0, y2 = 0;
 }
 
 AddNORgate3::~AddNORgate3(void)
@@ -45,8 +47,11 @@ void AddNORgate3::Execute()
 	GInfo.y2 = Cy + Wdth / 2;
 	if (GInfo.y1 > UI.ToolBarHeight && GInfo.y2 < UI.height - UI.StatusBarHeight - UI.SimBarHeight - 6 && !pManager->getComponent(Cx, Cy, check))
 	{
-	NOR3* pA = new NOR3(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pA);
+		NOR3* pA = new NOR3(GInfo, AND2_FANOUT);
+		pManager->AddComponent(pA);
+
+		if (cut_check)
+			*cut_check = true;
 	}
 	else
 		pOut->PrintMsg("Cannot add on bars and on top of components, Please click on a empty spot in the Drawing Area");

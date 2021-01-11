@@ -5,6 +5,7 @@
 
 EditConnection::EditConnection(ApplicationManager* pApp, Component*& SelectedComp) :Action(pApp), m_connection(SelectedComp)
 {
+	
 }
 
 EditConnection::~EditConnection(void)
@@ -23,24 +24,14 @@ void EditConnection::ReadActionParameters()
 		if (dynamic_cast<Connection*>(m_connection))
 		{
 			pOut->PrintMsg("Enter 1 to change Source Pin, 2 to change Destination Pin");
-			string user_input = pIn->GetSrting(pOut);
+			choice = pIn->GetSrting(pOut);
 
-			if (is_digits(user_input)) 
+			if (choice == "1" || choice == "2")
 			{
-				choice = stoi(user_input);
-
-				if (choice == 1 || choice == 2)
-				{
-					int x, y;
-					pOut->PrintMsg("Click on the new Component's Pin");
-					pIn->GetPointClicked(x, y);
-					new_component = pManager->getComponent(x, y, m_GfxInfo);
-				}
-				else
-				{
-					new_component = NULL;
-					pOut->PrintMsg("ERROR: Invalid Input");
-				}
+				int x, y;
+				pOut->PrintMsg("Click on the new Component's Pin");
+				pIn->GetPointClicked(x, y);
+				new_component = pManager->getComponent(x, y, m_GfxInfo);
 			}
 			else
 			{
@@ -73,7 +64,7 @@ void EditConnection::Execute()
 		//isConnected(); function checks if the pin is in connection or not
 		//if it's in a connection the function returns true, otherwise return false
 		//if it's not connected, it will create a connection normally
-		if (choice == 1)
+		if (choice == "1")
 		{
 			// getting the connection's default destinationPin's component which will stay the same
 			Component* destination = ((Connection*)m_connection)->getDestPin()->getComponent();
@@ -103,7 +94,7 @@ void EditConnection::Execute()
 					}
 					else
 					{
-						if (new_component->getOutputPin()->isConnected())
+						if (!new_component->getOutputPin()->isConnected())
 						{
 							pManager->Remove(m_connection);
 							edit_connection = new AddConnection(pManager, new_component, destination);
@@ -161,7 +152,7 @@ void EditConnection::Execute()
 			
 
 
-				if (InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3)
+				if ((InputPinNumber == 1 || InputPinNumber == 2 || InputPinNumber == 3) && m_Inputs >= InputPinNumber)
 				{
 					
 					//switch component cannot be destination component
