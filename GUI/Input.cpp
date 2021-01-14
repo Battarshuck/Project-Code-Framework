@@ -17,16 +17,16 @@ string Input::GetSrting(Output *pOut)
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 
-	string a;
-	char x;
-	keytype z;
-	pWind->FlushKeyQueue();
+	string StringDisplayed;
+	char EnteredChar;
+	keytype PressedKey;
 
+	pWind->FlushKeyQueue();
 	while (true)
 	{
-		z = pWind->WaitKeyPress(x);
+		PressedKey = pWind->WaitKeyPress(EnteredChar);
 
-		if (x == '\r')
+		if (EnteredChar == '\r')
 		{
 			pWind->FlushMouseQueue();
 
@@ -34,28 +34,33 @@ string Input::GetSrting(Output *pOut)
 
 			break;
 		}
-		else if (x == '\b')
+		else if (EnteredChar == '\b')
 		{
-			if (a.length() > 0)
+			if (StringDisplayed.length() > 0)
 			{
-				int b = a.length();
-				a.erase(b - 1, 1);
-				pOut->PrintMsg(a);
+
+				int StringLength = StringDisplayed.length();
+
+				StringDisplayed.erase(StringLength - 1, 1);
+
+				pOut->PrintMsg(StringDisplayed);
 			}
 		}
-		else if (z == ESCAPE)
+
+		else if (PressedKey == ESCAPE)
 		{
-			a.clear();
+			StringDisplayed.clear();
 			pOut->PrintMsg(" ");
 			break;
 		}
-		else
+		else //If the entered character is neither "Enter" or "Backspace"
 		{
-			a += x;
-			pOut->PrintMsg(a);
+			StringDisplayed += EnteredChar; //The entered character is added to the displayed string on the status bar
+
+			pOut->PrintMsg(StringDisplayed);
 		}
 	}
-	return a;
+	return StringDisplayed;
 
 }
 

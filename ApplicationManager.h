@@ -30,6 +30,10 @@ private:
 	int* CopyOrCut_ptr;//pointer to CopyOrCut integer
 	//ifstream inputFile;//
 	MODE mode;
+	int RecycleBinIndex;
+	Component* RecycleBin[MaxCompCount];
+
+
 
 public:
 
@@ -54,7 +58,6 @@ public:
 	void AddComponent(Component* pComp);
 	//Components getters
 	Component* getComponent(int, int, GraphicsInfo& r_GfxInfo);
-	Component* getSwitch(int, int, Component*);
 	Component* getComponentBy_ID(int );
 	//unselect functions
 	void UnselectOtherComponents(Component*);
@@ -70,6 +73,11 @@ public:
 	void save(ofstream&);
 	//Load components
 	void load(ifstream&);
+	//Undo and Redo
+	void undofn();
+	void redofn();
+	void AddToRecycleBin(Component*);
+	void EmptyRecycleBin();
 
 	//destructor
 	~ApplicationManager();

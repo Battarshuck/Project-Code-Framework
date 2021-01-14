@@ -88,7 +88,7 @@ void AddConnection::ReadActionParameters()
 				{
 					if (InputPinNumber == 0)
 					{
-						pOut->PrintMsg("Enter the pin number, Please don't enter a letter ORRRRRRRRRRRRR I cry");
+						pOut->PrintMsg("Enter the pin number");
 						string User_input = pIn->GetSrting(pOut);
 
 						if (is_digits(User_input))
@@ -97,7 +97,7 @@ void AddConnection::ReadActionParameters()
 						}
 						else
 						{
-							pOut->PrintMsg("OK.......I cry");
+							pOut->PrintMsg("ERROR: Invalid Input");
 							destination = NULL;
 							source = NULL;
 							return;

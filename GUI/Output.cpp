@@ -145,7 +145,6 @@ void Output::CreateSimulationToolBar() const
 	PrintMsg("Switching to Simulation mode");
 
 	string MenuItemImages[ITM_SIM_CNT];
-	//MenuItemImages[ITM_SIM] = "images\\Menu\\Simulation.jpg";
 	MenuItemImages[ITM_ADD_Label] = "images\\Menu\\AddLabel.jpg";
 	MenuItemImages[ITM_EDIT_Label] = "images\\Menu\\EditLabel.jpg";
 	MenuItemImages[ITM_DEL] = "images\\Menu\\Delete.jpg";

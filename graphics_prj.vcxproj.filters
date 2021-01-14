@@ -251,6 +251,12 @@
     <ClCompile Include="Actions\EditConnection.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\Redo.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\Undo.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -462,6 +468,12 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\EditConnection.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Redo.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\Undo.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

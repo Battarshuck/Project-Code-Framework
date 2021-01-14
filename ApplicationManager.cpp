@@ -25,15 +25,22 @@
 #include "Actions/Save.h"
 #include <fstream>
 using namespace std;
+#include "Actions/Undo.h"
+#include "Actions/Redo.h"
 #include "Actions/EditConnection.h"
 #include "Actions/Exit.h"
+
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
+	RecycleBinIndex = 0;
 	mode = DESIGN;
 
-	for(int i=0; i<MaxCompCount; i++)
+	for (int i = 0; i < MaxCompCount; i++)
+	{
 		CompList[i] = NULL;
+		RecycleBin[i] = NULL;
+	}
 
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
@@ -54,6 +61,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 {
 	if(!dynamic_cast<Connection*>(pComp))
 		pComp->Set_Comp_ID(CompCount);
+
 	CompList[CompCount++] = pComp;
 }
 ////////////////////////////////////////////////////////////////////
@@ -70,60 +78,74 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	Action* pAct = NULL;
 	switch (ActType)
 	{
-		case ADD_Buff: //yasser
+		case ADD_Buff: 
 			pAct = new AddBUFFgate(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_INV: // mostafa
+		case ADD_INV: 
 			pAct = new AddINVgate(this);
+			EmptyRecycleBin();
 			break;
 
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_NAND_GATE_2: //yasser
+		case ADD_NAND_GATE_2: 
 			pAct = new AddNANDgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_OR_GATE_2: //yasser
+		case ADD_OR_GATE_2:
 			pAct = new AddORgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_NOR_GATE_2://mostafa
+		case ADD_NOR_GATE_2:
 			pAct = new AddNORgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_XOR_GATE_2://amr
+		case ADD_XOR_GATE_2:
 			pAct = new AddXORgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_XNOR_GATE_2://amr
+		case ADD_XNOR_GATE_2:
 			pAct = new AddXNORgate2(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_AND_GATE_3: //yasser
+		case ADD_AND_GATE_3: 
 			pAct = new AddANDgate3(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_NOR_GATE_3://amr
+		case ADD_NOR_GATE_3:
 			pAct = new AddNORgate3(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_XOR_GATE_3://mostafa
+		case ADD_XOR_GATE_3:
 			pAct = new AddXORgate3(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_Switch://amr
+		case ADD_Switch:
 			pAct = new AddSwitch(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_LED: //yasser
+		case ADD_LED: 
 			pAct = new AddLED(this);
+			EmptyRecycleBin();
 			break;
 
-		case ADD_CONNECTION: //mostafa
+		case ADD_CONNECTION: 
 			pAct = new AddConnection(this);
+			EmptyRecycleBin();
 			break;
 
 	//############################################################
@@ -170,6 +192,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case DEL:
 			pAct = new Delete(this, ComponentIsSelected);
+			break;
+
+		case UNDO:
+			pAct = new undo(this);
+			break;
+
+		case REDO:
+			pAct = new redo(this);
 			break;
 		
 		case SAVE:
@@ -229,6 +259,8 @@ void ApplicationManager::Refresh()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::TurnOffComponents()
 {
+	//this is used when switching back to designing mode
+	//to turn off the switches and the LEDs
 	for (int i = 0; i < CompCount; i++)
 	{
 		if (CompList[i] != NULL)
@@ -244,7 +276,6 @@ void ApplicationManager::TurnOffComponents()
 		}
 	}
 }
-
 
 ////////////////////////////////////////////////////////////////////
 Input* ApplicationManager::GetInput()
@@ -302,6 +333,7 @@ Component* ApplicationManager::getComponent(int x, int y, GraphicsInfo& r_GfxInf
 
 Component* ApplicationManager:: getComponentBy_ID(int id)
 {
+	//used in the loading process
 	for (int i = 0; i < CompCount; i++)
 	{
 		if(CompList[i]->Get_Comp_Id()==id)
@@ -309,23 +341,6 @@ Component* ApplicationManager:: getComponentBy_ID(int id)
 	}
 }
 
-Component* ApplicationManager::getSwitch(int x, int y, Component* SwitchSelected)
-{
-	Component* component = NULL;
-	for (int i = 0; i < CompCount; i++)
-	{
-		if (CompList[i] != NULL && dynamic_cast<Switch*>(SwitchSelected))
-		{
-			if (CompList[i]->InArea(x, y))
-			{
-				component = CompList[i];
-				break;
-			}
-		}
-	}
-
-	return component;
-}
 
 void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
 {
@@ -346,7 +361,7 @@ void ApplicationManager::UnselectOtherComponents(Component* newSelectedComp)
 
 void ApplicationManager::UnselectComponent()
 {
-	// this functions unselects ALL selected components
+	// this functions unselects the selected component, if existed
 	if(ComponentIsSelected)
 		ComponentIsSelected->setIsSelected(false);
 
@@ -377,7 +392,16 @@ void ApplicationManager::Remove(Component*& comp)
 				break;
 		}
 
-		delete comp;
+		if (!dynamic_cast<Connection*>(CompList[i]))
+		{
+			//if the component is a gate or switch or LED
+			//instead of deleting we put it in a RecycleBin so the user can undo
+			AddToRecycleBin(comp);
+		}
+		else
+		{
+			delete CompList[i];
+		}
 		comp = NULL;
 
 		// if the component is not the last one in the array
@@ -433,6 +457,60 @@ void ApplicationManager::Remove_Connections(OutputPin* SrcPin, InputPin* DesPin)
 		}
 	}
 }
+
+void ApplicationManager::AddToRecycleBin(Component* ComponentRemoved)
+{
+	if (ComponentRemoved)
+	{
+		if (ComponentRemoved->getIsSelected())
+		{
+			ComponentRemoved->setIsSelected(false);
+		}
+		RecycleBin[RecycleBinIndex++] = ComponentRemoved;
+
+	}
+}
+
+void ApplicationManager::undofn()
+{
+	if (CompCount > 0  && !dynamic_cast<Connection*>(CompList[CompCount - 1])  && CompList[CompCount - 1])
+	{
+		Remove(CompList[CompCount - 1]);
+		OutputInterface->PrintMsg("");
+
+	}
+}
+
+void ApplicationManager::redofn()
+{
+	if (RecycleBinIndex > 0 && RecycleBin[RecycleBinIndex - 1])
+	{
+		AddComponent(RecycleBin[RecycleBinIndex - 1]);
+		RecycleBin[RecycleBinIndex - 1] = NULL;
+		RecycleBinIndex--;
+	}
+	else if (RecycleBinIndex == 0 && RecycleBin[RecycleBinIndex - 1])
+	{
+		AddComponent(RecycleBin[RecycleBinIndex - 1]);
+		RecycleBin[RecycleBinIndex - 1] = NULL;
+	}
+	else
+		OutputInterface->PrintMsg("Redo action cannot be done, Undo first to be able to Redo");
+}
+
+void ApplicationManager::EmptyRecycleBin()
+{
+	for (int i = 0; i < RecycleBinIndex; i++)
+	{
+		if (RecycleBin[i])
+		{
+			delete RecycleBin[i];
+			RecycleBin[i] = NULL;
+		}
+	}
+}
+
+//-------------------------------Save and Load functions-------------------------------
 
 void ApplicationManager::save(ofstream&outputFile)
 {
@@ -599,3 +677,4 @@ void ApplicationManager::load(ifstream& inputFiles)
 	}
 		
 }
+

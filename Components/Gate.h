@@ -25,8 +25,6 @@ public:
 	virtual InputPin* getInputPins(int);
 	virtual OutputPin* getOutputPin();
 	virtual int numInputs();
-	int getOutputConnections();
-	//int getManFanOut();
 	virtual void SaveComponent(ofstream&);//save gate
 	virtual int* LoadComponent(ifstream& inputFile);//Load gate
 

@@ -22,16 +22,11 @@ void Load::Execute()
 	//check that file_name enterred by the user already exists
 	if (inputFile.is_open())
 	{
-		//Print Action Message
-		//if(inputFile.eof())
-			//pOut->PrintMsg("Error: Cannot Load File, File is Empty  ");
-		//else
-		//{
-			pOut->PrintMsg("Load File was Done successfully  ");
-			//pOut->ClearDrawingArea();
-			pManager->load(inputFile);
-			inputFile.close();
-		//}
+		
+		pOut->PrintMsg("Load File was Done successfully  ");
+		pManager->load(inputFile);
+		inputFile.close();
+	
 	}
 	else
 		pOut->PrintMsg("Error: File was not Found");

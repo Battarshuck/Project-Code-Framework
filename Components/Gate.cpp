@@ -37,14 +37,9 @@ OutputPin* Gate::getOutputPin()
 
 int Gate::numInputs() 
 {
+	//returns the number of input Pins
 	return m_Inputs;
 }
-
-int Gate::getOutputConnections()
-{
-	return m_OutputPin.getOutputConnections();
-}
-
 
 //save 
 void Gate::SaveComponent(ofstream&)

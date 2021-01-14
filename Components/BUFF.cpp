@@ -53,9 +53,9 @@ void BUFF::setInputPinStatus(int n, STATUS s)
 void BUFF::SaveComponent(ofstream& outputFile)
 {
 	if (getLabel().empty())
-		outputFile << _AND2 << " " << Get_Comp_Id() << " " << "$" << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+		outputFile << _BUFF << " " << Get_Comp_Id() << " " << "$" << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
 	else
-		outputFile << _AND2 << " " << Get_Comp_Id() << " " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
+		outputFile << _BUFF << " " << Get_Comp_Id() << " " << getLabel() << " " << m_GfxInfo.x1 << " " << m_GfxInfo.y1 << endl;
 }
 
 //Load gate

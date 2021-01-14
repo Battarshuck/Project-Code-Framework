@@ -45,9 +45,6 @@ void Exit::Execute()
 	}
 	else
 		pOut->PrintMsg("Click on Exit again to exit");
-	
-
-	
 
 }
 
